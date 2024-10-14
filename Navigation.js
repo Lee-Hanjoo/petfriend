@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
                 name="Tabs"
                 component={Tabs}
