@@ -134,10 +134,8 @@ const styles = StyleSheet.create({
     },
     rowWrap: {
       flexDirection: 'row',
-      alignItems: 'center'
-    },
-    settingBtn: {
-      marginRight: 16
+      alignItems: 'center',
+      gap: 16
     },
     menuText: {
       color: '#8D96A4',

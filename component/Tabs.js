@@ -40,11 +40,11 @@ export default function Tabs() {
         </>
       )}
     >
-      <Tab.Screen name="home" component={Home} menuActive={menuActive} setMenuActive={setMenuActive}/>
+      <Tab.Screen name="home" component={Home} />
       <Tab.Screen name="adopt" component={Adopt} />
       <Tab.Screen name="story" component={Story} />
       <Tab.Screen name="map" component={Map} />
-      <Tab.Screen name="menu" component={Menu} />
+      <Tab.Screen name="menu" component={Menu} menuItems={menuItems} />
     </Tab.Navigator>
   );
 }

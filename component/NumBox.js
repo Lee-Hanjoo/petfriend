@@ -41,7 +41,15 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     paddingLeft: 6,
     backgroundColor: '#fff',
-    borderRadius: 999
+    borderRadius: 999,
+    shadowColor: '#1F2329',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 4, // Android
   },
   boxText: {
     marginLeft: 2,
