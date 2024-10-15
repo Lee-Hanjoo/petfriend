@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { ImgPath } from '../ImgPath';
 import { Pressable } from 'react-native';
 import { Image } from 'react-native';
@@ -52,7 +52,7 @@ const CustomHeader = ({navigation, menuItems, menuActive, setMenuActive }) => {
         {
           menuActive === 'menu' &&
           <Pressable>
-            <Text>로그인</Text>
+            <Text style={styles.menuText}>로그인</Text>
           </Pressable>
         }
       </View>
@@ -62,7 +62,7 @@ const CustomHeader = ({navigation, menuItems, menuActive, setMenuActive }) => {
           {
             menuActive === 'menu' &&
             <Pressable style={styles.settingBtn}>
-              <Image source={ImgPath.setting} />
+              <Image source={ImgPath.setting_black} />
             </Pressable>
           }
           <Pressable style={styles.alarmWrap}>
@@ -137,6 +137,11 @@ const styles = StyleSheet.create({
     },
     settingBtn: {
       marginRight: 16
+    },
+    menuText: {
+      color: '#8D96A4',
+      fontSize: 18,
+      fontWeight: '700'
     }
   });
   

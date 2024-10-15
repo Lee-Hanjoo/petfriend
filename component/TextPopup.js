@@ -31,7 +31,9 @@ const styles = StyleSheet.create({
     display: 'none',
     zIndex: 999,
     borderRadius: 8,
-    boxShadow: '2px 2px 12px rgba(31, 35, 41, 0.1)'
+    // boxShadow: '2px 2px 12px rgba(31, 35, 41, 0.1)'
+    borderWidth: 1,
+    borderColor: '#E7E9ED'
   },
   textPopupActive: {
     display: 'block'

@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     // fontFamily: 'Wanted Sans'
   },
   commentBox: {
-    paddingLeft: 8
+    paddingLeft: 8,
+    marginLeft: 4
   }
 })
 

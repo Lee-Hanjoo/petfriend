@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { Image, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { ImgPath } from '../ImgPath';
 
 const Select = (props) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const {placeholder, items, setItems,  size } = props;
+  const {placeholder, items, setItems,  size, marginRight } = props;
 
   return (
     <DropDownPicker
@@ -16,7 +17,7 @@ const Select = (props) => {
       setOpen={setOpen}
       setValue={setValue}
       setItems={setItems}
-      style={[styles.select, {width: size}]}
+      style={[styles.select, {width: size, marginRight: marginRight}]}
       maxHeight={200}
       showTickIcon={false}
       containerStyle={styles.containerStyle}
@@ -25,13 +26,11 @@ const Select = (props) => {
       dropDownContainerStyle={[styles.dropDownContainerStyle, {width: size}]}
       listItemLabelStyle={styles.listItemLabelStyle}
       ArrowDownIconComponent={()=>(
-          <Image source={require('../assets/imgs/icon/icon_arrow_down.svg')} />
-        )
-      }
+        <Image source={ImgPath.select_down} />
+      )}
       ArrowUpIconComponent={()=>(
-          <Image source={require('../assets/imgs/icon/icon_arrow_up.svg')} />
-        )
-      }
+        <Image source={ImgPath.select_up} />
+      )}
     />
   );
 }
@@ -44,15 +43,12 @@ const styles = StyleSheet.create({
   },
   labelStyle:{
     color: '#1F2329',
-    // fontFamily: 'Wanted Sans',
-    whiteSpace: 'nowrap'
   },
   containerStyle: {
     width: 'fit-content'
   },
   textStyle: {
     color: '#8D96A4',
-    // fontFamily: 'Wanted Sans'
   },
   dropDownContainerStyle: {
     width: 115,
@@ -61,11 +57,9 @@ const styles = StyleSheet.create({
   },
   listItemLabelStyle: {
     color: '#1F2329',
-    // fontFamily: 'Wanted Sans'
   },
   placeholderStyle: {
     color: '#8D96A4',
-    // fontFamily: 'Wanted Sans'
   }
 })
 

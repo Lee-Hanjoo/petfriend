@@ -1,8 +1,10 @@
 import React from 'react'
-import { Image, StyleSheet, View } from 'react-native'
+import { Dimensions, Image, StyleSheet, View } from 'react-native'
 import Tag from './Tag'
 import { Text } from 'react-native'
 import Location from './Location'
+
+const {width, height} = Dimensions.get('window')
 
 const MissingPet = (props) => {
   const { tagTitle, location, src, name, date, info, index } = props;
@@ -36,12 +38,12 @@ const MissingPet = (props) => {
 
 const styles = StyleSheet.create({
   MissingPetWrap: {
-    width: 162,
+    width: width / 2 - 26,
   },
   imgWrap: {
     position: 'relative',
-    width: 162,
-    height: 162,
+    width: width / 2 - 26,
+    height: width / 2 - 26,
   },
   missingTag: {
     position: 'absolute',

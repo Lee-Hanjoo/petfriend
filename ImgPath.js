@@ -16,6 +16,7 @@ export const ImgPath = {
     back_arrow: require('./assets/images/icon/icon_arrow_back.png'),
     alarm: require('./assets/images/icon/icon_alarm.png'),
     setting: require('./assets/images/icon/icon_setting.png'),
+    setting_black: require('./assets/images/icon/icon_setting_black.png'),
     heart_on_circle: require('./assets/images/icon/icon_circle_heart_on.png'),
     heart_circle: require('./assets/images/icon/icon_circle_heart.png'),
     heart_on: require('./assets/images/icon/icon_heart_on.png'),
@@ -30,6 +31,8 @@ export const ImgPath = {
     hospital: require('./assets/images/icon/icon_hospital.png'),
     playground_on: require('./assets/images/icon/icon_playground_on.png'),
     playground: require('./assets/images/icon/icon_hospital.png'),
+    select_down: require('./assets/images/icon/icon_select_down.png'),
+    select_up: require('./assets/images/icon/icon_select_up.png'),
     /* sample */
     animal_01: require('./assets/images/img_visual_animal_01.png'),
     animal_02: require('./assets/images/img_visual_animal_02.png'),
@@ -41,4 +44,5 @@ export const ImgPath = {
     animal_story: require('./assets/images/img_best_stroy_sample.jpg'),
     animal_missing: require('./assets/images/img_missing_pet_sample.jpg'),
     animal_community: require('./assets/images/img_community_sample.jpg'),
+    profile_sample: require('./assets/images/img_profile_sample.png'),
 }

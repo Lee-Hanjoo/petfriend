@@ -36,8 +36,7 @@ const styles = StyleSheet.create({
     zIndex: 2
   },
   locationWrapDetail: {
-    bottom: 'auto',
-    top: 136
+    bottom: 108
   },
   location: {
     fontSize: 12,

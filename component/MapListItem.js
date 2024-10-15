@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   bottom: {
     flexDirection: 'row',
     alignItems: 'center',
-    // gap: 8
+    gap: 8
   },
   title: {
     fontSize: 16,

@@ -17,7 +17,6 @@ const Home = () => {
   return (
     <ScrollView style={styles.container}>
       <LinearGradient
-      // colors 배열로 그라디언트의 색상 정의
       colors={['#64C7FA', '#34B0EA', '#34B0EA', '#fff']} 
       style={styles.background}
       >
@@ -58,7 +57,7 @@ const Home = () => {
                   <AdoptPet 
                     key={i}
                     index={i}
-                    name={`포메라니안${i}`} 
+                    name={`${i}포메라니안`} 
                     info='암컷, 6개월' 
                     tagTitle={['보호중','중성화O']} 
                     location='충청남도 공주시'
@@ -92,7 +91,7 @@ const Home = () => {
                 tagTitle='실종'
                 location='상봉역 인근'
                 src={ImgPath.animal_missing} 
-                name='믹스견'
+                name={`${i}믹스견`}
                 date='2024. 09. 26'
                 info='암컷, 5개월, 흰색 갈색, 중성화X...'
               />
@@ -121,7 +120,7 @@ const Home = () => {
                 renderItem={({ index }) => (
                   <CommunityCard 
                     src={ImgPath.animal_community}
-                    title={`튼튼 펫 페스타${index}`}
+                    title={`${index}튼튼 펫 페스타`}
                     desc='튼튼 펫 페스타는 반려인과 반려동물이 함께 넓은 야외 행사장에서 신나게 뛰어놀고 다양한 체험도 할 수 있는 행사이다. 짱좋은 행사이다 짱짱짱짱'
                     location='경기도 화성시'
                     date='2024. 10. 05 ~ 2024. 10. 06'

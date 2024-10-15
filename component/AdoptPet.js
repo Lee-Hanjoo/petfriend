@@ -1,17 +1,22 @@
 import React from 'react'
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import Tag from './Tag'
 import Heart from './Heart'
 import Location from './Location'
 
+const {width, height} = Dimensions.get('window')
+
 const AdoptPet = (props) => {
+
   const {location, name, info, src, detail, index} = props;
+  
   return (
     <Pressable 
       style={[
         styles.AdoptPetWrap, 
         detail && styles.AdoptPetWrapDetail,
-        index > 0 && {marginLeft: 12}
+        index % 2 && {marginLeft: 10},
+        index > 1 && {marginTop: 10},
         ]}
       >
       <View>
@@ -27,7 +32,7 @@ const AdoptPet = (props) => {
             }
           </View>
           <View style={[styles.petWrap, detail && styles.petWrapDetail]}>
-            <Text style={styles.name}>{name}</Text>
+            <Text style={[styles.name, styles.nameDetail]}>{name}</Text>
             <Text style={styles.info}>({info})</Text>
           </View>
           { !detail && <Location location={location} /> }
@@ -39,14 +44,14 @@ const AdoptPet = (props) => {
 
 const styles = StyleSheet.create({
   AdoptPetWrap: {
-    borderWidth: 1,
-    borderColor: '#E7E9ED',
     borderRadius: 8,
     overflow: 'hidden',
     position: 'relative',
+    borderWidth: 1,
+    borderColor: '#E7E9ED'
   },
   AdoptPetWrapDetail: {
-    width: 170,
+    width: width / 2 - 25,
   },
   petBox: {
     marginTop: 12,
@@ -54,8 +59,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   petBoxDetail: {
-    paddingHorizontal: 12,
-    paddingBottom: 12,
+    paddingBottom: 4,
   },
   tagWrap: {
     flexDirection: 'row', 
@@ -68,17 +72,18 @@ const styles = StyleSheet.create({
   },
   petWrapDetail: {
     flexDirection: 'column',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   name: {
     fontSize: 18,
-    // fontFamily: 'Wanted Sans',
     fontWeight: '700',
     color: '#1F2329'
   },
+  nameDetail: {
+    marginBottom: 4
+  },
   info: {
     fontSize: 12,
-    // fontFamily: 'Wanted Sans',
     color: '#8D96A4',
     marginBottom: 2
   },
@@ -87,8 +92,8 @@ const styles = StyleSheet.create({
     height: 160
   },
   sizeM: {
-    width: 170,
-    height: 170
+    width: width / 2 - 25,
+    height: width / 2 - 25
   },
 })
 
