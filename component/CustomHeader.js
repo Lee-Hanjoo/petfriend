@@ -4,13 +4,13 @@ import { ImgPath } from '../ImgPath';
 import { Pressable } from 'react-native';
 import { Image } from 'react-native';
 
-// gap << native 지원x , fontWeight << string으로 들어가야함
+// // gap << native 지원x , fontWeight << string으로 들어가야함
 // borderradius << 50% <<< XXX
 
 const {height, width} = Dimensions.get("window");
 
-const homeHeaderTop = -height + 249;
-const HeaderTop = -height + 252;
+const homeHeaderTop = -height + 149;
+const HeaderTop = -height + 152;
 
 const CustomHeader = ({navigation, menuItems, menuActive, setMenuActive }) => {
   
