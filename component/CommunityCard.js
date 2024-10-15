@@ -20,7 +20,7 @@ const CommunityCard = (props) => {
 
 const styles = StyleSheet.create({
   communityCardWrap: {
-    width: 350,
+    width: 336,
     marginLeft: 20,
     borderWidth: 1,
     borderColor: '#E7E9ED',
@@ -54,13 +54,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(231, 233, 237, 0.4)'
   },
   location: {
-    width: 148,
+    width: 136,
+    paddingLeft: 12,
     fontSize: 12,
     color: '#1F2329',
     // fontFamily: 'Wanted Sans',
     marginRight: 10
   },
   date: {
+    paddingRight: 12,
     fontSize: 12,
     color: '#1F2329',
     // fontFamily: 'Wanted Sans',

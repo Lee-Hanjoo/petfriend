@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 const Tag = (props) => {
 
-  const {title} = props;
+  const {title, index} = props;
 
   const titleMap = {
     '보호중': {style: styles.yellow, text: '보호중'},
@@ -16,7 +16,13 @@ const Tag = (props) => {
   }
 
   return (
-    <View style={[ styles.tag, titleMap[title].style]}>
+    <View 
+      style={[ 
+        styles.tag, 
+        titleMap[title].style,
+        index > 0 && {marginLeft: 4}
+      ]}
+    >
       <Text style={[styles.tagText, titleMap[title].style]}>{titleMap[title].text}</Text>
     </View>
   )

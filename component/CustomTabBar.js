@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import { ImgPath } from '../ImgPath'
+
 const CustomTabBar = ({navigation, menuItems, menuActive, setMenuActive}) => {
     
   return (

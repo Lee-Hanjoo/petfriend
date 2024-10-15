@@ -6,7 +6,6 @@ const Select = (props) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const {placeholder, items, setItems,  size } = props;
-  console.log(size);
 
   return (
     <DropDownPicker

@@ -5,9 +5,15 @@ import { Text } from 'react-native'
 import Location from './Location'
 
 const MissingPet = (props) => {
-  const { tagTitle, location, src, name, date, info } = props;
+  const { tagTitle, location, src, name, date, info, index } = props;
   return (
-    <View style={styles.MissingPetWrap}>
+    <View 
+      style={[
+        styles.MissingPetWrap,
+        index % 2 && {marginLeft: 11},
+        index > 1 && {marginTop: 24},
+      ]}
+    >
       <View style={styles.imgWrap}>
         <View style={styles.missingTag}>
           <Tag title={tagTitle} />
@@ -15,7 +21,7 @@ const MissingPet = (props) => {
         <View style={styles.missingLocation}>
           <Location bg style={styles.location} location={location} />
         </View>
-        <Image source={src} />
+        <Image source={src} style={{width: '100%', height: '100%'}} />
       </View>
       <View style={styles.infoWrap}>
         <View style={styles.infoText}>
@@ -30,10 +36,12 @@ const MissingPet = (props) => {
 
 const styles = StyleSheet.create({
   MissingPetWrap: {
-    maxWidth: 170,
+    width: 162,
   },
   imgWrap: {
     position: 'relative',
+    width: 162,
+    height: 162,
   },
   missingTag: {
     position: 'absolute',
@@ -62,7 +70,7 @@ const styles = StyleSheet.create({
     // fontFamily: 'Wanted Sans',
     maxWidth: 92,
     fontWeight: '600',
-    color: '#1F2329'
+    color: '#1F2329',
   },
   date: {
     fontSize: 12,

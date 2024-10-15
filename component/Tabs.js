@@ -35,12 +35,12 @@ export default function Tabs() {
       }}
       tabBar={props => (
         <>
-          <CustomHeader {...props} menuItems={menuItems} menuActive={menuActive} setMenuActive={setMenuActive}/>
-          <CustomTabBar {...props} menuItems={menuItems} menuActive={menuActive} setMenuActive={setMenuActive}/>
+          <CustomHeader {...props} menuItems={menuItems} menuActive={menuActive} setMenuActive={setMenuActive} />
+          <CustomTabBar {...props} menuItems={menuItems} menuActive={menuActive} setMenuActive={setMenuActive} />
         </>
       )}
     >
-      <Tab.Screen name="home" component={Home} />
+      <Tab.Screen name="home" component={Home} menuActive={menuActive} setMenuActive={setMenuActive}/>
       <Tab.Screen name="adopt" component={Adopt} />
       <Tab.Screen name="story" component={Story} />
       <Tab.Screen name="map" component={Map} />

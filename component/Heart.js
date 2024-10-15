@@ -19,8 +19,8 @@ const Heart = () => {
 const styles = StyleSheet.create({
   heart: {
     position: 'absolute',
-    right: 12,
-    top: 12,
+    right: -2,
+    top: 2,
     zIndex: 1,
     borderRadius: 999,
     boxShadow: '2px 2px 12px rgba(31, 35, 41, 0.1)'

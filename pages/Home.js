@@ -1,14 +1,19 @@
 import React from 'react'
-import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { ImgPath } from '../ImgPath'
 import MainTitle from '../component/MainTitle'
 import Tab from '../component/Tab'
 import AdoptPet from '../component/AdoptPet'
 import BestStory from '../component/BestStory'
 import MissingPet from '../component/MissingPet'
+import CommunityCard from '../component/CommunityCard'
 import { LinearGradient } from 'expo-linear-gradient';
+import Carousel from 'react-native-reanimated-carousel'
 
 const Home = () => {
+
+  const {width, height} = Dimensions.get('window');
+
   return (
     <ScrollView style={styles.container}>
       <LinearGradient
@@ -49,78 +54,49 @@ const Home = () => {
           <View>
             <Tab title={['강아지','고양이','기타']} />
             <View style={styles.list}>
-              <AdoptPet 
-                name='포메라니안' 
-                info='암컷, 6개월' 
-                tagTitle={['보호중','중성화O']} 
-                location='충청남도 공주시'
-                src={ImgPath.animal_adpot} 
-              />
-              <AdoptPet 
-                name='똥개' 
-                info='수컷, 4살' 
-                tagTitle={['공고중','중성화X']} 
-                location='전라남도 전주시'
-                src={ImgPath.animal_adpot} 
-              />
+              {new Array(3).fill().map((item, i)=>
+                  <AdoptPet 
+                    key={i}
+                    index={i}
+                    name={`포메라니안${i}`} 
+                    info='암컷, 6개월' 
+                    tagTitle={['보호중','중성화O']} 
+                    location='충청남도 공주시'
+                    src={ImgPath.animal_adpot}
+                  />
+                )}
             </View>
           </View>
         </View>
         <View style={styles.section}>
           <MainTitle titleEng='Best Adoption Story' title='베스트 입양 일기' />
           <View style={styles.list}>
+          {new Array(6).fill().map((item, i)=>
             <BestStory 
-              title='우리 땅콩이 귀엽지 않나용?' 
+              key={i}
+              index={i}
+              title={`${i} 우리 땅콩이 귀엽지 않나용?`} 
               desc='진짜 짱 귀여운거 같아요. 그래서 자랑하려고 게시글 올립니다...' 
               src={ImgPath.animal_story} 
             />
-            <BestStory 
-              title='우리 땅콩이 귀엽지 않나용?' 
-              desc='진짜 짱 귀여운거 같아요. 그래서 자랑하려고 게시글 올립니다...' 
-              src={ImgPath.animal_story} 
-            />
-            <BestStory 
-              title='우리 땅콩이 귀엽지 않나용?' 
-              desc='진짜 짱 귀여운거 같아요. 그래서 자랑하려고 게시글 올립니다...' 
-              src={ImgPath.animal_story} 
-            />
+          )}
           </View>
         </View>
         <View style={styles.section}>
           <MainTitle titleEng='Missing Animal' title='실종 동물' />
           <View style={styles.missingPet}>
-            <MissingPet 
-              tagTitle='실종'
-              location='상봉역 인근'
-              src={ImgPath.animal_missing} 
-              name='믹스견'
-              date='2024. 09. 26'
-              info='암컷, 5개월, 흰색 갈색, 중성화X...'
-            />
-            <MissingPet 
-              tagTitle='목격'
-              location='상봉역 인근'
-              src={ImgPath.animal_missing} 
-              name='믹스견'
-              date='2024. 09. 26'
-              info='암컷, 5개월, 흰색 갈색, 중성화X...'
-            />
-            <MissingPet 
-              tagTitle='완료'
-              location='상봉역 인근'
-              src={ImgPath.animal_missing} 
-              name='믹스견'
-              date='2024. 09. 26'
-              info='암컷, 5개월, 흰색 갈색, 중성화X...'
-            />
-            <MissingPet 
-              tagTitle='실종'
-              location='상봉역 인근'
-              src={ImgPath.animal_missing} 
-              name='믹스견'
-              date='2024. 09. 26'
-              info='암컷, 5개월, 흰색 갈색, 중성화X...'
-            />
+            {new Array(4).fill().map((item, i)=>
+              <MissingPet
+                key={i}
+                index={i}
+                tagTitle='실종'
+                location='상봉역 인근'
+                src={ImgPath.animal_missing} 
+                name='믹스견'
+                date='2024. 09. 26'
+                info='암컷, 5개월, 흰색 갈색, 중성화X...'
+              />
+            )}
           </View>
         </View>
         <View style={styles.section}>
@@ -128,40 +104,30 @@ const Home = () => {
           <View>
             <Tab title={['캠페인&이벤트','자원봉사','뉴스']} />
             <View style={styles.community}>
-              {/* <Swiper 
-                showsPagination={false} 
-                width={390}
-                height={326}
-                removeClippedSubviews={false}
-              >
-                <View>
+              <Carousel
+                loop={true}
+                snapEnabled={true}
+                width={width}
+                height={362}
+                autoPlay={true}
+                data={[...new Array(3).keys()]}
+                scrollAnimationDuration={2000}
+                mode="parallax"
+                modeConfig={{
+                  parallaxScrollingScale: 1,
+                  parallaxScrollingOffset: 28,
+                }}
+                // onSnapToItem={(index) => console.log('current index:', index)}
+                renderItem={({ index }) => (
                   <CommunityCard 
                     src={ImgPath.animal_community}
-                    title='튼튼 펫 페스타1'
+                    title={`튼튼 펫 페스타${index}`}
                     desc='튼튼 펫 페스타는 반려인과 반려동물이 함께 넓은 야외 행사장에서 신나게 뛰어놀고 다양한 체험도 할 수 있는 행사이다. 짱좋은 행사이다 짱짱짱짱'
                     location='경기도 화성시'
                     date='2024. 10. 05 ~ 2024. 10. 06'
                   />
-                </View>
-                <View>
-                  <CommunityCard 
-                    src={ImgPath.animal_community}
-                    title='튼튼 펫 페스타2'
-                    desc='튼튼 펫 페스타는 반려인과 반려동물이 함께 넓은 야외 행사장에서 신나게 뛰어놀고 다양한 체험도 할 수 있는 행사이다. 짱좋은 행사이다 짱짱짱짱'
-                    location='경기도 화성시'
-                    date='2024. 10. 05 ~ 2024. 10. 06'
-                  />
-                </View>
-                <View>
-                  <CommunityCard 
-                    src={ImgPath.animal_community}
-                    title='튼튼 펫 페스타3'
-                    desc='튼튼 펫 페스타는 반려인과 반려동물이 함께 넓은 야외 행사장에서 신나게 뛰어놀고 다양한 체험도 할 수 있는 행사이다. 짱좋은 행사이다 짱짱짱짱'
-                    location='경기도 화성시'
-                    date='2024. 10. 05 ~ 2024. 10. 06'
-                  />
-                </View>
-              </Swiper> */}
+                )}
+              />
             </View>
           </View>
         </View>
@@ -235,7 +201,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   contents: {
-    marginTop: 80
+    marginTop: 80,
   },
   section: {
     marginBottom: 64
@@ -266,14 +232,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     flexShrink: 0, 
     overflow: 'auto', 
-    paddingLeft:20
+    paddingLeft: 20,
   },
   missingPet: {
     flexDirection:'row', 
     flexWrap: 'wrap',
-    paddingLeft: 20
-  },
-  community: {
+    paddingHorizontal: 20
   },
 })
 

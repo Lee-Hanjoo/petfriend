@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 const MainTitle = (props) => {
 
-  const { titleEng, title, url } = props; 
+  const { titleEng, title } = props;  
 
   return (
     <View style={styles.titleWrap}>
@@ -12,7 +12,10 @@ const MainTitle = (props) => {
         <Text style={styles.titleEng}>{titleEng}</Text>
         <Text style={styles.title}>{title}</Text>
       </View>
-      <Pressable style={styles.moreBtn}>
+      <Pressable 
+        style={styles.moreBtn} 
+        onPress={()=>{}}
+      >
         <Text style={styles.moreBtnText}>더보기</Text>
       </Pressable>
     </View>
@@ -29,13 +32,11 @@ const styles = StyleSheet.create({
   },
   titleEng: {
     fontSize: 14,
-    // fontFamily: 'Wanted Sans',
     color: '#8D96A4',    
     marginBottom: 8
   },
   title: {
     fontSize: 32,
-    // fontFamily: 'Wanted Sans',
     fontWeight: '700',
     color: '#1F2329',
   },
@@ -44,7 +45,6 @@ const styles = StyleSheet.create({
   },
   moreBtnText: {
     fontSize: 14,
-    // fontFamily: 'Wanted Sans',
     color: '#8D96A4'
   },
 })

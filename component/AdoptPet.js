@@ -5,9 +5,15 @@ import Heart from './Heart'
 import Location from './Location'
 
 const AdoptPet = (props) => {
-  const {location, name, info, src, detail} = props;
+  const {location, name, info, src, detail, index} = props;
   return (
-    <Pressable style={[styles.AdoptPetWrap, detail && styles.AdoptPetWrapDetail]}>
+    <Pressable 
+      style={[
+        styles.AdoptPetWrap, 
+        detail && styles.AdoptPetWrapDetail,
+        index > 0 && {marginLeft: 12}
+        ]}
+      >
       <View>
         <Heart />
         { detail && <Location bg detail location='충청남도 공주시' /> }
@@ -16,7 +22,7 @@ const AdoptPet = (props) => {
           <View style={styles.tagWrap}>
             {
               props.tagTitle.map((title, i)=>(
-                <Tag key={i} title={title} />
+                <Tag key={i} title={title} index={i}/>
               ))
             }
           </View>
@@ -43,9 +49,9 @@ const styles = StyleSheet.create({
     width: 170,
   },
   petBox: {
-    // gap: 8,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    marginTop: 12,
+    paddingHorizontal: 12,
+    paddingBottom: 16,
   },
   petBoxDetail: {
     paddingHorizontal: 12,
@@ -53,13 +59,12 @@ const styles = StyleSheet.create({
   },
   tagWrap: {
     flexDirection: 'row', 
-    // gap: 4, 
-    marginTop: 4,
+    marginBottom: 8
   },
   petWrap: {
     flexDirection: 'row',
-    // gap: 4,
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    marginBottom: 8
   },
   petWrapDetail: {
     flexDirection: 'column',

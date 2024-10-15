@@ -3,12 +3,17 @@ import Heart from './Heart'
 import { Image, StyleSheet, Text, View } from 'react-native'
 
 const BestStory = (props) => {
-  const { src, title, desc} = props;
+  const { src, title, desc, index} = props;
   return (
-    <View style={styles.bestStroyWrap}>
+    <View 
+      style={[
+        styles.bestStroyWrap,
+        index > 0 && {marginLeft: 12}
+        ]}
+      >
       <Heart />
       <Image source={src} style={styles.img} />
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
       <Text style={styles.desc} numberOfLines={2} ellipsizeMode="tail">{desc}</Text>
     </View>
   )

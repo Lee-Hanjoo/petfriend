@@ -27,7 +27,16 @@ const Tab = (props) => {
   return (
     <View style={[styles.tabWrap, top && styles.top]}>
       {title.map((titleItem,i)=>(
-        <Pressable key={i} onPress={()=>{setTabActive(i)}} style={[styles.tabItemWrap, tabActive === i && styles.tabItemActive, icon && styles.tabItemIconWrap]}>
+        <Pressable 
+          key={i} 
+          onPress={()=>{setTabActive(i)}} 
+          style={[
+            styles.tabItemWrap,
+            tabActive === i && styles.tabItemActive, 
+            icon && styles.tabItemIconWrap,
+            i !== 0 && {marginLeft: 8}
+            ]}
+          >
           {icon && renderIcon(titleItem, tabActive === i)}
           <Text style={[styles.tabItem, tabActive === i && styles.tabItemActive]}>{titleItem}</Text>
         </Pressable>
@@ -40,7 +49,6 @@ const Tab = (props) => {
 const styles = StyleSheet.create({
   tabWrap: {
     flexDirection: 'row',
-    // gap: 8,
     marginBottom: 16,
     paddingLeft:20,
     flexShrink: 0, 
@@ -68,7 +76,6 @@ const styles = StyleSheet.create({
   },
   tabItem: {
     fontSize: 14,
-    // fontFamily: 'Wanted Sans',
     lineHeight: 17,
     color: '#8D96A4',
   },
