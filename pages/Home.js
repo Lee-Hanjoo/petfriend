@@ -1,38 +1,48 @@
 import React from 'react'
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { ImgPath } from '../ImgPath'
-import { MainTitle } from '../component/MainTitle'
-import { Tab } from '../component/Tab'
-import { AdoptPet } from '../component/AdoptPet'
-import { BestStory } from '../component/BestStory'
-import { MissingPet } from '../component/MissingPet'
+import MainTitle from '../component/MainTitle'
+import Tab from '../component/Tab'
+import AdoptPet from '../component/AdoptPet'
+import BestStory from '../component/BestStory'
+import MissingPet from '../component/MissingPet'
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Home = () => {
   return (
     <ScrollView style={styles.container}>
-      <View style={[styles.visual, {background: 'linear-gradient(180deg, rgba(100, 199, 250, 1) 0%, rgba(78, 166, 207, 1) 60%, rgba(255, 255, 255, 1) 100%)'}]}>
-        <View style={styles.visualText}>
-          <Image source={ImgPath.logo_white} />
-          <Text style={styles.visualTextTitle}>사지말고 입양하세요!</Text>
-          <Pressable style={styles.visualBtn}>
-            <Text style={styles.visualBtnText}>무료로 입양받기</Text>
-          </Pressable>
+      <LinearGradient
+      // colors 배열로 그라디언트의 색상 정의
+      colors={['#64C7FA', '#34B0EA', '#34B0EA', '#fff']} 
+      style={styles.background}
+      >
+        <View style={[styles.visual]}>
+          <View style={styles.visualText}>
+            <Image source={ImgPath.logo_white} />
+            <View style={styles.visualTextTitle}>
+              <Text style={styles.visualTitleItem}>사지말고</Text>
+              <Text style={styles.visualTitleItem}>입양하세요!</Text>
+            </View>
+            <Pressable style={styles.visualBtn}>
+              <Text style={styles.visualBtnText}>무료로 입양받기</Text>
+            </Pressable>
+          </View>
+          <View style={styles.visualImg}>
+            <View>
+              <Image source={ImgPath.animal_01} style={styles.visualImgItem01} />
+              <Image source={ImgPath.animal_02} style={styles.visualImgItem02} />
+            </View>
+            <View style={{flexDirection: 'row', marginLeft: 20}}>
+              <Image source={ImgPath.animal_03} style={styles.visualImgItem03} />
+              <Image source={ImgPath.animal_04} style={styles.visualImgItem04} />
+            </View>
+            <View style={{marginLeft:20}}>
+              <Image source={ImgPath.animal_05} style={styles.visualImgItem05} />
+              <Image source={ImgPath.animal_06} style={styles.visualImgItem06} />
+            </View>
+          </View>
         </View>
-        <View style={styles.visualImg}>
-          <View>
-            <Image source={ImgPath.animal_01} style={styles.visualImgItem01} />
-            <Image source={ImgPath.animal_02} style={styles.visualImgItem02} />
-          </View>
-          <View style={{flexDirection: 'row', marginLeft: 20}}>
-            <Image source={ImgPath.animal_03} style={styles.visualImgItem03} />
-            <Image source={ImgPath.animal_04} style={styles.visualImgItem04} />
-          </View>
-          <View style={{marginLeft:20}}>
-            <Image source={ImgPath.animal_05} style={styles.visualImgItem05} />
-            <Image source={ImgPath.animal_06} style={styles.visualImgItem06} />
-          </View>
-        </View>
-      </View>
+      </LinearGradient>
       <View style={styles.contents}>
         <View style={styles.section}>
           <MainTitle titleEng='Adopted Animal' title='입양 대기 동물' />
@@ -118,7 +128,7 @@ const Home = () => {
           <View>
             <Tab title={['캠페인&이벤트','자원봉사','뉴스']} />
             <View style={styles.community}>
-              <Swiper 
+              {/* <Swiper 
                 showsPagination={false} 
                 width={390}
                 height={326}
@@ -151,7 +161,7 @@ const Home = () => {
                     date='2024. 10. 05 ~ 2024. 10. 06'
                   />
                 </View>
-              </Swiper>
+              </Swiper> */}
             </View>
           </View>
         </View>
@@ -162,6 +172,7 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingVertical: 64,
     backgroundColor: '#fff',
   },
@@ -180,6 +191,8 @@ const styles = StyleSheet.create({
   visualTextTitle: {
     marginTop: 16,
     marginBottom: 24,
+  },
+  visualTitleItem: {
     fontSize: 40,
     fontWeight: '700',
     lineHeight: 48,

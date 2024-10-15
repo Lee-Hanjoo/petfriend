@@ -7,18 +7,13 @@ import { Image } from 'react-native';
 // // gap << native 지원x , fontWeight << string으로 들어가야함
 // borderradius << 50% <<< XXX
 
-const {height, width} = Dimensions.get("window");
-
-const homeHeaderTop = -height + 149;
-const HeaderTop = -height + 152;
-
 const CustomHeader = ({navigation, menuItems, menuActive, setMenuActive }) => {
   
   return (
     <View 
       style={[
         styles.CustomHeaderWrap, 
-        menuActive === 'home' ? {top:homeHeaderTop} : [styles.CustomHeaderWrapDetail, {top: HeaderTop}],
+        menuActive !== 'home' && styles.CustomHeaderWrapDetail,
         menuActive === ( 'write' || 'detail') && styles.CustomHeaderDetailWrap
       ]}
     >
@@ -87,8 +82,9 @@ const styles = StyleSheet.create({
       padding: 20,
       alignItems: 'center',
       justifyContent: 'space-between',
-      position: 'fixed',
+      position: 'absolute',
       left: 0,
+      top: 0,
       backgroundColor: '#fff',
       zIndex: 999,
       borderBottomWidth: 1,

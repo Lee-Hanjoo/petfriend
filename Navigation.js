@@ -23,14 +23,14 @@ export default function Navigation() {
           unmountOnBlur: true,
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="missing"
         component={Missing}
         options={{
           headerShown: false,
           unmountOnBlur: true,
         }}
-      />
+      /> */}
     </Stack.Navigator>
   )
 }
