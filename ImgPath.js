@@ -33,6 +33,8 @@ export const ImgPath = {
     playground: require('./assets/images/icon/icon_hospital.png'),
     select_down: require('./assets/images/icon/icon_select_down.png'),
     select_up: require('./assets/images/icon/icon_select_up.png'),
+    login: require('./assets/images/icon/icon_login.png'),
+    logout: require('./assets/images/icon/icon_logout.png'),
     /* sample */
     animal_01: require('./assets/images/img_visual_animal_01.png'),
     animal_02: require('./assets/images/img_visual_animal_02.png'),

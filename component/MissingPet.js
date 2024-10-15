@@ -10,11 +10,7 @@ const MissingPet = (props) => {
   const { tagTitle, location, src, name, date, info, index } = props;
   return (
     <View 
-      style={[
-        styles.MissingPetWrap,
-        index % 2 && {marginLeft: 11},
-        index > 1 && {marginTop: 24},
-      ]}
+      style={[styles.MissingPetWrap, index > 1 && {marginTop: 14}]}
     >
       <View style={styles.imgWrap}>
         <View style={styles.missingTag}>
@@ -38,12 +34,12 @@ const MissingPet = (props) => {
 
 const styles = StyleSheet.create({
   MissingPetWrap: {
-    width: width / 2 - 26,
+    width: width / 2 - 25,
   },
   imgWrap: {
     position: 'relative',
-    width: width / 2 - 26,
-    height: width / 2 - 26,
+    width: width / 2 - 25,
+    height: width / 2 - 25,
   },
   missingTag: {
     position: 'absolute',

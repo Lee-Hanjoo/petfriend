@@ -51,8 +51,9 @@ const CustomHeader = ({navigation, menuItems, menuActive, setMenuActive }) => {
         }
         {
           menuActive === 'menu' &&
-          <Pressable>
+          <Pressable style={{flexDirection: 'row', alignItems: 'center', gap: 8}}>
             <Text style={styles.menuText}>로그인</Text>
+            <Image source={ImgPath.login}/>
           </Pressable>
         }
       </View>

@@ -10,9 +10,8 @@ const StoryItem = (props) => {
     <Pressable>
       <View 
         style={[
-          styles.container, 
-          index % 2 && {marginLeft: 10},
-          index > 1 && {marginTop: 24},
+          styles.container,
+          index > 1 && {marginTop: 14},
           ]}
         >
         <View style={styles.imgBox}>
@@ -50,14 +49,13 @@ const styles = StyleSheet.create({
   profileBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    // gap: 4,
+    gap: 4,
     marginVertical: 8
   },
   name: {
     width: width / 2 - 50,
     fontSize: 12,
     color: '#1F2329',
-    // fontFamily: 'Wanted Sans'
   },
   infoBox: {
     flexDirection: 'row',
@@ -68,13 +66,11 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: '#8D96A4',
     fontSize: 12,
-    // fontFamily: 'Wanted Sans'
   },
   view: {
     textAlign: 'right',
     color: '#8D96A4',
     fontSize: 12,
-    // fontFamily: 'Wanted Sans'
   }
 })
 

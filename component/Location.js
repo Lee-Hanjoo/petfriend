@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   locationWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    // gap: 2,
+    gap: 2,
   },
   locationWrapBg: {
     width: 'fit-content',
@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
   },
   location: {
     fontSize: 12,
-    // fontFamily: 'Wanted Sans',
     fontWeight: '400',
     color: '#8D96A4'
   },

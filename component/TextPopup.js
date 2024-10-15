@@ -31,9 +31,16 @@ const styles = StyleSheet.create({
     display: 'none',
     zIndex: 999,
     borderRadius: 8,
-    // boxShadow: '2px 2px 12px rgba(31, 35, 41, 0.1)'
     borderWidth: 1,
-    borderColor: '#E7E9ED'
+    borderColor: '#E7E9ED',
+    shadowColor: '#1F2329',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 4, // Android
   },
   textPopupActive: {
     display: 'block'

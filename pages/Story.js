@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // gap: '24px 10px'
+    gap: 10
   },
 
 })

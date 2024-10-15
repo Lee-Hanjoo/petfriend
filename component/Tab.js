@@ -34,7 +34,6 @@ const Tab = (props) => {
             styles.tabItemWrap,
             tabActive === i && styles.tabItemActive, 
             icon && styles.tabItemIconWrap,
-            i !== 0 && {marginLeft: 8}
             ]}
           >
           {icon && renderIcon(titleItem, tabActive === i)}
@@ -52,7 +51,8 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     paddingLeft:20,
     flexShrink: 0, 
-    overflow: 'auto', 
+    overflow: 'auto',
+    gap: 8
   },
   top: {
     width: '100%',
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#E7E9ED",
     alignItems: 'center',
-    // gap: 2
+    gap: 2
   },
   tabItem: {
     fontSize: 14,

@@ -23,7 +23,14 @@ const styles = StyleSheet.create({
     top: 2,
     zIndex: 1,
     borderRadius: 999,
-    boxShadow: '2px 2px 12px rgba(31, 35, 41, 0.1)'
+    shadowColor: '#1F2329',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 4, // Android
   },
 })
 

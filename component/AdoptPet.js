@@ -15,11 +15,9 @@ const AdoptPet = (props) => {
       style={[
         styles.AdoptPetWrap, 
         detail && styles.AdoptPetWrapDetail,
-        index % 2 && {marginLeft: 10},
-        index > 1 && {marginTop: 10},
         ]}
       >
-      <View>
+      <View style={{gap: 8}}>
         <Heart />
         { detail && <Location bg detail location='충청남도 공주시' /> }
         <Image source={src} style={[styles.sizeL, detail && styles.sizeM]}/>
@@ -48,31 +46,33 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     position: 'relative',
     borderWidth: 1,
-    borderColor: '#E7E9ED'
+    borderColor: '#E7E9ED',
   },
   AdoptPetWrapDetail: {
     width: width / 2 - 25,
   },
   petBox: {
-    marginTop: 12,
     paddingHorizontal: 12,
     paddingBottom: 16,
+    gap: 8
   },
   petBoxDetail: {
-    paddingBottom: 4,
+    paddingBottom: 12,
   },
   tagWrap: {
     flexDirection: 'row', 
-    marginBottom: 8
+    gap: 4,
+    marginTop: 4
   },
   petWrap: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginBottom: 8
+    gap: 4
   },
   petWrapDetail: {
     flexDirection: 'column',
     alignItems: 'flex-start',
+    gap: 0
   },
   name: {
     fontSize: 18,

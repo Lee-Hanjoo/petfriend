@@ -232,11 +232,13 @@ const styles = StyleSheet.create({
     flexShrink: 0, 
     overflow: 'auto', 
     paddingLeft: 20,
+    gap: 10
   },
   missingPet: {
     flexDirection:'row', 
     flexWrap: 'wrap',
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    gap: 10
   },
 })
 

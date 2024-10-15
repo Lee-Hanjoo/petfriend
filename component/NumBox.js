@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     left: 12,
     bottom: 12,
     zIndex: 2,
-    // gap: 4,
+    gap: 4,
   },
   box: {
     flexDirection: 'row',
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     marginLeft: 2,
     color: '#8D96A4',
     fontSize: 10,
-    // fontFamily: 'Wanted Sans'
   },
   commentBox: {
     paddingLeft: 8,

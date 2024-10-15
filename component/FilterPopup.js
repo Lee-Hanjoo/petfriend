@@ -48,7 +48,14 @@ const styles = StyleSheet.create({
     display: 'none',
     zIndex: 999,
     borderRadius: 8,
-    boxShadow: '2px 2px 12px rgba(31, 35, 41, 0.1)'
+    shadowColor: '#1F2329',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 4, // Android
   },
   filterPopupActive: {
     display: 'block'
@@ -86,7 +93,7 @@ const styles = StyleSheet.create({
   SelectWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    // gap: 8
+    gap: 8
   },
   animalWrap: {
     marginTop: 8

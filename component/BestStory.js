@@ -8,7 +8,6 @@ const BestStory = (props) => {
     <View 
       style={[
         styles.bestStroyWrap,
-        index > 0 && {marginLeft: 12}
         ]}
       >
       <Heart />
