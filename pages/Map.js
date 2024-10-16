@@ -3,6 +3,7 @@ import { StyleSheet, TextInput, FlatList, View, Text } from 'react-native';
 import Tab from '../component/Tab';
 import Select from '../component/Select';
 import MapListItem from '../component/MapListItem';
+import { useMenu } from '../MenuProvider'
 
 const Map = () => {
 
@@ -10,16 +11,10 @@ const Map = () => {
 
   const [tabIndex, setTabIndex] = useState(0)
 
-  const [location, setLocation] = useState([
-    { label: '서울특별시', value: 'seoul' },
-    { label: '부산', value: 'busan' },
-    { label: '바나나', value: 'banana' },
-    { label: '사과', value: 'apple' },
-  ]);
-
-  const [city, setCity] = useState([
-    { label: '중랑구', value: 'junglanggu' },
-  ]);
+  const { 
+    location, setLocation,
+    city, setCity,
+  } = useMenu();
 
   const renderItem = ({ item }) => (
     <MapListItem 

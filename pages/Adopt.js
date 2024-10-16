@@ -3,24 +3,15 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import Select from '../component/Select'
 import AdoptPet from '../component/AdoptPet';
 import { ImgPath } from '../ImgPath';
+import { useMenu } from '../MenuProvider'
 
 const Adopt = () => {
 
-  const [location, setLocation] = useState([
-    { label: '서울특별시', value: 'seoul' },
-    { label: '부산', value: 'busan' },
-    { label: '바나나', value: 'banana' },
-    { label: '사과', value: 'apple' },
-  ]);
-  const [animal, setAnimal] = useState([
-    { label: '강아지', value: 'dog' },
-    { label: '고양이', value: 'cat' },
-    { label: '기타', value: 'else' },
-  ]);
-  const [breed, setBreed] = useState([
-    { label: '그레이 하운드', value: 'ho' },
-    { label: '말티즈', value: 'ma' },
-  ]);
+  const { 
+    location, setLocation,
+    animal, setAnimal,
+    breed, setBreed,
+  } = useMenu();
 
   return (
     <View>

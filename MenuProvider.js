@@ -26,6 +26,21 @@ export function MenuProvider({ children }) {
     { label: '사과', value: 'apple' },
   ]);
 
+  const [city, setCity] = useState([
+    { label: '중랑구', value: 'junglanggu' },
+  ]);
+
+  const [animal, setAnimal] = useState([
+    { label: '강아지', value: 'dog' },
+    { label: '고양이', value: 'cat' },
+    { label: '기타', value: 'else' },
+  ]);
+
+  const [breed, setBreed] = useState([
+    { label: '그레이 하운드', value: 'ho' },
+    { label: '말티즈', value: 'ma' },
+  ]);
+  
   const [board, setBoard] = useState([
     { label: '스토리', value: 'story' },
     { label: '실종 동물 찾기', value: 'missing' },
@@ -49,6 +64,9 @@ export function MenuProvider({ children }) {
         menuActive, setMenuActive,
         menuItems,
         location, setLocation,
+        city, setCity,
+        animal, setAnimal,
+        breed, setBreed,
         board, setBoard,
         storyCategory, setStoryCategory,
         missingCategory, setMissingCategory
