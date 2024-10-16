@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Platform, StyleSheet, Text, TextInput } from 'react-native'
 import { Pressable } from 'react-native'
 import { View } from 'react-native'
-import DateTimePicker from '@react-native-community/datetimepicker';
 import Select from './Select';
 
 
@@ -42,8 +41,8 @@ const styles = StyleSheet.create({
   filterPopup: {
     width: 350,
     position: 'absolute',
-    left: 20,
-    top: 120,
+    left: 13,
+    top: 64,
     backgroundColor: '#fff',
     display: 'none',
     zIndex: 999,
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
       width: 2,
       height: 2,
     },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 12,
     elevation: 4, // Android
   },

@@ -15,6 +15,7 @@ const AdoptPet = (props) => {
       style={[
         styles.AdoptPetWrap, 
         detail && styles.AdoptPetWrapDetail,
+        (!detail && index > 0) && {marginLeft: 10}
         ]}
       >
       <View style={{gap: 8}}>

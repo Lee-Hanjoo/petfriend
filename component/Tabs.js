@@ -17,7 +17,7 @@ export default function Tabs(props) {
 
   return (
     <Tab.Navigator 
-      initialRouteName="home"
+      initialRouteName="missing"
       tabBarPosition="bottom"
       screenOptions={{
         swipeEnabled: false,
@@ -25,7 +25,7 @@ export default function Tabs(props) {
       }}
       tabBar={ tabBarProps => (
         <>
-          <CustomTabBar {...tabBarProps} menuItems={menuItems} menuActive={menuActive} setMenuActive={setMenuActive} />
+          <CustomTabBar {...tabBarProps} menuItems={menuItems} />
         </>
       )}
     >

@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import { ImgPath } from '../ImgPath'
+import { ScrollView } from 'react-native'
+import FilterPopup from './FilterPopup'
+
+const {width, height} = Dimensions.get('window')
 
 const Tab = (props) => {
 
-  const {title, top, icon} = props;
+  const {title, top, icon, filter} = props;
   const [tabActive, setTabActive] = useState(0);
+  const [filterPopup, setFilterPopup] = useState(false)
 
   const renderIcon = (title, isActive) => {
     if (title === '보호소') {
@@ -25,22 +30,42 @@ const Tab = (props) => {
   };
 
   return (
-    <View style={[styles.tabWrap, top && styles.top]}>
-      {title.map((titleItem,i)=>(
-        <Pressable 
-          key={i} 
-          onPress={()=>{setTabActive(i)}} 
-          style={[
-            styles.tabItemWrap,
-            tabActive === i && styles.tabItemActive, 
-            icon && styles.tabItemIconWrap,
-            ]}
-          >
-          {icon && renderIcon(titleItem, tabActive === i)}
-          <Text style={[styles.tabItem, tabActive === i && styles.tabItemActive]}>{titleItem}</Text>
-        </Pressable>
-      ))}
-    </View>
+    <>
+      <View style={[styles.tabWrap, top && styles.top]}>
+        <ScrollView horizontal>
+          {title.map((titleItem,i)=>(
+            <Pressable 
+              key={i} 
+              onPress={()=>{setTabActive(i)}} 
+              style={[
+                styles.tabItemWrap,
+                tabActive === i && styles.tabItemActive, 
+                icon && styles.tabItemIconWrap,
+                i === 0 && {marginLeft: 20},
+                i > 0 && {marginLeft: 8}
+                ]}
+              >
+              {icon && renderIcon(titleItem, tabActive === i)}
+              <Text style={[styles.tabItem, tabActive === i && styles.tabItemActive]}>{titleItem}</Text>
+            </Pressable>
+          ))}
+        </ScrollView>
+        {
+          filter && 
+          <View style={styles.filterWrap}>
+            <Pressable style={[styles.filterBtn, filterPopup && {borderColor: '#64C7FA'}]} onPress={()=>{setFilterPopup(!filterPopup)}}>
+              {
+                filterPopup ?
+                <Image source={ImgPath.filter_on}/>
+                :
+                <Image source={ImgPath.filter}/>
+              }
+            </Pressable>
+          </View>
+        }
+      </View>
+      <FilterPopup filterPopup={filterPopup} />
+    </>
   )
 }
 
@@ -49,13 +74,8 @@ const styles = StyleSheet.create({
   tabWrap: {
     flexDirection: 'row',
     marginBottom: 16,
-    paddingLeft:20,
-    flexShrink: 0, 
-    overflow: 'auto',
-    gap: 8
   },
   top: {
-    width: '100%',
     marginBottom: 0,
     backgroundColor: '#fff',
     paddingTop: 20,
@@ -90,7 +110,23 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingLeft: 10,
     paddingRight: 12
-  }
+  },
+  filterWrap: {
+    paddingRight: 20,
+    width: 85,
+    alignItems: 'flex-end',
+    justifyContent: 'center'
+  },
+  filterBtn: {
+    width: 32,
+    height: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#E7E9ED',
+    borderRadius: 6,
+    backgroundColor: '#fff'
+  },
 })
 
 export default Tab

@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 10
   },
-
 })
 
 export default Story

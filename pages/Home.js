@@ -48,11 +48,12 @@ const Home = () => {
         </View>
       </LinearGradient>
       <View style={styles.contents}>
+        {/* 1.입양 대기 동물 */}
         <View style={styles.section}>
           <MainTitle titleEng='Adopted Animal' title='입양 대기 동물' />
           <View>
             <Tab title={['강아지','고양이','기타']} />
-            <View style={styles.list}>
+            <ScrollView horizontal style={styles.list}>
               {new Array(3).fill().map((item, i)=>
                   <AdoptPet 
                     key={i}
@@ -64,12 +65,13 @@ const Home = () => {
                     src={ImgPath.animal_adpot}
                   />
                 )}
-            </View>
+            </ScrollView>
           </View>
         </View>
+        {/* 2.스토리 */}
         <View style={styles.section}>
           <MainTitle titleEng='Best Adoption Story' title='베스트 입양 일기' />
-          <View style={styles.list}>
+          <ScrollView horizontal style={styles.list}>
           {new Array(6).fill().map((item, i)=>
             <BestStory 
               key={i}
@@ -79,7 +81,7 @@ const Home = () => {
               src={ImgPath.animal_story} 
             />
           )}
-          </View>
+          </ScrollView>
         </View>
         <View style={styles.section}>
           <MainTitle titleEng='Missing Animal' title='실종 동물' />
@@ -228,10 +230,7 @@ const styles = StyleSheet.create({
   },
   list: {
     flexDirection: 'row', 
-    flexShrink: 0, 
-    overflow: 'auto', 
     paddingLeft: 20,
-    gap: 10
   },
   missingPet: {
     flexDirection:'row', 
