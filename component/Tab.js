@@ -65,7 +65,13 @@ const Tab = (props) => {
         {
           filter && 
           <View style={styles.filterWrap}>
-            <Pressable style={[styles.filterBtn, filterPopup && {borderColor: '#64C7FA'}]} onPress={()=>{setFilterPopup(!filterPopup)}}>
+            <Pressable 
+              style={[
+                styles.filterBtn, 
+                filterPopup && {borderColor: '#64C7FA'},
+              ]} 
+              onPress={()=>{setFilterPopup(!filterPopup)}
+            }>
               {
                 filterPopup ?
                 <Image source={ImgPath.filter_on}/>

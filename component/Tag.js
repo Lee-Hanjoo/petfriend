@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 const Tag = (props) => {
 
-  const {title, index} = props;
+  const {title, index, bold} = props;
 
   const titleMap = {
     '보호중': {style: styles.yellow, text: '보호중'},
@@ -13,6 +13,7 @@ const Tag = (props) => {
     '실종': {style: styles.singleOrange, text: '실종'},
     '목격': {style: styles.singleGreen, text: '목격'},
     '완료': {style: styles.singleGray, text: '완료'},
+    '필독': {style: styles.singleOrange, text: '필독'},
   }
 
   return (
@@ -22,7 +23,15 @@ const Tag = (props) => {
         titleMap[title].style,
       ]}
     >
-      <Text style={[styles.tagText, titleMap[title].style]}>{titleMap[title].text}</Text>
+      <Text 
+        style={[
+          styles.tagText, 
+          titleMap[title].style,
+          bold && {fontWeight: '700'}
+        ]}
+      >
+        {titleMap[title].text}
+      </Text>
     </View>
   )
 }

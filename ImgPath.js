@@ -20,6 +20,8 @@ export const ImgPath = {
     menu_white: require('./assets/images/icon/icon_menu_white.png'),
     menu: require('./assets/images/icon/icon_menu.png'),
     back_arrow: require('./assets/images/icon/icon_arrow_back.png'),
+    faq_down_arrow: require('./assets/images/icon/icon_arrow_faq_down.png'),
+    faq_up_arrow: require('./assets/images/icon/icon_arrow_faq_up.png'),
     right_arrow: require('./assets/images/icon/icon_arrow_right.png'),
     alarm: require('./assets/images/icon/icon_alarm.png'),
     setting: require('./assets/images/icon/icon_setting.png'),
