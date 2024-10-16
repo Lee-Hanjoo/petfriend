@@ -1,10 +1,15 @@
 import React from 'react'
 import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import { ImgPath } from '../ImgPath';
+import { useNavigation } from '@react-navigation/native';
+import { useMenu } from '../MenuProvider';
 
 const {width, height} = Dimensions.get('window');
 
 const Menu = () => {
+
+  const navigation = useNavigation();
+  const { menuActive, setMenuActive } = useMenu(); 
 
   const menuItems = [
     { title:'home', krTitle:'홈', icon: ImgPath.home_black},
@@ -19,7 +24,12 @@ const Menu = () => {
     <View>
       <View style={styles.contents}>
         {new Array(6).fill().map((item,i)=>
-          <Pressable key={i} style={styles.menuItem} onPress={()=>{console.log(menuItems[i].title);}}>
+          <Pressable key={i} style={styles.menuItem} 
+            onPress={()=>{
+              setMenuActive(menuItems[i].title); 
+              navigation.navigate(menuItems[i].title)
+            }}
+          >
             <View style={styles.iconWrap}>
               <Image source={menuItems[i].icon} />
             </View>
@@ -36,7 +46,7 @@ const styles = StyleSheet.create({
   contents: {
     height: height,
     paddingTop: 40,
-    paddingHorizontal: 32,
+    paddingHorizontal: 20,
     backgroundColor: '#fff',
     gap: 16
   },

@@ -20,6 +20,7 @@ export const ImgPath = {
     menu_white: require('./assets/images/icon/icon_menu_white.png'),
     menu: require('./assets/images/icon/icon_menu.png'),
     back_arrow: require('./assets/images/icon/icon_arrow_back.png'),
+    right_arrow: require('./assets/images/icon/icon_arrow_right.png'),
     alarm: require('./assets/images/icon/icon_alarm.png'),
     setting: require('./assets/images/icon/icon_setting.png'),
     setting_black: require('./assets/images/icon/icon_setting_black.png'),
@@ -41,6 +42,8 @@ export const ImgPath = {
     select_up: require('./assets/images/icon/icon_select_up.png'),
     login: require('./assets/images/icon/icon_login.png'),
     logout: require('./assets/images/icon/icon_logout.png'),
+    link_blue: require('./assets/images/icon/icon_link_blue.png'),
+    link_yellow: require('./assets/images/icon/icon_link_yellow.png'),
     /* sample */
     animal_01: require('./assets/images/img_visual_animal_01.png'),
     animal_02: require('./assets/images/img_visual_animal_02.png'),

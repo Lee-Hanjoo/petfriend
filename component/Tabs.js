@@ -5,6 +5,8 @@ import Map from "../pages/Map";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CustomTabBar from "./CustomTabBar";
 import { useMenu } from '../MenuProvider';
+import Missing from "../pages/Missing";
+import Community from "../pages/Community";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -31,6 +33,8 @@ export default function Tabs(props) {
       <Tab.Screen name="adopt" component={Adopt} />
       <Tab.Screen name="story" component={Story} />
       <Tab.Screen name="map" component={Map} />
+      <Tab.Screen name="missing" component={Missing} />
+      <Tab.Screen name="community" component={Community} />
     </Tab.Navigator>
   );
 }

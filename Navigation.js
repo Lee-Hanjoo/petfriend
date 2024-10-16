@@ -24,10 +24,12 @@ export default function Navigation() {
 
   const [menuActive, setMenuActive] = useState('home');
   const menuItems = [
-    { title: 'home', krTitle:'', icon: ImgPath.home, activeIcon: ImgPath.home_white },
+    { title: 'home', icon: ImgPath.home, activeIcon: ImgPath.home_white },
     { title: 'adopt', krTitle:'입양 대기 동물', icon: ImgPath.adopt, activeIcon: ImgPath.adopt_white },
     { title: 'story', krTitle:'스토리', icon: ImgPath.story, activeIcon: ImgPath.story_white },
     { title: 'map', krTitle:'시설 찾기', icon: ImgPath.map, activeIcon: ImgPath.map_white },
+    { title: 'missing', krTitle:'실종 동물 찾기 및 신고'},
+    { title: 'community', krTitle:'커뮤니티'},
   ];
 
   useEffect(()=>{

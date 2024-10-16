@@ -12,25 +12,27 @@ const CustomTabBar = ({menuItems}) => {
   return (
     <View style={styles.container}>
       <View style={styles.menuList}>
-      {menuItems.map((item,i) => (
-        <Pressable
-          key={i}
-          style={menuActive === item.title ? styles.active : ''}
-          onPress={() => {
-            setMenuActive(item.title);
-            navigation.navigate(item.title);
-          }}
-        >
-          {menuActive === item.title ? (
-            <>
-              <Image source={item.activeIcon} />
-              <Text style={styles.textActive}>{item.title}</Text>
-            </>
-          ) : (
-            <Image source={item.icon} />
-          )}
-        </Pressable>
-      ))}
+        {
+          menuItems.filter(item => item.title !== 'missing' && item.title !== 'community').map((item,i) => (
+            <Pressable
+              key={i}
+              style={menuActive === item.title ? styles.active : ''}
+              onPress={() => {
+                setMenuActive(item.title);
+                navigation.navigate(item.title);
+              }}
+            >
+              {menuActive === item.title ? (
+                <>
+                  <Image source={item.activeIcon} />
+                  <Text style={styles.textActive}>{item.title}</Text>
+                </>
+              ) : (
+                <Image source={item.icon} />
+              )}
+            </Pressable>
+          ))
+        }
         <Pressable 
           style={[styles.menu, menuActive === 'menu' && styles.activeMenu]} 
           onPress={() => {setMenuActive('menu'); navigation.navigate('menu')}}
