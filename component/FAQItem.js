@@ -79,6 +79,9 @@ const styles = StyleSheet.create({
   answerBox: {
     padding: 20
   },
+  answerText: {
+    color: 'rgba(31, 35, 41, 0.8)'
+  }
 })
 
 export default FAQItem

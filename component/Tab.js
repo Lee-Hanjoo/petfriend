@@ -19,7 +19,7 @@ const Tab = (props) => {
     } else {
       setTabIndex(tabActive)
     }
-  },[tabActive])
+  },[tabActive, tabSecActive])
 
   const renderIcon = (title, isActive) => {
     if (title === '보호소') {

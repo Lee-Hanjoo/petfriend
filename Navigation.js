@@ -32,10 +32,9 @@ export default function Navigation() {
     { title: 'community', krTitle:'커뮤니티'},
   ];
 
-  useEffect(()=>{
-    setMenuActive(menuActive)
-  },[menuActive, menuItems])
-
+  // useEffect(()=>{
+  //   setMenuActive(menuActive)
+  // },[menuActive, menuItems])
 
   return (
     <MenuProvider>

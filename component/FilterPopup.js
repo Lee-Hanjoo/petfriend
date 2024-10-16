@@ -3,17 +3,14 @@ import { Platform, StyleSheet, Text, TextInput } from 'react-native'
 import { Pressable } from 'react-native'
 import { View } from 'react-native'
 import Select from './Select';
+import { useMenu } from '../MenuProvider'
 
 
 const FilterPopup = (props) => {
 
   const {item, animal, filterPopup, setFilterPopup} = props;
-  const [location, setLocation] = useState([
-    { label: '서울특별시', value: 'seoul' },
-    { label: '부산', value: 'busan' },
-    { label: '바나나', value: 'banana' },
-    { label: '사과', value: 'apple' },
-  ]);
+
+  const {location, setLocation} = useMenu();
 
   return (
     <View style={[styles.filterPopup, filterPopup && styles.filterPopupActive]}>
