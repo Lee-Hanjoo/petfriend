@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     zIndex: 9999,
     width: '100%',
     backgroundColor: '#fff',
-    paddingTop: 84,
+    paddingTop: 20,
     paddingBottom: 12,
     paddingHorizontal: 20,
     position: 'fixed',

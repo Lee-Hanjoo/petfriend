@@ -138,7 +138,6 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 64,
     backgroundColor: '#fff',
   },
   visual: {

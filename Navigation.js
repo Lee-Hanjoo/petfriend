@@ -10,6 +10,7 @@ import Mypet from "./pages/Mypet";
 import Write from "./pages/Write";
 import Detail from "./pages/Detail";
 import DetailHeader from "./component/DetailHeader";
+import { MenuProvider } from './MenuProvider';
 
 
 const Stack = createNativeStackNavigator();
@@ -35,107 +36,99 @@ export default function Navigation() {
 
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Tabs"
-        component={Tabs}
-        options={{
-          headerShown: true,
-          unmountOnBlur: true,
-          header: ({props}) => (
-            <CustomHeader {...props} 
-              menuActive={menuActive}
-              setMenuActive={setMenuActive}
-              menuItems={menuItems}
-            />
-          ),
-        }}
-        initialParams={{ 
-          menuActive, 
-          setMenuActive, 
-          menuItems 
-        }}
-      />
-      <Stack.Screen
-        name="menu"
-        component={Menu}
-        options={{
-          headerShown: true,
-          unmountOnBlur: true,
-          header: ({props}) => (
-            <CustomHeader {...props} 
-              menuActive={menuActive}
-              setMenuActive={setMenuActive}
-              menuItems={menuItems}
-            />
-          ),
-        }}
-        initialParams={{ 
-          menuActive, 
-          setMenuActive, 
-          menuItems,
-        }}
-      />
-      <Stack.Screen
-        name="mypet"
-        component={Mypet}
-        options={{
-          headerShown: true,
-          unmountOnBlur: true,
-          header: ({props}) => (
-            <DetailHeader {...props} 
-              menuActive={menuActive}
-              setMenuActive={setMenuActive}
-              menuItems={menuItems}
-            />
-          ),
-        }}
-        initialParams={{ 
-          menuActive, 
-          setMenuActive, 
-          menuItems 
-        }}
-      />
-      <Stack.Screen
-        name="write"
-        component={Write}
-        options={{
-          headerShown: true,
-          unmountOnBlur: true,
-          header: ({props}) => (
-            <CustomHeader {...props} 
-              menuActive={menuActive}
-              setMenuActive={setMenuActive}
-              menuItems={menuItems}
-            />
-          ),
-        }}
-        initialParams={{ 
-          menuActive, 
-          setMenuActive, 
-          menuItems 
-        }}
-      />
-      <Stack.Screen
-        name="detail"
-        component={Detail}
-        options={{
-          headerShown: true,
-          unmountOnBlur: true,
-          header: ({props}) => (
-            <CustomHeader {...props} 
-              menuActive={menuActive}
-              setMenuActive={setMenuActive}
-              menuItems={menuItems}
-            />
-          ),
-        }}
-        initialParams={{ 
-          menuActive, 
-          setMenuActive, 
-          menuItems 
-        }}
-      />
-    </Stack.Navigator>
+    <MenuProvider>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Tabs"
+          component={Tabs}
+          options={{
+            headerShown: true,
+            unmountOnBlur: true,
+            header: ({props}) => (
+              <CustomHeader {...props} 
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                menuItems={menuItems}
+              />
+            ),
+          }}
+          initialParams={{ 
+            menuItems 
+          }}
+        />
+        <Stack.Screen
+          name="menu"
+          component={Menu}
+          options={{
+            headerShown: true,
+            unmountOnBlur: true,
+            header: ({props}) => (
+              <CustomHeader {...props} 
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                menuItems={menuItems}
+              />
+            ),
+          }}
+          initialParams={{ 
+            menuItems,
+          }}
+        />
+        <Stack.Screen
+          name="mypet"
+          component={Mypet}
+          options={{
+            headerShown: true,
+            unmountOnBlur: true,
+            header: ({props}) => (
+              <DetailHeader {...props} 
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                menuItems={menuItems}
+              />
+            ),
+          }}
+          initialParams={{ 
+            menuItems 
+          }}
+        />
+        <Stack.Screen
+          name="write"
+          component={Write}
+          options={{
+            headerShown: true,
+            unmountOnBlur: true,
+            header: ({props}) => (
+              <CustomHeader {...props} 
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                menuItems={menuItems}
+              />
+            ),
+          }}
+          initialParams={{ 
+            menuItems 
+          }}
+        />
+        <Stack.Screen
+          name="detail"
+          component={Detail}
+          options={{
+            headerShown: true,
+            unmountOnBlur: true,
+            header: ({props}) => (
+              <CustomHeader {...props} 
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                menuItems={menuItems}
+              />
+            ),
+          }}
+          initialParams={{ 
+            menuItems 
+          }}
+        />
+      </Stack.Navigator>
+    </MenuProvider>
   )
 }

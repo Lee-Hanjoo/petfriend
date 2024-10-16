@@ -4,16 +4,14 @@ import Story from "../pages/Story";
 import Map from "../pages/Map";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import CustomTabBar from "./CustomTabBar";
-import CustomHeader from "./CustomHeader";
-import Mypet from "../pages/Mypet";
-import { useEffect, useState } from "react";
-import { ImgPath } from "../ImgPath";
+import { useMenu } from '../MenuProvider';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function Tabs(props) {
 
-  const { menuActive, setMenuActive, menuItems } = props.route.params;
+  const { menuItems } = props.route.params;
+  const { menuActive, setMenuActive } = useMenu(); 
 
   return (
     <Tab.Navigator 

@@ -35,7 +35,7 @@ const Menu = () => {
 const styles = StyleSheet.create({
   contents: {
     height: height,
-    paddingTop: 108,
+    paddingTop: 40,
     paddingHorizontal: 32,
     backgroundColor: '#fff',
     gap: 16

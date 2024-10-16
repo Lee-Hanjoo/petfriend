@@ -31,7 +31,7 @@ const Mypet = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 64,
+    paddingTop: 50,
     backgroundColor: '#fff',
   },
 })

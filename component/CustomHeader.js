@@ -4,10 +4,12 @@ import { ImgPath } from '../ImgPath';
 import { Pressable } from 'react-native';
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useMenu } from '../MenuProvider';
 
-const CustomHeader = ({ menuItems, menuActive, setMenuActive }) => {
+const CustomHeader = ({ menuItems }) => {
 
   const navigation = useNavigation();
+  const { menuActive, setMenuActive } = useMenu(); 
 
   return (
     <View 

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native'
 import { ImgPath } from '../ImgPath'
 import { useNavigation } from '@react-navigation/native';
+import { useMenu } from '../MenuProvider';
 
-const CustomTabBar = ({menuItems, menuActive, setMenuActive}) => {
+const CustomTabBar = ({menuItems}) => {
     
   const navigation = useNavigation();
+  const { menuActive, setMenuActive } = useMenu(); 
 
   return (
     <View style={styles.container}>
