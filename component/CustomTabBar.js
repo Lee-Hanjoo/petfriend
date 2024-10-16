@@ -44,6 +44,14 @@ const CustomTabBar = ({menuItems}) => {
           )}
         </Pressable>
       </View>
+      <Pressable style={styles.writeBtn} 
+        onPress={()=>{
+          setMenuActive('write');
+          navigation.navigate('write')
+        }}
+      >
+        <Image source={ImgPath.write} />
+      </Pressable>
     </View>
   )
 }
@@ -93,5 +101,24 @@ const styles = StyleSheet.create({
     },
     activeMenu: {
       backgroundColor: '#64C7FA',
+    },
+    writeBtn: {
+      width: 44,
+      height: 44,
+      borderRadius: 999,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#64C7FA',
+      position: 'absolute',
+      right: 20,
+      bottom: 120,
+      shadowColor: '#1F2329',
+      shadowOffset: {
+        width: 2,
+        height: 2,
+      },
+      shadowOpacity: 0.2,
+      shadowRadius: 12,
+      elevation: 4, // Android
     },
   });

@@ -48,6 +48,7 @@ export const ImgPath = {
     link_yellow: require('./assets/images/icon/icon_link_yellow.png'),
     filter_on: require('./assets/images/icon/icon_filter_on.png'),
     filter: require('./assets/images/icon/icon_filter.png'),
+    write: require('./assets/images/icon/icon_write.png'),
     /* sample */
     animal_01: require('./assets/images/img_visual_animal_01.png'),
     animal_02: require('./assets/images/img_visual_animal_02.png'),
