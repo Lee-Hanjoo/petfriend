@@ -3,18 +3,18 @@ import { StyleSheet, Text, View } from 'react-native'
 import { ImgPath } from '../ImgPath';
 import { Pressable } from 'react-native';
 import { Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-// // gap << native 지원x , fontWeight << string으로 들어가야함
-// borderradius << 50% <<< XXX
+const CustomHeader = ({ menuItems, menuActive, setMenuActive }) => {
 
-const CustomHeader = ({navigation, menuItems, menuActive, setMenuActive }) => {
-  
+  const navigation = useNavigation();
+
   return (
     <View 
       style={[
         styles.CustomHeaderWrap, 
         menuActive !== 'home' && styles.CustomHeaderWrapDetail,
-        menuActive === ( 'write' || 'detail') && styles.CustomHeaderDetailWrap
+        menuActive === ( 'write' || 'detail' || 'mypet') && styles.CustomHeaderDetailWrap
       ]}
     >
       <View>
@@ -23,31 +23,17 @@ const CustomHeader = ({navigation, menuItems, menuActive, setMenuActive }) => {
             <Image source={ImgPath.logo_black}/>
           :
             <View style={styles.titleWrap}>
-              {
-                menuActive === ( 'write' || 'detail') ?
-                <>
-                  <Pressable style={styles.backBtn} onPress={() => navigation.navigate('home')}>
-                    <Image source={ImgPath.back_arrow}/>
-                  </Pressable>
-                  <Text>{menuActive}</Text>
-                </>
-                :
-                <>
-                {
-                  menuItems.map((item, i) => {
-                    if (item.title === menuActive) {
-                      return (
-                        <View style={styles.titleWrap} key={i}>
-                          <Text style={styles.title}>{item.krTitle}</Text>
-                          <Text style={styles.desc}>{item.title}</Text>
-                        </View>
-                      )
-                    }
-                  })
+              {menuItems.map((item, i) => {
+                if (item.title === menuActive) {
+                  return (
+                    <View style={styles.titleWrap} key={i}>
+                      <Text style={styles.title}>{item.krTitle}</Text>
+                      <Text style={styles.desc}>{item.title}</Text>
+                    </View>
+                  )
                 }
-                </>
-              }
-            </View>
+              })}
+          </View>
         }
         {
           menuActive === 'menu' &&
@@ -57,12 +43,10 @@ const CustomHeader = ({navigation, menuItems, menuActive, setMenuActive }) => {
           </Pressable>
         }
       </View>
-      {
-        menuActive !== ( 'write' || 'detail') &&
         <View style={styles.rowWrap}>
           {
             menuActive === 'menu' &&
-            <Pressable style={styles.settingBtn}>
+            <Pressable style={styles.settingBtn} onPress={()=>{setMenuActive('mypet'); navigation.navigate('mypet') }}>
               <Image source={ImgPath.setting_black} />
             </Pressable>
           }
@@ -71,7 +55,6 @@ const CustomHeader = ({navigation, menuItems, menuActive, setMenuActive }) => {
             <View style={styles.alarmUnread}></View>
           </Pressable>
         </View>
-      }
     </View>
   )
 }
@@ -83,9 +66,6 @@ const styles = StyleSheet.create({
       padding: 20,
       alignItems: 'center',
       justifyContent: 'space-between',
-      position: 'absolute',
-      left: 0,
-      top: 0,
       backgroundColor: '#fff',
       zIndex: 999,
       borderBottomWidth: 1,

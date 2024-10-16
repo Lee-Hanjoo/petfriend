@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   iconWrap: {
-    width: 40,
-    height: 40,
+    width: 36,
+    height: 36,
     borderRadius: 8,
     backgroundColor: 'rgba(231, 233, 237, 0.4)',
     justifyContent: 'center',

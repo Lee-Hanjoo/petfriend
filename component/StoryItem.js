@@ -20,7 +20,7 @@ const StoryItem = (props) => {
         </View>
         <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
         <View style={styles.profileBox}>
-          <Image source={profileSrc} />
+          <Image source={profileSrc} style={styles.profileImg} />
           <Text style={styles.name} numberOfLines={1} ellipsizeMode="clip">{name}</Text>
         </View>
         <View style={styles.infoBox}>
@@ -51,6 +51,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 4,
     marginVertical: 8
+  },
+  profileImg: {
+    width: 24,
+    height: 24,
+    borderRadius: 999,
+    backgroundColor: '#8D96A4'
   },
   name: {
     width: width / 2 - 50,
