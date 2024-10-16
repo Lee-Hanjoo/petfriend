@@ -17,7 +17,7 @@ export default function Tabs(props) {
 
   return (
     <Tab.Navigator 
-      initialRouteName="missing"
+      initialRouteName="community"
       tabBarPosition="bottom"
       screenOptions={{
         swipeEnabled: false,

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, FlatList, View } from 'react-native';
+import { StyleSheet, TextInput, FlatList, View, Text } from 'react-native';
 import Tab from '../component/Tab';
 import Select from '../component/Select';
 import MapListItem from '../component/MapListItem';
 
 const Map = () => {
+
   const [text, setText] = useState('');
+
+  const [tabIndex, setTabIndex] = useState(0)
 
   const [location, setLocation] = useState([
     { label: '서울특별시', value: 'seoul' },
@@ -47,7 +50,7 @@ const Map = () => {
 
   return (
     <View style={styles.container}>
-      <Tab top title={['보호소', '동물병원', '놀이터']} icon />
+      <Tab top icon title={['보호소', '동물병원', '놀이터']} tabIndex={tabIndex} setTabIndex={setTabIndex} />
       <FlatList
         data={new Array(12).fill()}
         renderItem={renderItem}

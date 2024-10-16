@@ -1,8 +1,9 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
+import NumBox from './NumBox';
 
 const CommunityCard = (props) => {
-  const { src, title, desc, location, date } = props;
+  const { src, title, desc, location, date, detail } = props;
   return (
     <View style={styles.communityCardWrap}>
       <Image source={src} />

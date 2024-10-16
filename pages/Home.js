@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { ImgPath } from '../ImgPath'
 import MainTitle from '../component/MainTitle'
@@ -10,9 +10,12 @@ import CommunityCard from '../component/CommunityCard'
 import { LinearGradient } from 'expo-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel'
 
+const {width, height} = Dimensions.get('window');
+
 const Home = () => {
 
-  const {width, height} = Dimensions.get('window');
+  const [tabIndex, setTabIndex] = useState(0)
+  const [tabSecIndex, setTabSecIndex] = useState(0)
 
   return (
     <ScrollView style={styles.container}>
@@ -52,7 +55,7 @@ const Home = () => {
         <View style={styles.section}>
           <MainTitle titleEng='Adopted Animal' title='입양 대기 동물' />
           <View>
-            <Tab title={['강아지','고양이','기타']} />
+            <Tab title={['강아지','고양이','기타']} tabIndex={tabIndex} setTabIndex={setTabIndex} />
             <ScrollView horizontal style={styles.list}>
               {new Array(3).fill().map((item, i)=>
                   <AdoptPet 
@@ -83,6 +86,7 @@ const Home = () => {
           )}
           </ScrollView>
         </View>
+        {/* 3.실종 동물 */}
         <View style={styles.section}>
           <MainTitle titleEng='Missing Animal' title='실종 동물' />
           <View style={styles.missingPet}>
@@ -100,10 +104,11 @@ const Home = () => {
             )}
           </View>
         </View>
+        {/* 5.커뮤니티 */}
         <View style={styles.section}>
           <MainTitle titleEng='Community' title='커뮤니티' />
           <View>
-            <Tab title={['캠페인&이벤트','자원봉사','뉴스']} />
+            <Tab second title={['캠페인&이벤트','자원봉사','뉴스']} tabSecIndex={tabSecIndex} setTabSecIndex={setTabSecIndex} />
             <View style={styles.community}>
               <Carousel
                 loop={true}

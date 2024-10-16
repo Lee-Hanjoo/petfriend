@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View } from 'react-native'
 import { StyleSheet, Text, ScrollView } from 'react-native'
 import Tab from '../component/Tab'
@@ -6,9 +6,12 @@ import StoryItem from '../component/StoryItem'
 import { ImgPath } from '../ImgPath'
 
 const Story = () => {
+
+  const [tabIndex, setTabIndex] = useState(0)
+
   return (
     <View>
-      <Tab top title={['입양후기', '임보일기', '입양일기']} />
+      <Tab top title={['입양후기', '임보일기', '입양일기']} tabIndex={tabIndex} setTabIndex={setTabIndex} />
       <ScrollView style={styles.container}>
         <View style={styles.contents}>
         {new Array(6).fill().map((item, i)=> 

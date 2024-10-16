@@ -7,7 +7,7 @@ import Select from './Select';
 
 const FilterPopup = (props) => {
 
-  const {filterPopup, item} = props;
+  const {item, animal, filterPopup, setFilterPopup} = props;
   const [location, setLocation] = useState([
     { label: '서울특별시', value: 'seoul' },
     { label: '부산', value: 'busan' },
@@ -23,15 +23,18 @@ const FilterPopup = (props) => {
         <TextInput style={styles.input} placeholder='날짜' placeholderTextColor='#8D96A4' />
       </View>
       <View style={styles.inputWrap}>
-        <View style={[styles.SelectWrap, styles.animalWrap]}>
-          <Select placeholder='지역' items={location} setItems={setLocation} size={103} />
-          <Select placeholder='지역' items={location} setItems={setLocation} size={103} />
-          <Select placeholder='지역' items={location} setItems={setLocation} size={103} />
-        </View>
-        <View style={styles.SelectWrap}>
-          <Select placeholder='지역' items={location} setItems={setLocation} size={178} />
-          <Select placeholder='지역' items={location} setItems={setLocation} size={140} />
-        </View>
+        {
+          animal &&
+            <View style={[styles.SelectWrap, styles.animalWrap]}>
+              <Select placeholder='지역' items={location} setItems={setLocation} size={103} />
+              <Select placeholder='지역' items={location} setItems={setLocation} size={103} />
+              <Select placeholder='지역' items={location} setItems={setLocation} size={103} />
+            </View>
+        }
+          <View style={styles.SelectWrap}>
+            <Select placeholder='지역' items={location} setItems={setLocation} size={178} />
+            <Select placeholder='지역' items={location} setItems={setLocation} size={140} />
+          </View>
       </View>
     </View>
   )

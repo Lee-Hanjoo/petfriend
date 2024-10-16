@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import { ImgPath } from '../ImgPath'
 import { ScrollView } from 'react-native'
@@ -8,9 +8,18 @@ const {width, height} = Dimensions.get('window')
 
 const Tab = (props) => {
 
-  const {title, top, icon, filter} = props;
+  const {title, top, icon, filter, filterPopup, setFilterPopup, setTabIndex, second, setTabSecIndex} = props;
+  
   const [tabActive, setTabActive] = useState(0);
-  const [filterPopup, setFilterPopup] = useState(false)
+  const [tabSecActive, setTabSecActive] = useState(0);
+
+  useEffect(()=>{
+    if(second) {
+      setTabSecIndex(tabSecActive)
+    } else {
+      setTabIndex(tabActive)
+    }
+  },[tabActive])
 
   const renderIcon = (title, isActive) => {
     if (title === '보호소') {
@@ -36,7 +45,10 @@ const Tab = (props) => {
           {title.map((titleItem,i)=>(
             <Pressable 
               key={i} 
-              onPress={()=>{setTabActive(i)}} 
+              onPress={()=>{
+                setTabSecActive(i)
+                setTabActive(i)
+              }} 
               style={[
                 styles.tabItemWrap,
                 tabActive === i && styles.tabItemActive, 
@@ -64,7 +76,6 @@ const Tab = (props) => {
           </View>
         }
       </View>
-      <FilterPopup filterPopup={filterPopup} />
     </>
   )
 }

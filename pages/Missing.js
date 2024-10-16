@@ -1,16 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Dimensions, View } from 'react-native'
 import { StyleSheet, Text, ScrollView } from 'react-native'
 import Tab from '../component/Tab'
 import { ImgPath } from '../ImgPath'
 import MissingPet from '../component/MissingPet'
+import FilterPopup from '../component/FilterPopup'
 
 const {width, height} = Dimensions.get('window')
 
 const Missing = () => {
+
+  const [filterPopup, setFilterPopup] = useState(false)
+  const [tabIndex, setTabIndex] = useState(0)
+
   return (
     <View>
-      <Tab top filter title={['전체', '실종', '목격', '완료']} />
+      <Tab top filter title={['전체', '실종', '목격', '완료']} filterPopup={filterPopup} setFilterPopup={setFilterPopup} tabIndex={tabIndex} setTabIndex={setTabIndex} />
+      <FilterPopup animal filterPopup={filterPopup} setFilterPopup={setFilterPopup} />
       <ScrollView style={styles.container}>
         <View style={styles.contents}>
         {new Array(6).fill().map((item, i)=> 
