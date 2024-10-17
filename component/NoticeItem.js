@@ -11,7 +11,7 @@ const NoticeItem = (props) => {
   const {badge, title, date, index, last} = props;
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive } = useMenu(); 
+  const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
   
   return (
     <Pressable 
@@ -20,7 +20,7 @@ const NoticeItem = (props) => {
         last && {borderBottomWidth: 1}
       ]}
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail')
+        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('notice')
       }}
       >
       <View style={styles.titleWrap}>

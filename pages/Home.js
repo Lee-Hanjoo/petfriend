@@ -128,7 +128,6 @@ const Home = () => {
                   parallaxScrollingScale: 1,
                   parallaxScrollingOffset: 28,
                 }}
-                // onSnapToItem={(index) => console.log('current index:', index)}
                 renderItem={({ index }) => (
                   <CommunityCard 
                     src={ImgPath.animal_community}

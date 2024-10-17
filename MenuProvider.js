@@ -10,6 +10,7 @@ export const useMenu = () => useContext(MenuContext); // 간편하게 사용하�
 export function MenuProvider({ children }) {
 
   const [menuActive, setMenuActive] = useState('home');
+  const [detailActive, setDetailActive] = useState('home')
 
   // 이전페이지 저장
   const [previousMenuActive, setPreviousMenuActive] = useState(null);
@@ -101,6 +102,7 @@ export function MenuProvider({ children }) {
     <MenuContext.Provider 
     value={{ 
         menuActive, setMenuActive,
+        detailActive, setDetailActive,
         previousMenuActive, setPreviousMenuActive,
         // select
         menuItems,

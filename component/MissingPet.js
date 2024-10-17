@@ -13,13 +13,13 @@ const MissingPet = (props) => {
   const { tagTitle, location, src, name, date, info, index } = props;
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive } = useMenu(); 
+  const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
   
   return (
     <Pressable 
       style={[styles.MissingPetWrap, index > 1 && {marginTop: 14}]}
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail')
+        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('missing')
       }}
     >
       <View style={styles.imgWrap}>

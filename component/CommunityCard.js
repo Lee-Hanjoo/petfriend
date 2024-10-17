@@ -9,13 +9,13 @@ const CommunityCard = (props) => {
   const { src, title, desc, location, date, detail } = props;
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive } = useMenu(); 
+  const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
   
   return (
     <Pressable 
       style={styles.communityCardWrap}
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail')
+        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('community')
       }}
     >
       <Image source={src} />

@@ -11,7 +11,7 @@ const {width, height} = Dimensions.get('window')
 const AdoptPet = (props) => {
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive } = useMenu(); 
+  const { menuActive, setMenuActive, setPreviousMenuActive, setDetailActive } = useMenu(); 
 
   const {location, name, info, src, detail, index} = props;
   
@@ -23,7 +23,7 @@ const AdoptPet = (props) => {
         (!detail && index > 0) && {marginLeft: 10}
         ]}
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail')
+        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('adopt')
       }}
       >
       <View style={{gap: 8}}>

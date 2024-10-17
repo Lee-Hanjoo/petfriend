@@ -9,7 +9,7 @@ const BestStory = (props) => {
   const { src, title, desc, index} = props;
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive } = useMenu(); 
+  const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
 
   return (
     <Pressable 
@@ -18,7 +18,7 @@ const BestStory = (props) => {
         index > 0 && {marginLeft: 10}
       ]}
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail')
+        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('story')
       }}
     >
       <Heart />

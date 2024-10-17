@@ -11,13 +11,12 @@ const StoryItem = (props) => {
   const {src, title, name, profileSrc, view, date, heartNum, commentNum, index} = props;
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive } = useMenu(); 
+  const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
   
   return (
     <Pressable
-
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail')
+        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('story')
       }}
     >
       <View 

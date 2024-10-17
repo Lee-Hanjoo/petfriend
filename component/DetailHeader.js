@@ -9,16 +9,17 @@ import { useMenu } from '../MenuProvider';
 const DetailHeader = ({ menuItems }) => {
   
     const navigation = useNavigation();
-    const { menuActive, setMenuActive, previousMenuActive } = useMenu();     
+    const { menuActive, setMenuActive, previousMenuActive, detailActive, setDetailActive } = useMenu();     
 
     const getTitle = () => {
       if (menuActive === 'mypet') return '설정';
       if (menuActive === 'write') return '글쓰기';
       if (menuActive === 'detail') {
-        if (previousMenuActive === 'adopt') return '입양 대기 동물';
-        if (previousMenuActive === 'story') return '스토리';
-        if (previousMenuActive === 'missing') return '실종 동물 찾기 및 신고';
-        if (previousMenuActive === 'community') return '커뮤니티';
+        if (detailActive === 'adopt') return '입양 대기 동물';
+        if (detailActive === 'story') return '스토리';
+        if (detailActive === 'missing') return '실종 동물 찾기 및 신고';
+        if (detailActive === 'community') return '커뮤니티';
+        if (detailActive === 'notice') return '공지사항';
       }
       return ''; // 아무 조건도 해당하지 않으면 빈 문자열
     };
