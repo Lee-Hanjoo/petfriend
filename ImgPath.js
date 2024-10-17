@@ -63,4 +63,5 @@ export const ImgPath = {
     animal_community: require('./assets/images/img_community_sample.jpg'),
     profile_sample: require('./assets/images/img_profile_sample.png'),
     img_upload_sample: require('./assets/images/img_upload_sample.jpg'),
+    detail_sample: require('./assets/images/img_detail_sample.jpg'),
 }

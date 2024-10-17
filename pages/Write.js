@@ -24,7 +24,9 @@ const Write = () => {
     gender, age, neutering
   } = useMenu();
 
-const [selectedId, setSelectedId] = useState();
+const [genderId, setGenderId] = useState('gender_default');
+const [ageId, setAgeId] = useState('age_default');
+const [neuteringId, setNeuteringId] = useState('neutering_default');
 
 const [image, setImage] = useState(null);
 
@@ -113,8 +115,8 @@ const pickImage = async () => {
                 <View style={styles.submitWrap}>
                   <RadioGroup
                     radioButtons={gender} 
-                    onPress={setSelectedId}
-                    selectedId={selectedId}
+                    onPress={setGenderId}
+                    selectedId={genderId}
                     layout='row'
                   />
                 </View>
@@ -131,8 +133,8 @@ const pickImage = async () => {
               <View style={styles.submitWrap}>
                 <RadioGroup
                   radioButtons={age} 
-                  onPress={setSelectedId}
-                  selectedId={selectedId}
+                  onPress={setAgeId}
+                  selectedId={ageId}
                   layout='row'
                 />
               </View>
@@ -142,8 +144,8 @@ const pickImage = async () => {
               <View style={styles.submitWrap}>
                 <RadioGroup
                   radioButtons={neutering} 
-                  onPress={setSelectedId}
-                  selectedId={selectedId}
+                  onPress={setNeuteringId}
+                  selectedId={neuteringId}
                   layout='row'
                 />
               </View>
@@ -184,7 +186,7 @@ const pickImage = async () => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 32,
-    paddingBottom: 128,
+    paddingBottom: 60,
     backgroundColor: '#fff',
   },
   borderLine: {

@@ -81,21 +81,21 @@ export function MenuProvider({ children }) {
 
   // radio  
   const gender = useMemo(() => ([
-    { id: 'gender_1', label: '수컷', value: 'male' },
-    { id: 'gender_2', label: '암컷', value: 'female' },
-    { id: 'gender_3', label: '모름', value: 'undefined' },
+    { id: 'gender_default', label: '수컷', value: 'male', selected: true },
+    { id: 'gender_0', label: '암컷', value: 'female', selected: false },
+    { id: 'gender_1', label: '모름', value: 'undefined', selected: false },
 ]), []);
 
   const age = useMemo(() => ([
-    { id: 'age_1', label: '1년 이상', value: 'year1' },
-    { id: 'age_2', label: '모름', value: 'undefined' },
-    { id: 'age_3', label: '기타', value: 'else' },
+    { id: 'age_default', label: '1년 이상', value: 'year1', selected: true },
+    { id: 'age_1', label: '모름', value: 'undefined', selected: false },
+    { id: 'age_2', label: '기타', value: 'else', selected: false },
 ]), []);
 
   const neutering = useMemo(() => ([
-    { id: 'neutering_1', label: '완료', value: 'neutering_yes' },
-    { id: 'neutering_2', label: '미완료', value: 'neutering_no' },
-    { id: 'neutering_3', label: '모름', value: 'undefined' },
+    { id: 'neutering_default', label: '완료', value: 'neutering_yes', selected: true },
+    { id: 'neutering_1', label: '미완료', value: 'neutering_no', selected: false },
+    { id: 'neutering_2', label: '모름', value: 'undefined', selected: false },
 ]), []);
   
   return (
