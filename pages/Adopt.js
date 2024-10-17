@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
   contents: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10
+    gap: 10,
+    paddingBottom: 120
   },
   line: {
     width: 1,

@@ -11,7 +11,7 @@ const {width, height} = Dimensions.get('window')
 const AdoptPet = (props) => {
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive, setPreviousMenuActive, setDetailActive } = useMenu(); 
+  const { setMenuActive, setDetailActive } = useMenu(); 
 
   const {location, name, info, src, detail, index} = props;
   

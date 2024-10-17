@@ -110,7 +110,7 @@ const Home = () => {
           </View>
         </View>
         {/* 5.커뮤니티 */}
-        <View style={styles.section}>
+        <View style={[styles.section, {marginBottom: 0}]}>
           <MainTitle titleEng={menuItems[5].title} title={menuItems[5].krTitle} />
           <View>
             <Tab second title={['캠페인&이벤트','자원봉사','뉴스']} tabSecIndex={tabSecIndex} setTabSecIndex={setTabSecIndex} />
@@ -211,6 +211,7 @@ const styles = StyleSheet.create({
   },
   contents: {
     marginTop: 80,
+    paddingBottom: 0
   },
   section: {
     marginBottom: 64
