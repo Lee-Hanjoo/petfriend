@@ -3,6 +3,8 @@ import { FlatList, Pressable, TextInput, View } from 'react-native'
 import { StyleSheet, Text } from 'react-native'
 import Select from '../component/Select'
 import { useMenu } from '../MenuProvider'
+import { useMemo } from 'react'
+import { RadioGroup } from 'react-native-radio-buttons-group'
 
 const Write = () => {
 
@@ -16,13 +18,28 @@ const Write = () => {
     missingCategory, setMissingCategory 
   } = useMenu();
 
+  const radioButtons = useMemo(() => ([
+    {
+        id: '1', // acts as primary key, should be unique and non-empty string
+        label: 'Option 1',
+        value: 'option1'
+    },
+    {
+        id: '2',
+        label: '기타',
+        value: 'else'
+    }
+]), []);
+
+const [selectedId, setSelectedId] = useState();
+
   return (
     <FlatList
       data={[{ key: 'content' }]} // 리스트 데이터를 단일 객체로 설정
       renderItem={() => (
         <View style={styles.contents}>
           {/* 게시판 카테고리 설정 */}
-          <View>
+          <View style={{zIndex:2}}>
             <View style={styles.labelWrap}>
               <Text style={styles.label}>게시판</Text>
               <View style={styles.submitWrap}>
@@ -32,25 +49,25 @@ const Write = () => {
               </View>
             </View>
           </View>
-          <View style={styles.borderLine}></View>
+          <View style={[styles.borderLine, {zIndex:1}]}></View>
           {/* 날짜, 위치 입력사항 */}
-          <View style={{marginTop: 24, gap: 24}}>
+          <View style={{marginTop: 24, gap: 24, zIndex:1}}>
             <View style={styles.labelWrap}>
               <Text style={styles.label}>날짜</Text>
               <TextInput style={styles.input} placeholder='0000. 00. 00' placeholderTextColor='#8D96A4' />
             </View>
-            <View style={styles.labelWrap}>
+            <View style={[styles.labelWrap, {zIndex: 2}]}>
               <Text style={styles.label}>지역</Text>
               <View style={styles.submitWrap}>
                 <Select placeholder='지역' items={location} setItems={setLocation} size={140} />
                 <Select placeholder='도시' items={city} setItems={setCity} size={100} />
               </View>
             </View>
-            <View style={styles.labelWrap}>
+            <View style={[styles.labelWrap, {zIndex: 1}]}>
               <Text style={styles.label}>장소</Text>
               <TextInput style={styles.input} placeholder='구체적인 장소' placeholderTextColor='#8D96A4' />
             </View>
-            <View style={styles.labelWrap}>
+            <View style={[styles.labelWrap, {zIndex: 1}]}>
               <Text style={styles.label}>연락처</Text>
               <TextInput style={styles.input} placeholder='010-0000-0000' placeholderTextColor='#8D96A4' />
             </View>
@@ -58,16 +75,22 @@ const Write = () => {
           <View style={styles.borderLine}></View>
           {/* 스토리 입력사항 */}
           <View style={{marginTop: 24, gap: 24}}>
-            <View style={styles.labelWrap}>
-              <Text style={styles.label}>품종</Text>
+            <View style={[styles.labelWrap, {zIndex: 2}]}>
+              <Text style={styles.label}>품종<Text style={styles.essential}>*</Text></Text>
               <View style={styles.submitWrap}>
                 <Select placeholder='품종' items={animal} setItems={setAnimal} size={100} />
                 <Select placeholder='세부 종' items={breed} setItems={setBreed} size={140} />
               </View>
             </View>
-            <View style={styles.labelWrap}>
+            <View style={[styles.labelWrap, {zIndex: 1}]}>
               <Text style={styles.label}>성별</Text>
               <View style={styles.submitWrap}>
+              <RadioGroup
+                radioButtons={radioButtons} 
+                onPress={setSelectedId}
+                selectedId={selectedId}
+                layout='row'
+              />
 
               </View>
             </View>
@@ -131,6 +154,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     // fontFamily: 'Wanted Sans',
     placeholderColor: '#8D96A4'
+  },
+  essential: {
+    fontSize: 14,
+    color: '#EE815E',
   },
 })
 

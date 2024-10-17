@@ -48,9 +48,10 @@ const Map = () => {
       <Tab top icon title={['보호소', '동물병원', '놀이터']} tabIndex={tabIndex} setTabIndex={setTabIndex} />
       <FlatList
         data={new Array(12).fill()}
+        ListHeaderComponent={renderScrollableContent}
+        ListHeaderComponentStyle={{zIndex:2}}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        ListHeaderComponent={renderScrollableContent}
         contentContainerStyle={styles.scrollableContainer}
       />
     </View>

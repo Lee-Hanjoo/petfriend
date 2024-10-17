@@ -10,25 +10,23 @@ const MapListItem = (props) => {
   const {title, location, callNum, licenseNum} = props;
 
   return (
-    <>
-      <View style={{position: 'relative'}}>
-        <TextPopup textPopup={textPopup} item={['인허가번호', '길찾기']}/>
-        <View style={styles.container}>
-          <View style={styles.top}>
-            <Text style={styles.title}>{title}</Text>
-            <Pressable style={styles.moreBtn} onPress={()=>{setTextPopup(!textPopup)}}>
-              <Image source={ImgPath.more_btn} />
-            </Pressable>
-          </View>
-          <View style={styles.bottom}>
-            <Text style={styles.location}>{location}</Text>
-            <Pressable>
-              <Text style={[styles.callNum, callNum === '' && styles.nonCallNum ]}>{callNum === '' ? '전화번호 미등록' : callNum}</Text>
-            </Pressable>
-          </View>
+    <View>
+      <TextPopup textPopup={textPopup} item={['인허가번호', '길찾기']}/>
+      <View style={styles.container}>
+        <View style={styles.top}>
+          <Text style={styles.title}>{title}</Text>
+          <Pressable style={styles.moreBtn} onPress={()=>{setTextPopup(!textPopup)}}>
+            <Image source={ImgPath.more_btn} />
+          </Pressable>
+        </View>
+        <View style={styles.bottom}>
+          <Text style={styles.location}>{location}</Text>
+          <Pressable>
+            <Text style={[styles.callNum, callNum === '' && styles.nonCallNum ]}>{callNum === '' ? '전화번호 미등록' : callNum}</Text>
+          </Pressable>
         </View>
       </View>
-    </>
+    </View>
   )
 }
 
