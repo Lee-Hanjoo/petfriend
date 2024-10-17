@@ -44,26 +44,11 @@ const CustomHeader = ({ menuItems }) => {
               })}
           </View>
         }
-        {
-          menuActive === 'menu' &&
-          <Pressable style={{flexDirection: 'row', alignItems: 'center', gap: 8}}>
-            <Text style={styles.menuText}>로그인</Text>
-            <Image source={ImgPath.login}/>
-          </Pressable>
-        }
       </View>
-        <View style={styles.rowWrap}>
-          {
-            menuActive === 'menu' &&
-            <Pressable style={styles.settingBtn} onPress={()=>{setMenuActive('mypet'); navigation.navigate('mypet') }}>
-              <Image source={ImgPath.setting_black} />
-            </Pressable>
-          }
-          <Pressable style={styles.alarmWrap}>
-            <Image source={ImgPath.alarm} />
-            <View style={styles.alarmUnread}></View>
-          </Pressable>
-        </View>
+      <Pressable>
+        <Image source={ImgPath.alarm} />
+        <View style={styles.alarmUnread}></View>
+      </Pressable>
     </View>
   )
 }
@@ -101,10 +86,6 @@ const styles = StyleSheet.create({
       fontSize: 12,
       color: '#8D96A4'
     },
-    alarmWrap: {
-      position: 'relative',
-      justifyContent: 'center'
-    },
     alarmUnread: {
       width: 10,
       height: 10,
@@ -121,16 +102,6 @@ const styles = StyleSheet.create({
       left: 0,
       top: 0
     },
-    rowWrap: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 16
-    },
-    menuText: {
-      color: '#8D96A4',
-      fontSize: 18,
-      fontWeight: '700'
-    }
   });
   
 export default CustomHeader

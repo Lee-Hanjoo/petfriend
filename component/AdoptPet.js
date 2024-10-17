@@ -3,10 +3,15 @@ import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-nati
 import Tag from './Tag'
 import Heart from './Heart'
 import Location from './Location'
+import { useNavigation } from '@react-navigation/native'
+import { useMenu } from '../MenuProvider';
 
 const {width, height} = Dimensions.get('window')
 
 const AdoptPet = (props) => {
+
+  const navigation = useNavigation();
+  const { menuActive, setMenuActive } = useMenu(); 
 
   const {location, name, info, src, detail, index} = props;
   
@@ -17,6 +22,9 @@ const AdoptPet = (props) => {
         detail && styles.AdoptPetWrapDetail,
         (!detail && index > 0) && {marginLeft: 10}
         ]}
+      onPress={()=>{
+        setMenuActive('detail'); navigation.navigate('detail')
+      }}
       >
       <View style={{gap: 8}}>
         <Heart />

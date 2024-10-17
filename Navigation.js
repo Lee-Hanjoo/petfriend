@@ -64,7 +64,7 @@ export default function Navigation() {
             headerShown: true,
             unmountOnBlur: true,
             header: ({props}) => (
-              <CustomHeader {...props} 
+              <DetailHeader {...props} 
                 menuActive={menuActive}
                 setMenuActive={setMenuActive}
                 menuItems={menuItems}

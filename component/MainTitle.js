@@ -1,10 +1,15 @@
 import React from 'react'
 import { Pressable } from 'react-native';
 import { StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useMenu } from '../MenuProvider';
 
 const MainTitle = (props) => {
 
-  const { titleEng, title } = props;  
+  const { titleEng, title, index } = props;  
+
+  const navigation = useNavigation();
+  const { menuActive, setMenuActive, menuItems } = useMenu();     
 
   return (
     <View style={styles.titleWrap}>
@@ -14,7 +19,10 @@ const MainTitle = (props) => {
       </View>
       <Pressable 
         style={styles.moreBtn} 
-        onPress={()=>{}}
+        onPress={()=>{
+          navigation.navigate(titleEng);
+          setMenuActive(titleEng)
+        }}
       >
         <Text style={styles.moreBtnText}>더보기</Text>
       </Pressable>
@@ -33,7 +41,8 @@ const styles = StyleSheet.create({
   titleEng: {
     fontSize: 14,
     color: '#8D96A4',    
-    marginBottom: 8
+    marginBottom: 8,
+    textTransform: 'capitalize'
   },
   title: {
     fontSize: 32,

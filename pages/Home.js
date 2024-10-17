@@ -9,10 +9,15 @@ import MissingPet from '../component/MissingPet'
 import CommunityCard from '../component/CommunityCard'
 import { LinearGradient } from 'expo-linear-gradient';
 import Carousel from 'react-native-reanimated-carousel'
+import { useNavigation } from '@react-navigation/native';
+import { useMenu } from '../MenuProvider';
 
 const {width, height} = Dimensions.get('window');
 
 const Home = () => {
+
+  const navigation = useNavigation();
+  const { menuActive, setMenuActive, previousMenuActive, menuItems } = useMenu();     
 
   const [tabIndex, setTabIndex] = useState(0)
   const [tabSecIndex, setTabSecIndex] = useState(0)
@@ -53,7 +58,7 @@ const Home = () => {
       <View style={styles.contents}>
         {/* 1.입양 대기 동물 */}
         <View style={styles.section}>
-          <MainTitle titleEng='Adopted Animal' title='입양 대기 동물' />
+          <MainTitle titleEng={menuItems[1].title} title={menuItems[1].krTitle} />
           <View>
             <Tab title={['강아지','고양이','기타']} tabIndex={tabIndex} setTabIndex={setTabIndex} />
             <ScrollView horizontal style={styles.list}>
@@ -73,7 +78,7 @@ const Home = () => {
         </View>
         {/* 2.스토리 */}
         <View style={styles.section}>
-          <MainTitle titleEng='Best Adoption Story' title='베스트 입양 일기' />
+          <MainTitle titleEng={menuItems[2].title} title={menuItems[2].krTitle} />
           <ScrollView horizontal style={styles.list}>
           {new Array(6).fill().map((item, i)=>
             <BestStory 
@@ -88,7 +93,7 @@ const Home = () => {
         </View>
         {/* 3.실종 동물 */}
         <View style={styles.section}>
-          <MainTitle titleEng='Missing Animal' title='실종 동물' />
+          <MainTitle titleEng={menuItems[4].title} title={menuItems[4].krTitle} />
           <View style={styles.missingPet}>
             {new Array(4).fill().map((item, i)=>
               <MissingPet
@@ -106,7 +111,7 @@ const Home = () => {
         </View>
         {/* 5.커뮤니티 */}
         <View style={styles.section}>
-          <MainTitle titleEng='Community' title='커뮤니티' />
+          <MainTitle titleEng={menuItems[5].title} title={menuItems[5].krTitle} />
           <View>
             <Tab second title={['캠페인&이벤트','자원봉사','뉴스']} tabSecIndex={tabSecIndex} setTabSecIndex={setTabSecIndex} />
             <View style={styles.community}>

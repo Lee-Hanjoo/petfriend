@@ -11,27 +11,60 @@ const DetailHeader = ({ menuItems }) => {
     const navigation = useNavigation();
     const { menuActive, setMenuActive, previousMenuActive } = useMenu();     
 
+    const getTitle = () => {
+      if (menuActive === 'mypet') return '설정';
+      if (menuActive === 'write') return '글쓰기';
+      if (menuActive === 'detail') {
+        if (previousMenuActive === 'adopt') return '입양 대기 동물';
+        if (previousMenuActive === 'story') return '스토리';
+        if (previousMenuActive === 'missing') return '실종 동물 찾기 및 신고';
+        if (previousMenuActive === 'community') return '커뮤니티';
+      }
+      return ''; // 아무 조건도 해당하지 않으면 빈 문자열
+    };
+
   return (
     <View style={[styles.DetailHeaderWrap]}>
-      <View style={styles.titleWrap}>
-        <Pressable style={styles.backBtn} 
-          onPress={() =>{ 
-            if(menuActive === 'mypet') {
-              navigation.navigate('menu')
-              setMenuActive('menu'); 
-            } else {
-              navigation.goBack()
-              setMenuActive(previousMenuActive)
-            }
-          }}
-        >
-          <Image source={ImgPath.back_arrow}/>
-        </Pressable>
-        <Text style={styles.title}>
-          {menuActive === 'mypet' && '설정'}
-          {menuActive === 'write' && '글쓰기'}
-          {menuActive === 'detail' && '상세'}
-        </Text>
+      <View style={[styles.titleWrap, menuActive === 'menu' && {justifyContent: 'space-between'}]}>
+        {
+          menuActive === 'menu' ?
+          <Pressable style={{flexDirection: 'row', alignItems: 'center', gap: 8}}>
+            <Text style={styles.menuText}>로그인</Text>
+            <Image source={ImgPath.login}/>
+          </Pressable>
+          :
+          <Pressable style={styles.backBtn} 
+            onPress={() =>{ 
+              if(menuActive === 'mypet') {
+                navigation.navigate('menu')
+                setMenuActive('menu'); 
+              } else {
+                navigation.goBack()
+                setMenuActive(previousMenuActive)
+              }
+            }}
+          >
+            <Image source={ImgPath.back_arrow}/>
+          </Pressable>
+        }
+        {
+          menuActive === 'menu' ?
+          <View style={styles.rowWrap}>
+            <Pressable onPress={()=>{setMenuActive('mypet'); navigation.navigate('mypet') }}>
+              <Image source={ImgPath.setting_black} />
+            </Pressable>
+            <Pressable>
+              <Image source={ImgPath.alarm} />
+              <View style={styles.alarmUnread}></View>
+            </Pressable>
+          </View>
+          :
+          <Text style={styles.title}>
+            {menuActive === 'mypet' && '설정'}
+            {menuActive === 'write' && '글쓰기'}
+            {menuActive === 'detail' && getTitle()}
+          </Text>
+        }
       </View>
     </View>
   )
@@ -61,7 +94,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: '#1F2329'
-  }
+  },
+  menuText: {
+    color: '#8D96A4',
+    fontSize: 18,
+    fontWeight: '700'
+  },
+  rowWrap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16
+  },
 });
   
 export default DetailHeader
