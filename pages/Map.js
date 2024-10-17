@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   scrollableContainer: {
-    paddingBottom: 128,
+    paddingBottom: 48,
   },
   mapWrap: {
     width: '100%',

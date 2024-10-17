@@ -37,11 +37,11 @@ const Story = () => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 8,
-    paddingBottom: 128,
     backgroundColor: '#fff',
   },
   contents: {
     paddingHorizontal: 20,
+    paddingBottom: 120,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',

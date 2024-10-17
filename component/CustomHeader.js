@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
       borderColor: '#E7E9ED'
     },
     CustomHeaderWrapDetail: {
-      borderBottomWidth: 4,
+      borderBottomWidth: 1,
     },
     CustomHeaderDetailWrap: {
       justifyContent: 'center',
