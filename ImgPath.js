@@ -49,6 +49,7 @@ export const ImgPath = {
     filter_on: require('./assets/images/icon/icon_filter_on.png'),
     filter: require('./assets/images/icon/icon_filter.png'),
     write: require('./assets/images/icon/icon_write.png'),
+    upload_img: require('./assets/images/icon/icon_upload_img.png'),
     /* sample */
     animal_01: require('./assets/images/img_visual_animal_01.png'),
     animal_02: require('./assets/images/img_visual_animal_02.png'),
@@ -61,4 +62,5 @@ export const ImgPath = {
     animal_missing: require('./assets/images/img_missing_pet_sample.jpg'),
     animal_community: require('./assets/images/img_community_sample.jpg'),
     profile_sample: require('./assets/images/img_profile_sample.png'),
+    img_upload_sample: require('./assets/images/img_upload_sample.jpg'),
 }

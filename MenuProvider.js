@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext } from 'react';
 import { ImgPath } from './ImgPath';
+import { useMemo } from 'react'
 
 // Context 생성
 const MenuContext = createContext();
@@ -19,6 +20,7 @@ export function MenuProvider({ children }) {
     { title: 'community', krTitle:'커뮤니티'},
   ];
 
+  // select
   const [location, setLocation] = useState([
     { label: '서울특별시', value: 'seoul' },
     { label: '부산', value: 'busan' },
@@ -51,16 +53,37 @@ export function MenuProvider({ children }) {
     { label: '임보일기', value: 'protection' },
     { label: '입양일기', value: 'adoptDiary' },
   ]);
+
   const [missingCategory, setMissingCategory] = useState([
     { label: '전체', value: 'all' },
     { label: '실종', value: 'lost' },
     { label: '목격', value: 'look' },
     { label: '완료', value: 'find' },
   ]);
+
+  // radio  
+  const gender = useMemo(() => ([
+    { id: 'gender_1', label: '수컷', value: 'male' },
+    { id: 'gender_2', label: '암컷', value: 'female' },
+    { id: 'gender_3', label: '모름', value: 'undefined' },
+]), []);
+
+  const age = useMemo(() => ([
+    { id: 'age_1', label: '1년 이상', value: 'year1' },
+    { id: 'age_2', label: '모름', value: 'undefined' },
+    { id: 'age_3', label: '기타', value: 'else' },
+]), []);
+
+  const neutering = useMemo(() => ([
+    { id: 'neutering_1', label: '완료', value: 'neutering_yes' },
+    { id: 'neutering_2', label: '미완료', value: 'neutering_no' },
+    { id: 'neutering_3', label: '모름', value: 'undefined' },
+]), []);
   
   return (
     <MenuContext.Provider 
       value={{ 
+        // select
         menuActive, setMenuActive,
         menuItems,
         location, setLocation,
@@ -69,7 +92,9 @@ export function MenuProvider({ children }) {
         breed, setBreed,
         board, setBoard,
         storyCategory, setStoryCategory,
-        missingCategory, setMissingCategory
+        missingCategory, setMissingCategory,
+        // radio
+        gender, age, neutering
       }}
     >
       {children}
