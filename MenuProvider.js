@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { ImgPath } from './ImgPath';
 import { useMemo } from 'react'
 
@@ -11,13 +11,30 @@ export function MenuProvider({ children }) {
 
   const [menuActive, setMenuActive] = useState('home');
 
+  // 이전페이지 저장
+  const [previousMenuActive, setPreviousMenuActive] = useState(null);
+
+
+  useEffect(() => {
+    // menuActive가 'write' 또는 'detail'로 변경되기 전에 현재 상태를 저장
+    if (menuActive !== 'write' && menuActive !== 'detail') {
+      setPreviousMenuActive(menuActive); // 'write'나 'detail'이 아닌 경우 이전 메뉴 저장
+    }
+  }, [menuActive, previousMenuActive]);
+
+  // const handleGoBack = () => {
+  //   if (menuActive === 'write' || menuActive === 'detail') {
+  //     setMenuActive(previousMenuActive); // 이전 메뉴로 돌아가기
+  //   }
+  // };
+
   const menuItems = [
-    { title: 'home', icon: ImgPath.home, activeIcon: ImgPath.home_white },
-    { title: 'adopt', krTitle:'입양 대기 동물', icon: ImgPath.adopt, activeIcon: ImgPath.adopt_white },
-    { title: 'story', krTitle:'스토리', icon: ImgPath.story, activeIcon: ImgPath.story_white },
-    { title: 'map', krTitle:'시설 찾기', icon: ImgPath.map, activeIcon: ImgPath.map_white },
-    { title: 'missing', krTitle:'실종 동물 찾기 및 신고'},
-    { title: 'community', krTitle:'커뮤니티'},
+    { title: 'home', krTitle:'홈', icon: ImgPath.home, activeIcon: ImgPath.home_white, menuIcon: ImgPath.home_black },
+    { title: 'adopt', krTitle:'입양 대기 동물', icon: ImgPath.adopt, activeIcon: ImgPath.adopt_white, menuIcon: ImgPath.adopt_black },
+    { title: 'story', krTitle:'스토리', icon: ImgPath.story, activeIcon: ImgPath.story_white, menuIcon: ImgPath.story_black },
+    { title: 'map', krTitle:'시설 찾기', icon: ImgPath.map, activeIcon: ImgPath.map_white, menuIcon: ImgPath.map_black },
+    { title: 'missing', krTitle:'실종 동물 찾기 및 신고', icon: ImgPath.missing, activeIcon: ImgPath.missing_white, menuIcon: ImgPath.missing_black},
+    { title: 'community', krTitle:'커뮤니티', icon: ImgPath.community, activeIcon: ImgPath.community_white, menuIcon: ImgPath.community_black},
   ];
 
   // select
@@ -82,9 +99,10 @@ export function MenuProvider({ children }) {
   
   return (
     <MenuContext.Provider 
-      value={{ 
-        // select
+    value={{ 
         menuActive, setMenuActive,
+        previousMenuActive, setPreviousMenuActive,
+        // select
         menuItems,
         location, setLocation,
         city, setCity,

@@ -34,14 +34,10 @@ const CustomTabBar = ({menuItems}) => {
           ))
         }
         <Pressable 
-          style={[styles.menu, menuActive === 'menu' && styles.activeMenu]} 
+          style={[styles.menu]} 
           onPress={() => {setMenuActive('menu'); navigation.navigate('menu')}}
         >
-          {menuActive === 'menu' ? (
-            <Image source={ImgPath.menu_white} />
-          ) : (
-            <Image source={ImgPath.menu} />
-          )}
+          <Image source={ImgPath.menu} />
         </Pressable>
       </View>
       <Pressable style={styles.writeBtn} 

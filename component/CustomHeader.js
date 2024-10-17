@@ -9,14 +9,21 @@ import { useMenu } from '../MenuProvider';
 const CustomHeader = ({ menuItems }) => {
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive } = useMenu(); 
+  const { menuActive, setMenuActive, previousMenuActive } = useMenu(); 
+
+
+  useEffect(()=>{
+    if(menuActive === ('write' || menuActive === 'detail' || menuActive === 'menu')) {
+      setMenuActive(previousMenuActive)
+    }
+  },[])
 
   return (
     <View 
       style={[
         styles.CustomHeaderWrap, 
         menuActive !== 'home' && styles.CustomHeaderWrapDetail,
-        menuActive === ( 'write' || 'detail' || 'mypet') && styles.CustomHeaderDetailWrap
+        menuActive === 'write' || menuActive === 'detail' || menuActive === 'mypet' && styles.CustomHeaderDetailWrap
       ]}
     >
       <View>

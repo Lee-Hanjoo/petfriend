@@ -1,6 +1,5 @@
 import React from 'react'
 import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
-import { ImgPath } from '../ImgPath';
 import { useNavigation } from '@react-navigation/native';
 import { useMenu } from '../MenuProvider';
 
@@ -9,16 +8,7 @@ const {width, height} = Dimensions.get('window');
 const Menu = () => {
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive } = useMenu(); 
-
-  const menuItems = [
-    { title:'home', krTitle:'홈', icon: ImgPath.home_black},
-    { title:'adopt', krTitle:'입양 대기 동물', icon: ImgPath.adopt_black},
-    { title:'story', krTitle:'스토리', icon: ImgPath.story_black},
-    { title:'map', krTitle:'시설 찾기', icon: ImgPath.map_black},
-    { title:'missing', krTitle:'실종 동물 찾기 및 신고', icon: ImgPath.missing_black},
-    { title:'community', krTitle:'커뮤니티', icon: ImgPath.community_black},
-  ];
+  const { menuActive, setMenuActive, menuItems } = useMenu(); 
   
   return (
     <View>
@@ -31,13 +21,15 @@ const Menu = () => {
             }}
           >
             <View style={styles.iconWrap}>
-              <Image source={menuItems[i].icon} />
+              <Image source={menuItems[i].menuIcon} />
             </View>
             <Text style={styles.title}>{menuItems[i].krTitle}</Text>
           </Pressable>
         )}
+        <Pressable>
+          
+        </Pressable>
       </View>
-
     </View>
   )
 }

@@ -99,7 +99,7 @@ const pickImage = async () => {
           </View>
           <View style={styles.borderLine}></View>
           {/* 스토리 입력사항 */}          
-          <View style={[styles.boxGap]}>
+          <View style={[styles.boxGap, {zIndex: 2}]}>
             <View style={[styles.labelWrap, {zIndex: 2}]}>
               <Text style={styles.label}>품종<Text style={styles.essential}>*</Text></Text>
               <View style={styles.submitWrap}>
@@ -209,12 +209,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8
   },
-  submitBtn: {
-    marginTop: 40,
-    borderRadius: 4,
-    backgroundColor: '#1F2329',
-    paddingVertical: 16,
-  },
   uploadImgBtn: {
     width: 107,
     height: 107,
@@ -228,6 +222,14 @@ const styles = StyleSheet.create({
     width: 107,
     height: 107,
     borderRadius: 6,
+  },
+  submitBtn: {
+    width: width - 40,
+    marginTop: 40,
+    marginHorizontal: 'auto',
+    borderRadius: 4,
+    backgroundColor: '#1F2329',
+    paddingVertical: 16,
   },
   submitBtnText: {
     fontWeight: '700',

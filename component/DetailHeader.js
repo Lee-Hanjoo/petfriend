@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { ImgPath } from '../ImgPath';
 import { Pressable } from 'react-native';
@@ -9,15 +9,20 @@ import { useMenu } from '../MenuProvider';
 const DetailHeader = ({ menuItems }) => {
   
     const navigation = useNavigation();
-    const { menuActive, setMenuActive } = useMenu(); 
+    const { menuActive, setMenuActive, previousMenuActive } = useMenu();     
 
   return (
     <View style={[styles.DetailHeaderWrap]}>
       <View style={styles.titleWrap}>
         <Pressable style={styles.backBtn} 
           onPress={() =>{ 
-            setMenuActive('menu'); 
-            navigation.navigate('menu')
+            if(menuActive === 'mypet') {
+              navigation.navigate('menu')
+              setMenuActive('menu'); 
+            } else {
+              navigation.goBack()
+              setMenuActive(previousMenuActive)
+            }
           }}
         >
           <Image source={ImgPath.back_arrow}/>
