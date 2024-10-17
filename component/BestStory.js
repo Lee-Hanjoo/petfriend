@@ -1,21 +1,31 @@
 import React from 'react'
 import Heart from './Heart'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { useMenu } from '../MenuProvider';
 
 const BestStory = (props) => {
+
   const { src, title, desc, index} = props;
+
+  const navigation = useNavigation();
+  const { menuActive, setMenuActive } = useMenu(); 
+
   return (
-    <View 
+    <Pressable 
       style={[
         styles.bestStroyWrap,
         index > 0 && {marginLeft: 10}
-        ]}
-      >
+      ]}
+      onPress={()=>{
+        setMenuActive('detail'); navigation.navigate('detail')
+      }}
+    >
       <Heart />
       <Image source={src} style={styles.img} />
       <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
       <Text style={styles.desc} numberOfLines={2} ellipsizeMode="tail">{desc}</Text>
-    </View>
+    </Pressable>
   )
 }
 

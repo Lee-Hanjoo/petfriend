@@ -1,6 +1,8 @@
 import React from 'react'
 import { Dimensions, Pressable, StyleSheet, Text, View } from 'react-native'
 import Tag from '../component/Tag'
+import { useNavigation } from '@react-navigation/native'
+import { useMenu } from '../MenuProvider';
 
 const {width, height} = Dimensions.get('window')
 
@@ -8,9 +10,19 @@ const NoticeItem = (props) => {
 
   const {badge, title, date, index, last} = props;
 
-
+  const navigation = useNavigation();
+  const { menuActive, setMenuActive } = useMenu(); 
+  
   return (
-    <Pressable style={[styles.noticeItemWrap, last && {borderBottomWidth: 1}]}>
+    <Pressable 
+      style={[
+        styles.noticeItemWrap, 
+        last && {borderBottomWidth: 1}
+      ]}
+      onPress={()=>{
+        setMenuActive('detail'); navigation.navigate('detail')
+      }}
+      >
       <View style={styles.titleWrap}>
         {badge && <Tag bold title={'필독'} />}
         <Text 

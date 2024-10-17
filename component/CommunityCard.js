@@ -1,11 +1,23 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import NumBox from './NumBox';
+import { useNavigation } from '@react-navigation/native'
+import { useMenu } from '../MenuProvider';
 
 const CommunityCard = (props) => {
+
   const { src, title, desc, location, date, detail } = props;
+
+  const navigation = useNavigation();
+  const { menuActive, setMenuActive } = useMenu(); 
+  
   return (
-    <View style={styles.communityCardWrap}>
+    <Pressable 
+      style={styles.communityCardWrap}
+      onPress={()=>{
+        setMenuActive('detail'); navigation.navigate('detail')
+      }}
+    >
       <Image source={src} />
       <View style={styles.top}>
         <Text style={styles.title}>{title}</Text>
@@ -15,7 +27,7 @@ const CommunityCard = (props) => {
         <Text style={styles.location}>{location}</Text>
         <Text style={styles.date}>{date}</Text>
       </View>
-    </View>
+    </Pressable>
   )
 }
 

@@ -1,16 +1,26 @@
 import React from 'react'
-import { Dimensions, Image, StyleSheet, View } from 'react-native'
+import { Dimensions, Image, Pressable, StyleSheet, View } from 'react-native'
 import Tag from './Tag'
 import { Text } from 'react-native'
 import Location from './Location'
+import { useNavigation } from '@react-navigation/native'
+import { useMenu } from '../MenuProvider';
 
 const {width, height} = Dimensions.get('window')
 
 const MissingPet = (props) => {
+
   const { tagTitle, location, src, name, date, info, index } = props;
+
+  const navigation = useNavigation();
+  const { menuActive, setMenuActive } = useMenu(); 
+  
   return (
-    <View 
+    <Pressable 
       style={[styles.MissingPetWrap, index > 1 && {marginTop: 14}]}
+      onPress={()=>{
+        setMenuActive('detail'); navigation.navigate('detail')
+      }}
     >
       <View style={styles.imgWrap}>
         <View style={styles.missingTag}>
@@ -28,7 +38,7 @@ const MissingPet = (props) => {
         </View>
         <Text style={styles.info} numberOfLines={1} ellipsizeMode="tail">{info}</Text>
       </View>
-    </View>
+    </Pressable>
   )
 }
 

@@ -1,13 +1,25 @@
 import React from 'react'
 import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import NumBox from './NumBox';
+import { useNavigation } from '@react-navigation/native'
+import { useMenu } from '../MenuProvider';
 
 const {width, height} = Dimensions.get("window");
 
 const StoryItem = (props) => {
+
   const {src, title, name, profileSrc, view, date, heartNum, commentNum, index} = props;
+
+  const navigation = useNavigation();
+  const { menuActive, setMenuActive } = useMenu(); 
+  
   return (
-    <Pressable>
+    <Pressable
+
+      onPress={()=>{
+        setMenuActive('detail'); navigation.navigate('detail')
+      }}
+    >
       <View 
         style={[
           styles.container,
