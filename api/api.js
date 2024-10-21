@@ -1,37 +1,32 @@
 import axios from 'axios';
 
+const serviceKey = process.env.REACT_APP_API_KEY
+
 const instance = axios.create({
-  baseURL: 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/',
+  baseURL: 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=',
   params:{
     api_key:process.env.REACT_APP_API_KEY,
   }
 });
 
 export const api = {
-  // all: async ()=>{
-  //   let url = [
-  //     instance.get('/sido'), 
-  //     instance.get('/sigungu'), 
-  //     instance.get('/shelter'), 
-  //     instance.get('/kind'), 
-  //     instance.get('/abandonmentPublic'), 
-  //   ]
-  //   let [sido,sigungu,shelter,kind,abandonmentPublic] = await Promise.all(url); 
-  //   sido = res.data.response.body.items.item
-  //   sigungu = res.data.response.body.items.item
-
-  //   return {sido,sigungu,shelter,kind,abandonmentPublic};
-  // },
   
-  sido:async (type, orgCd, orgdownNm)=>{
-    const res = await instance.get(`/${type}`, {
-        params:{
-            orgCd: orgCd,
-            orgdownNm: orgdownNm
-        }
-    });
+  // sido:async (type, orgCd, orgdownNm)=>{
+  //   const res = await instance.get(`/${type}`, {
+  //       params:{
+  //           orgCd: orgCd,
+  //           orgdownNm: orgdownNm
+  //       }
+  //   });
+  //   return res.data;
+  // },
+
+  sido:async ()=>{
+    const res = await axios.get(`http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D&_type=json`);
+    // .get(url, {params: {serviceKey: 'key'}})   <<<왜 안되는지 쌤한테 질문
     return res.data;
   },
+
   sigungu:async (type, uprCd, orgCd, orgdownNm)=>{
     const res = await instance.get(`/${type}`, {
       params:{

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useMenu } from '../MenuProvider';
@@ -10,10 +10,18 @@ import CommentItem from '../component/CommentItem';
 
 const {width, height} = Dimensions.get('window')
 
-const Detail = () => {
+const Detail = (props) => {
 
   const navigation = useNavigation();
   const { detailActive } = useMenu(); 
+  const [data, setData] = useState(undefined)
+
+
+  useEffect(()=>{
+    setData(props.route.params)
+  },[props])
+
+  if(!data) return;
 
   return (
     <ScrollView style={styles.container}>
@@ -23,7 +31,7 @@ const Detail = () => {
       <View style={styles.nameWrap}>
         <View style={[styles.rowWrap, {gap: 8}]}>
           <Tag title='보호중' />
-          <Text style={styles.name}>포메라니안</Text>
+          <Text style={styles.name}>{data.kindCd}</Text>
         </View>
         <Heart border />
       </View>

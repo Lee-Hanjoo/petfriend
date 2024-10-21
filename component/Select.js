@@ -1,12 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { ImgPath } from '../ImgPath';
 
 const Select = (props) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const {placeholder, items, setItems,  size, marginRight } = props;
+  // const [value, setValue] = useState(null);
+  const {placeholder, items, setItems,  size, marginRight, value, setValue } = props;
+
+  // useEffect(()=>{
+  //   console.log(`value`, value)
+  //   if(props.setSidoCode) {
+  //     // props.setSidoCode(value)
+  //   }
+  // },[value])
 
   return (
     <DropDownPicker

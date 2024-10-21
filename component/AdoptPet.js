@@ -13,7 +13,7 @@ const AdoptPet = (props) => {
   const navigation = useNavigation();
   const { setMenuActive, setDetailActive } = useMenu(); 
 
-  const {location, name, info, src, detail, index} = props;
+  const {location, name, info, src, detail, index, item} = props;
   
   return (
     <Pressable 
@@ -24,7 +24,11 @@ const AdoptPet = (props) => {
         (!detail && index == 0) && {marginLeft: 20}
         ]}
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('adopt')
+        // console.log('item', item);
+        
+        setMenuActive('detail'); 
+        navigation.navigate('detail', item); 
+        setDetailActive('adopt')
       }}
       >
       <View style={{gap: 8}}>

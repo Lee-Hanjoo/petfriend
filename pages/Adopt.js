@@ -30,16 +30,26 @@ const Adopt = () => {
 
 
   const [abandonmentPublicData, setAbandonmentPublicData] = useState([]);
-  const [dataMore, setDataMore] = useState('30');
 
   useEffect(()=>{
+    console.log('asdasdasdasdasdasd')
+    asd()
+  },[])
+
+  const asd = () => {
     const url = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/'
-    const key = `PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D&_type=json&numOfRows=${dataMore}`
+    const key = `PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D&_type=json&numOfRows=10`
 
     axios.get(`${url}${apiType}?serviceKey=${key}`)
 
     .then(function (res) {
-      setAbandonmentPublicData(res.data.response.body.items.item);
+      console.log(res.data.response.body.items.item)
+      if(abandonmentPublicData.length) {
+        setAbandonmentPublicData([...abandonmentPublicData, ...res.data.response.body.items.item]);
+      } else {
+        setAbandonmentPublicData(res.data.response.body.items.item);
+      }
+
     })
     .catch(function (error) {
       alert('데이터를 불러오는데 실패했습니다.')
@@ -47,7 +57,7 @@ const Adopt = () => {
     .finally(function () {
       // always executed
     });
-  },[])
+  }
 
   return (
     <View>
@@ -69,6 +79,7 @@ const Adopt = () => {
               tagTitle={[`${item.processState}`, item.neuterYn === 'N' ? '중성화X' : item.neuterYn === 'Y' ? '중성화O' : item.neuterYn === 'U' && '중성화미상']} 
               location={item.orgNm}
               src={item.popfile} 
+              item={item}
             />
           )}
           {/* 더 불러오기 */}

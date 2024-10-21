@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, FlatList, View, Text } from 'react-native';
 import Tab from '../component/Tab';
 import Select from '../component/Select';
 import MapListItem from '../component/MapListItem';
 import { useMenu } from '../MenuProvider'
+import { api } from '../api/api';
+import { useIsFocused } from '@react-navigation/native';
 
 const Map = () => {
 
@@ -11,8 +13,38 @@ const Map = () => {
 
   const [tabIndex, setTabIndex] = useState(0)
 
+  const [sidoCode, setSidoCode] = useState(null)
+  const [location, setLocation] = useState([])
+
+  // 이 페이지를 진입했을 때.
+  const isFocused = useIsFocused()
+
+  const asd = async () => {
+    const sido = await api.sido()
+    // console.log(sido.response.body.items.item)
+    setLocation(sido.response.body.items.item.map((v) => {
+      console.log(v);
+      
+      return {
+        label: v.orgdownNm,
+        value: v.orgCd
+      }
+    }))
+  }
+
+    useEffect(() => {
+      console.log(isFocused);
+      // 포커스가 false일때 (페이지를 벗어났을 때) 스크롤탑 0
+      if(!isFocused) return 
+      asd()
+      
+    }, [isFocused]) 
+
+    useEffect(() => {
+      console.log(`sidoCode`, sidoCode)
+    }, [sidoCode])
+
   const { 
-    location, setLocation,
     city, setCity,
   } = useMenu();
 
@@ -25,12 +57,14 @@ const Map = () => {
     />
   );
 
+// 해야될거 - 셀렉트 스크롤, 디테일페이지, 지도api불러오기
+
   const renderScrollableContent = () => (
     <View>
       <View style={styles.mapWrap}></View>
       <View style={styles.selectWrap}>
-        <Select placeholder='지역' items={location} setItems={setLocation} size={104} />
-        <Select placeholder='도시' items={city} setItems={setCity} size={84} />
+        <Select placeholder='지역' items={location} setItems={setLocation} size={104} value={sidoCode} setValue={setSidoCode} />
+        <Select placeholder='도시' items={city} setItems={setCity} size={84}  />
         <View style={styles.line}></View>
         <TextInput 
           placeholder='인허가번호' 
