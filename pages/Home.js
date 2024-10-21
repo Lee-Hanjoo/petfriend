@@ -12,6 +12,8 @@ import Carousel from 'react-native-reanimated-carousel'
 import { useNavigation } from '@react-navigation/native';
 import { useMenu } from '../MenuProvider';
 import axios from 'axios'
+import { api } from '../api/api'
+import store from '../state/store'
 
 const {width, height} = Dimensions.get('window');
 
@@ -22,23 +24,6 @@ const Home = () => {
 
   const [tabIndex, setTabIndex] = useState(0)
   const [tabSecIndex, setTabSecIndex] = useState(0)
-
-  
-  useEffect(()=>{
-    axios.get('http://apis.data.go.kr/1543061/abandonmentPublicSrvc/kind?serviceKey=PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D&upr_cd=6110000&up_kind_cd=417000')
-    .then(function (response) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .finally(function () {
-      // always executed
-    });
-    // PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D
-  },[])
 
   return (
     <ScrollView style={styles.container}>
