@@ -9,9 +9,9 @@ const store = create((set) => ({
   shelter:{},
   kind:{},
   abandonmentPublic:{},
-  dataCtrl:async (a)=>{ 
+  dataCtrl:async (action)=>{ 
     let res;
-    switch(a.t){
+    switch(action.type){
       // case 'search':  break;
       case 'list' : res = await api.list(); set({list:res});
       break;

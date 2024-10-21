@@ -30,7 +30,7 @@ const Adopt = () => {
 
 
   const [abandonmentPublicData, setAbandonmentPublicData] = useState([]);
-  const [dataMore, setDataMore] = useState('50');
+  const [dataMore, setDataMore] = useState('30');
 
   useEffect(()=>{
     const url = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/'

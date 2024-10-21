@@ -8,20 +8,20 @@ const instance = axios.create({
 });
 
 export const api = {
-  all: async ()=>{
-    let url = [
-      instance.get('/sido'), 
-      instance.get('/sigungu'), 
-      instance.get('/shelter'), 
-      instance.get('/kind'), 
-      instance.get('/abandonmentPublic'), 
-    ]
-    let [sido,sigungu,shelter,kind,abandonmentPublic] = await Promise.all(url); 
-    sido = res.data.response.body.items.item
-    sigungu = res.data.response.body.items.item
+  // all: async ()=>{
+  //   let url = [
+  //     instance.get('/sido'), 
+  //     instance.get('/sigungu'), 
+  //     instance.get('/shelter'), 
+  //     instance.get('/kind'), 
+  //     instance.get('/abandonmentPublic'), 
+  //   ]
+  //   let [sido,sigungu,shelter,kind,abandonmentPublic] = await Promise.all(url); 
+  //   sido = res.data.response.body.items.item
+  //   sigungu = res.data.response.body.items.item
 
-    return {sido,sigungu,shelter,kind,abandonmentPublic};
-  },
+  //   return {sido,sigungu,shelter,kind,abandonmentPublic};
+  // },
   
   sido:async (type, orgCd, orgdownNm)=>{
     const res = await instance.get(`/${type}`, {

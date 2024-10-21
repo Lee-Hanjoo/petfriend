@@ -15,7 +15,6 @@ const Detail = () => {
   const navigation = useNavigation();
   const { detailActive } = useMenu(); 
 
-
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imgWrap}>
