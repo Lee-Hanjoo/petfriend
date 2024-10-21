@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import Select from '../component/Select'
 import AdoptPet from '../component/AdoptPet';
 import { ImgPath } from '../ImgPath';
 import { useMenu } from '../MenuProvider'
+import axios from 'axios';
+import { api } from '../api/api'
+import store from '../state/store'
 
 const Adopt = () => {
 
@@ -12,6 +15,39 @@ const Adopt = () => {
     animal, setAnimal,
     breed, setBreed,
   } = useMenu();
+
+  const [apiType, setApiType] = useState('abandonmentPublic')
+  // 시도코드
+  const [uprCd, setUprCd] = useState('upr_cd=6110000')
+  // 시군구코드
+  const [orgCd, setOrgCd] = useState('org_cd=3220000')
+  // 축종코드 (개 : 417000, 고양이 : 422400, 기타 : 429900))
+  const [upKindCd, setUpKindCd] = useState('up_kind_cd=417000')
+  // 품종코드 
+  const [kindCd, setKindCd] = useState('kind_cd=000054')
+  // 이미지
+  const [popfile, setPopfile] = useState('kind_cd=000054')
+
+
+  const [abandonmentPublicData, setAbandonmentPublicData] = useState([]);
+  const [dataMore, setDataMore] = useState('50');
+
+  useEffect(()=>{
+    const url = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/'
+    const key = `PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D&_type=json&numOfRows=${dataMore}`
+
+    axios.get(`${url}${apiType}?serviceKey=${key}`)
+
+    .then(function (res) {
+      setAbandonmentPublicData(res.data.response.body.items.item);
+    })
+    .catch(function (error) {
+      alert('데이터를 불러오는데 실패했습니다.')
+    })
+    .finally(function () {
+      // always executed
+    });
+  },[])
 
   return (
     <View>
@@ -23,18 +59,27 @@ const Adopt = () => {
       </View>
       <ScrollView style={styles.container}>
         <View style={styles.contents}>
-          {new Array(6).fill().map((item, i)=> 
+          {abandonmentPublicData.map((item, i)=> 
             <AdoptPet 
               detail
-              key={i}
+              key={item.desertionNo}
               index={i}
-              name={`${i}포메라니안`} 
-              info='암컷, 6개월' 
-              tagTitle={['보호중','중성화O']} 
-              location='충청남도 공주시'
-              src={ImgPath.animal_adpot} 
+              name={item.kindCd} 
+              info={`${item.sexCd === 'M' ? '수컷' : item.sexCd === 'F' ? '암컷' : item.sexCd === 'Q' && '성별 미상'}, ${item.weight}, ${item.colorCd}`} 
+              tagTitle={[`${item.processState}`, item.neuterYn === 'N' ? '중성화X' : item.neuterYn === 'Y' ? '중성화O' : item.neuterYn === 'U' && '중성화미상']} 
+              location={item.orgNm}
+              src={item.popfile} 
             />
           )}
+          {/* 더 불러오기 */}
+          {/* <Pressable onPress={()=>{
+            setDataMore('50')
+            console.log(dataMore);
+            
+            }}
+          >
+            <Text>More</Text>
+          </Pressable> */}
         </View>
       </ScrollView>
     </View>

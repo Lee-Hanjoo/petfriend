@@ -15,7 +15,8 @@ const BestStory = (props) => {
     <Pressable 
       style={[
         styles.bestStroyWrap,
-        index > 0 && {marginLeft: 10}
+        index > 0 && {marginLeft: 10},
+        index == 0 && {marginLeft: 20}
       ]}
       onPress={()=>{
         setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('story')

@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   locationWrapBg: {
     width: 'fit-content',
     paddingVertical: 4,
-    paddingLeft: 8,
-    paddingRight: 12,
+    paddingLeft: 6,
+    paddingRight: 8,
     backgroundColor: 'rgba(31, 35, 41, 0.7)',
     borderRadius: 999,
     position: 'absolute',
@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
     zIndex: 2
   },
   locationWrapDetail: {
-    bottom: 108
+    bottom: 'auto',
+    top: 128
   },
   location: {
     fontSize: 12,

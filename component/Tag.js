@@ -7,9 +7,11 @@ const Tag = (props) => {
 
   const titleMap = {
     '보호중': {style: styles.yellow, text: '보호중'},
-    '중성화X': {style: styles.gray, text: '중성화'},
-    '중성화O': {style: styles.blue, text: '중성화'},
     '공고중': {style: styles.green, text: '공고중'},
+    '종료(반환)': {style: styles.black, text: '종료'}, 
+    '중성화X': {style: styles.gray, text: '중성화X'},
+    '중성화O': {style: styles.blue, text: '중성화O'},
+    '중성화미상': {style: styles.orange, text: '중성화 미상'},
     '실종': {style: styles.singleOrange, text: '실종'},
     '목격': {style: styles.singleGreen, text: '목격'},
     '완료': {style: styles.singleGray, text: '완료'},
@@ -71,6 +73,14 @@ const styles = StyleSheet.create({
   gray: {
     backgroundColor: gray,
     color: tGray
+  },
+  orange: {
+    backgroundColor: "#FCE6DF",
+    color: "#EE815E"
+  },
+  black: {
+    backgroundColor: "#1F2329",
+    color: "#fff"
   },
   singleOrange: {
     backgroundColor: '#EE815E',

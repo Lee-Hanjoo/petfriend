@@ -20,7 +20,8 @@ const AdoptPet = (props) => {
       style={[
         styles.AdoptPetWrap, 
         detail && styles.AdoptPetWrapDetail,
-        (!detail && index > 0) && {marginLeft: 10}
+        (!detail && index > 0) && {marginLeft: 10},
+        (!detail && index == 0) && {marginLeft: 20}
         ]}
       onPress={()=>{
         setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('adopt')
@@ -28,8 +29,8 @@ const AdoptPet = (props) => {
       >
       <View style={{gap: 8}}>
         <Heart />
-        { detail && <Location bg detail location='충청남도 공주시' /> }
-        <Image source={src} style={[styles.sizeL, detail && styles.sizeM]}/>
+        { detail && <Location bg detail location={location} /> }
+        <Image source={{uri:src}} style={[styles.sizeL, detail && styles.sizeM]}/>
         <View style={[styles.petBox, detail && styles.petBoxDetail]}>
           <View style={styles.tagWrap}>
             {
@@ -39,8 +40,8 @@ const AdoptPet = (props) => {
             }
           </View>
           <View style={[styles.petWrap, detail && styles.petWrapDetail]}>
-            <Text style={[styles.name, styles.nameDetail]}>{name}</Text>
-            <Text style={styles.info}>({info})</Text>
+            <Text style={[styles.name, styles.nameDetail]} numberOfLines={1} ellipsizeMode="tail">{name}</Text>
+            <Text style={styles.info} numberOfLines={1} ellipsizeMode="tail">{info}</Text>
           </View>
           { !detail && <Location location={location} /> }
         </View>
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     borderWidth: 1,
     borderColor: '#E7E9ED',
+    width: 200,
   },
   AdoptPetWrapDetail: {
     width: width / 2 - 25,
@@ -98,7 +100,8 @@ const styles = StyleSheet.create({
   },
   sizeL: {
     width: 200,
-    height: 160
+    height: 160,
+    objectFit: 'cover',
   },
   sizeM: {
     width: width / 2 - 25,
