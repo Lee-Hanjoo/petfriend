@@ -8,7 +8,8 @@ const Tag = (props) => {
   const titleMap = {
     '보호중': {style: styles.yellow, text: '보호중'},
     '공고중': {style: styles.green, text: '공고중'},
-    '종료(반환)': {style: styles.black, text: '종료'}, 
+    '종료(반환)': {style: styles.black, text: '종료(반환)'}, 
+    '종료(자연사)': {style: styles.black, text: '종료(자연사)'}, 
     '중성화X': {style: styles.gray, text: '중성화X'},
     '중성화O': {style: styles.blue, text: '중성화O'},
     '중성화미상': {style: styles.orange, text: '중성화 미상'},
@@ -22,17 +23,17 @@ const Tag = (props) => {
     <View 
       style={[ 
         styles.tag, 
-        titleMap[title].style,
+        titleMap[title] && titleMap[title].style,
       ]}
     >
       <Text 
         style={[
           styles.tagText, 
-          titleMap[title].style,
+          titleMap[title] && titleMap[title].style,
           bold && {fontWeight: '700'}
         ]}
       >
-        {titleMap[title].text}
+        {titleMap[title] ? titleMap[title].text : title}
       </Text>
     </View>
   )
@@ -50,13 +51,15 @@ const styles = StyleSheet.create({
     width: 'fit-content',
     paddingVertical: 4, 
     paddingHorizontal: 8, 
-    borderRadius: 999
+    borderRadius: 999,
+    backgroundColor: gray,
   },
   tagText : {
     fontSize: 12,
     // fontFamily: 'Wanted Sans',
     fontWeight: '700',
-    lineHeight: 14
+    lineHeight: 14,
+    color: tGray
   },
   green: {
     backgroundColor: '#E0F8D9',

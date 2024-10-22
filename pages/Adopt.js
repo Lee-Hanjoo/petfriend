@@ -7,6 +7,7 @@ import { useMenu } from '../MenuProvider'
 import axios from 'axios';
 import { api } from '../api/api'
 import store from '../state/store'
+import {BASE_URL,REACT_APP_API_KEY} from '@env'
 
 const Adopt = () => {
 
@@ -16,31 +17,15 @@ const Adopt = () => {
     breed, setBreed,
   } = useMenu();
 
-  const [apiType, setApiType] = useState('abandonmentPublic')
-  // 시도코드
-  const [uprCd, setUprCd] = useState('upr_cd=6110000')
-  // 시군구코드
-  const [orgCd, setOrgCd] = useState('org_cd=3220000')
-  // 축종코드 (개 : 417000, 고양이 : 422400, 기타 : 429900))
-  const [upKindCd, setUpKindCd] = useState('up_kind_cd=417000')
-  // 품종코드 
-  const [kindCd, setKindCd] = useState('kind_cd=000054')
-  // 이미지
-  const [popfile, setPopfile] = useState('kind_cd=000054')
-
-
   const [abandonmentPublicData, setAbandonmentPublicData] = useState([]);
 
   useEffect(()=>{
-    console.log('asdasdasdasdasdasd')
-    asd()
+    roadApi()
   },[])
 
-  const asd = () => {
-    const url = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/'
-    const key = `PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D&_type=json&numOfRows=10`
+  const roadApi = () => {
 
-    axios.get(`${url}${apiType}?serviceKey=${key}`)
+    axios.get(`${BASE_URL}abandonmentPublic?serviceKey=${REACT_APP_API_KEY}&numOfRows=10`)
 
     .then(function (res) {
       console.log(res.data.response.body.items.item)
@@ -52,6 +37,8 @@ const Adopt = () => {
 
     })
     .catch(function (error) {
+      console.log(BASE_URL, REACT_APP_API_KEY);
+      
       alert('데이터를 불러오는데 실패했습니다.')
     })
     .finally(function () {
@@ -72,7 +59,7 @@ const Adopt = () => {
           {abandonmentPublicData.map((item, i)=> 
             <AdoptPet 
               detail
-              key={item.desertionNo}
+              key={item.desertionNo + `${i}`}
               index={i}
               name={item.kindCd} 
               info={`${item.sexCd === 'M' ? '수컷' : item.sexCd === 'F' ? '암컷' : item.sexCd === 'Q' && '성별 미상'}, ${item.weight}, ${item.colorCd}`} 
