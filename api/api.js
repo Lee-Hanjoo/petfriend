@@ -1,28 +1,10 @@
 import axios from 'axios';
-import {BASE_URL,REACT_APP_API_KEY} from '@env'
-
-const instance = axios.create({
-  baseURL: BASE_URL,
-  params:{
-    serviceKey:REACT_APP_API_KEY,
-    _type: 'json'
-  }
-});
+import { BASE_URL, REACT_APP_API_KEY } from '@env'
 
 export const api = {
-  
-  // sido:async (type, orgCd, orgdownNm)=>{
-  //   const res = await instance.get(`/${type}`, {
-  //       params:{
-  //           orgCd: orgCd,
-  //           orgdownNm: orgdownNm
-  //       }
-  //   });
-  //   return res.data;
-  // },
 
   sido:async ()=>{
-    const res = await instance.get('sido');
+    const res = await axios.get(`${BASE_URL}sido?serviceKey=${REACT_APP_API_KEY}&_type=json`);
     return res.data;
   },
 
