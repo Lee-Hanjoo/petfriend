@@ -23,16 +23,24 @@ const Detail = (props) => {
     
   },[props])
 
+  // let age = data.age;
+  // let replaceAge = age.replace('(', ''); 
+  // let resultAge = replaceAge.replace(')', ''); 
+  
+  // let weight = data.weight;
+  // let replaceWeight = weight.replace('(', ''); 
+  // let resultWeight = replaceWeight.replace(')', ''); 
+
   if(!data) return;
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.imgWrap}>
-        <Image source={ImgPath.detail_sample} />
+        <Image source={{uri: data.popfile}} />
       </View>
       <View style={styles.nameWrap}>
         <View style={[styles.rowWrap, {gap: 8}]}>
-          <Tag title='보호중' />
+          <Tag title={data.processState} />
           <Text style={styles.name}>{data.kindCd}</Text>
         </View>
         <Heart border />
@@ -40,23 +48,23 @@ const Detail = (props) => {
       <View style={styles.boxWrap}>
         <View style={styles.rowWrap}>
           <Text style={styles.label}>성별</Text>
-          <Text style={styles.info}>수컷 (중성화 O)</Text>
+          <Text style={styles.info}>{data.sexCd === 'M' ? '수컷' : data.sexCd === 'F' ? '암컷' : data.sexCd === 'Q' && '성별 미상'} ({data.neuterYn === 'N' ? '중성화X' : data.neuterYn === 'Y' ? '중성화O' : data.neuterYn === 'U' && '중성화미상'})</Text>
         </View>
         <View style={styles.rowWrap}>
           <Text style={styles.label}>나이</Text>
-          <Text style={styles.info}>6개월</Text>
+          <Text style={styles.info}>{data.age}</Text>
         </View>
         <View style={styles.rowWrap}>
           <Text style={styles.label}>몸무게</Text>
-          <Text style={styles.info}>1.4Kg</Text>
+          <Text style={styles.info}>{data.weight}</Text>
         </View>
         <View style={styles.rowWrap}>
           <Text style={styles.label}>털 색상</Text>
-          <Text style={styles.info}>흰색, 회색</Text>
+          <Text style={styles.info}>{data.colorCd}</Text>
         </View>
         <View style={styles.rowWrap}>
           <Text style={styles.label}>특이사항</Text>
-          <Text style={styles.info}>다리 밑에서 주웠구요 목걸이같은건 없었어요.. 그리고 되게 귀엽게 생겼고, 발바닥이 분홍색이에요.</Text>
+          <Text style={styles.info}>{data.specialMark}</Text>
         </View>
       </View>
       <View style={styles.boxWrap}>
