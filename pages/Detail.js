@@ -19,6 +19,8 @@ const Detail = (props) => {
 
   useEffect(()=>{
     setData(props.route.params)
+    console.log(props);
+    
   },[props])
 
   if(!data) return;

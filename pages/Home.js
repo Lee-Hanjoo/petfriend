@@ -99,16 +99,22 @@ const Home = () => {
           <View>
             <Tab title={['강아지','고양이','기타']} tabIndex={tabIndex} setTabIndex={setTabIndex} />
             <ScrollView horizontal style={styles.list}>
-              {abandonmentPublicData.map((item, i)=> 
-                <AdoptPet 
-                  key={item.desertionNo}
-                  index={i}
-                  name={item.kindCd} 
-                  info={`${item.sexCd === 'M' ? '수컷' : item.sexCd === 'F' ? '암컷' : item.sexCd === 'Q' && '성별 미상'}, ${item.weight}`} 
-                  tagTitle={[`${item.processState}`, item.neuterYn === 'N' ? '중성화X' : item.neuterYn === 'Y' ? '중성화O' : item.neuterYn === 'U' && '중성화미상']} 
-                  location={item.orgNm}
-                  src={item.popfile} 
-                />
+              {abandonmentPublicData.map((item, i)=> {
+                let weight = item.weight;
+                let replaceWeight = weight.replace('(', ''); 
+                let resultWeight = replaceWeight.replace(')', ''); 
+                return (
+                  <AdoptPet 
+                    key={item.desertionNo}
+                    index={i}
+                    name={item.kindCd} 
+                    info={`${item.sexCd === 'M' ? '수컷' : item.sexCd === 'F' ? '암컷' : item.sexCd === 'Q' && '성별 미상'}, ${resultWeight}`} 
+                    tagTitle={[`${item.processState}`, item.neuterYn === 'N' ? '중성화X' : item.neuterYn === 'Y' ? '중성화O' : item.neuterYn === 'U' && '중성화미상']} 
+                    location={item.orgNm}
+                    src={item.popfile} 
+                  />
+                )
+              }
               )}
             </ScrollView>
           </View>

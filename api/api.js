@@ -1,11 +1,11 @@
 import axios from 'axios';
-
-const serviceKey = process.env.REACT_APP_API_KEY
+import {BASE_URL,REACT_APP_API_KEY} from '@env'
 
 const instance = axios.create({
-  baseURL: 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=',
+  baseURL: BASE_URL,
   params:{
-    api_key:process.env.REACT_APP_API_KEY,
+    serviceKey:REACT_APP_API_KEY,
+    _type: 'json'
   }
 });
 
@@ -22,8 +22,7 @@ export const api = {
   // },
 
   sido:async ()=>{
-    const res = await axios.get(`http://apis.data.go.kr/1543061/abandonmentPublicSrvc/sido?serviceKey=PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D&_type=json`);
-    // .get(url, {params: {serviceKey: 'key'}})   <<<왜 안되는지 쌤한테 질문
+    const res = await instance.get('sido');
     return res.data;
   },
 

@@ -56,18 +56,24 @@ const Adopt = () => {
       </View>
       <ScrollView style={styles.container}>
         <View style={styles.contents}>
-          {abandonmentPublicData.map((item, i)=> 
-            <AdoptPet 
-              detail
-              key={item.desertionNo + `${i}`}
-              index={i}
-              name={item.kindCd} 
-              info={`${item.sexCd === 'M' ? '수컷' : item.sexCd === 'F' ? '암컷' : item.sexCd === 'Q' && '성별 미상'}, ${item.weight}, ${item.colorCd}`} 
-              tagTitle={[`${item.processState}`, item.neuterYn === 'N' ? '중성화X' : item.neuterYn === 'Y' ? '중성화O' : item.neuterYn === 'U' && '중성화미상']} 
-              location={item.orgNm}
-              src={item.popfile} 
-              item={item}
-            />
+          {abandonmentPublicData.map((item, i)=> {
+            let weight = item.weight;
+            let replaceWeight = weight.replace('(', ''); 
+            let resultWeight = replaceWeight.replace(')', ''); 
+            return (
+              <AdoptPet 
+                detail
+                key={item.desertionNo + `${i}`}
+                index={i}
+                name={item.kindCd} 
+                info={`${item.sexCd === 'M' ? '수컷' : item.sexCd === 'F' ? '암컷' : item.sexCd === 'Q' && '성별 미상'}, ${resultWeight}, ${item.colorCd}`} 
+                tagTitle={[`${item.processState}`, item.neuterYn === 'N' ? '중성화X' : item.neuterYn === 'Y' ? '중성화O' : item.neuterYn === 'U' && '중성화미상']} 
+                location={item.orgNm}
+                src={item.popfile} 
+                item={item}
+              />
+            )
+          }
           )}
           {/* 더 불러오기 */}
           {/* <Pressable onPress={()=>{

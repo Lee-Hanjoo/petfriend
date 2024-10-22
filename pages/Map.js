@@ -57,8 +57,6 @@ const Map = () => {
     />
   );
 
-// 해야될거 - 셀렉트 스크롤, 디테일페이지, 지도api불러오기
-
   const renderScrollableContent = () => (
     <View>
       <View style={styles.mapWrap}></View>
