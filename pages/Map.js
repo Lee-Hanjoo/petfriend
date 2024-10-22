@@ -58,8 +58,12 @@ const Map = () => {
   );
 
   const renderScrollableContent = () => (
-    <View>
-      <View style={styles.mapWrap}></View>
+    <View style={styles.mapWrap}></View>
+  );
+
+  return (
+    <View style={styles.container}>
+      <Tab top icon title={['보호소', '동물병원', '놀이터']} tabIndex={tabIndex} setTabIndex={setTabIndex} />
       <View style={styles.selectWrap}>
         <Select placeholder='지역' items={location} setItems={setLocation} size={104} value={sidoCode} setValue={setSidoCode} />
         <Select placeholder='도시' items={city} setItems={setCity} size={84}  />
@@ -72,16 +76,10 @@ const Map = () => {
           onChangeText={setText} 
         />
       </View>
-    </View>
-  );
-
-  return (
-    <View style={styles.container}>
-      <Tab top icon title={['보호소', '동물병원', '놀이터']} tabIndex={tabIndex} setTabIndex={setTabIndex} />
       <FlatList
         data={new Array(12).fill()}
         ListHeaderComponent={renderScrollableContent}
-        ListHeaderComponentStyle={{zIndex:2}}
+        ListHeaderComponentStyle={{zIndex:1}}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.scrollableContainer}
@@ -101,7 +99,6 @@ const styles = StyleSheet.create({
   mapWrap: {
     width: '100%',
     height: 360,
-    marginTop: 4,
     marginBottom: 16,
     backgroundColor: 'gray',
   },
