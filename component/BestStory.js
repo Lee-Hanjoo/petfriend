@@ -19,7 +19,9 @@ const BestStory = (props) => {
         index == 0 && {marginLeft: 20}
       ]}
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('story')
+        setMenuActive('detail'); 
+        navigation.navigate('detail'); 
+        setDetailActive('story');
       }}
     >
       <Heart />
