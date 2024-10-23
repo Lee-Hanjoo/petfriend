@@ -11,7 +11,7 @@ const {width, height} = Dimensions.get('window')
 
 const MapListItem = (props) => {
   const [textPopup, setTextPopup] = useState(false)
-  const {title, location, callNum, licenseNum } = props;
+  const {title, location, callNum, lat, lng, startTime, endTime } = props;
   const [openMap, setOpenMap] = useState(false)
 
   const kakaoMap = `
@@ -30,14 +30,14 @@ const MapListItem = (props) => {
       document.addEventListener("DOMContentLoaded", function() {
         var mapContainer = document.getElementById('map'),
         mapOption = { 
-            center: new kakao.maps.LatLng(37.5665, 126.9780), // 서울 좌표
+            center: new kakao.maps.LatLng(${lat}, ${lng}), // 서울 좌표
             level: 3 // 확대 레벨
         };
 
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
         // 마커를 생성합니다
-        var markerPosition  = new kakao.maps.LatLng(37.5665, 126.9780); 
+        var markerPosition  = new kakao.maps.LatLng(${lat}, ${lng}); 
         var marker = new kakao.maps.Marker({
             position: markerPosition
         });
@@ -50,7 +50,7 @@ const MapListItem = (props) => {
 
   return (
     <View>
-      <TextPopup textPopup={textPopup} setTextPopup={setTextPopup} item={['인허가번호', '지도보기']} openMap={openMap} setOpenMap={setOpenMap} />
+      <TextPopup textPopup={textPopup} setTextPopup={setTextPopup} item={[`${startTime}~${endTime}`, '지도보기']} openMap={openMap} setOpenMap={setOpenMap} />
       <View style={styles.container}>
         <View style={[styles.mapWrap, openMap && styles.openMap]}>
           <Pressable style={styles.closeBtn} onPress={()=>{setOpenMap(false)}}>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   closeBtn: {
     position: 'absolute',
     right: 20,
-    top: 20,
+    bottom: 20,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 6,

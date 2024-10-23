@@ -25,10 +25,9 @@ const Adopt = () => {
 
   const roadApi = () => {
 
-    axios.get(`${BASE_URL}abandonmentPublic?serviceKey=${REACT_APP_API_KEY}&numOfRows=10`)
+    axios.get(`${BASE_URL}abandonmentPublic?serviceKey=${REACT_APP_API_KEY}&_type=json`)
 
     .then(function (res) {
-      console.log(res.data.response.body.items.item)
       if(abandonmentPublicData.length) {
         setAbandonmentPublicData([...abandonmentPublicData, ...res.data.response.body.items.item]);
       } else {
@@ -37,14 +36,14 @@ const Adopt = () => {
 
     })
     .catch(function (error) {
-      console.log(BASE_URL, REACT_APP_API_KEY);
-      
       alert('데이터를 불러오는데 실패했습니다.')
     })
     .finally(function () {
       // always executed
     });
   }
+
+  if(!abandonmentPublicData) return
 
   return (
     <View>

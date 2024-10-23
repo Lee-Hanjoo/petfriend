@@ -5,15 +5,7 @@ import { ImgPath } from '../ImgPath';
 
 const Select = (props) => {
   const [open, setOpen] = useState(false);
-  // const [value, setValue] = useState(null);
   const {placeholder, items, setItems,  size, marginRight, value, setValue } = props;
-
-  // useEffect(()=>{
-  //   console.log(`value`, value)
-  //   if(props.setSidoCode) {
-  //     // props.setSidoCode(value)
-  //   }
-  // },[value])
 
   return (
     <DropDownPicker

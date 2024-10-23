@@ -38,17 +38,15 @@ const Home = () => {
 
 
   const [abandonmentPublicData, setAbandonmentPublicData] = useState([]);
-  const [dataMore, setDataMore] = useState('10');
 
   useEffect(()=>{
     const url = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/'
-    const key = `PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D&_type=json&numOfRows=${dataMore}`
+    const key = `PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D&_type=json&numOfRows=10`
 
     axios.get(`${url}${apiType}?serviceKey=${key}`)
 
     .then(function (res) {
       setAbandonmentPublicData(res.data.response.body.items.item);
-      console.log(abandonmentPublicData);
       
     })
     .catch(function (error) {

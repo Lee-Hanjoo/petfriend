@@ -54,10 +54,15 @@ const Map = () => {
   const shelterApi = async () => {
     const shelter = await api.shelter(sidoCode, sigunguCode)
     setShelterInfo(shelter.response.body.items.item.map((v) => {
-      console.log(v);
       return {
-        // label: v.orgdownNm,
-        // value: v.orgCd
+        name: v.careNm,
+        tel: v.careTel,
+        orgName: v.orgNm,
+        lat: v.lat,
+        lng: v.lng,
+        closeDay: v.closeDay,
+        startTime: v.weekOprStime,
+        endTime: v.weekOprEtime
       }
     }))
   }
@@ -71,69 +76,7 @@ const Map = () => {
     shelterApi()
   }, [isFocused, sidoCode, sigunguCode]) 
 
-  const renderItem = () => (
-    <MapListItem 
-      title='(주)에니멀클리닉컨설팅(출장진료전문병원)' 
-      location='경기도 용인시 기흥구 신갈동' 
-      callNum='031-222-2233' 
-      licenseNum='1234' 
-    />
-  );
-
-//   const kakaoMap = `
-//   <!DOCTYPE html>
-//   <html lang="en">
-//   <head>
-//     <meta charset="UTF-8" />
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-//     <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;">
-//     <title>Kakao Map</title>
-//     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=${REACT_APP_KAKAO_KEY}"></script>
-//   </head>
-//   <body>
-//     <div id="map" style="width:calc(100% + 20px);height:360px;margin-left:-10px;margin-top:-10px;"></div>
-//     <script>
-//       document.addEventListener("DOMContentLoaded", function() {
-//         var mapContainer = document.getElementById('map'),
-//         mapOption = { 
-//             center: new kakao.maps.LatLng(37.5665, 126.9780), // 서울 좌표
-//             level: 3 // 확대 레벨
-//         };
-
-//         var map = new kakao.maps.Map(mapContainer, mapOption);
-
-//         // 마커를 생성합니다
-//         var markerPosition  = new kakao.maps.LatLng(37.5665, 126.9780); 
-//         var marker = new kakao.maps.Marker({
-//             position: markerPosition
-//         });
-//         marker.setMap(map);
-//       });
-//     </script>
-//   </body>
-//   </html>
-// `;
-
-
-  // const renderScrollableContent = () => (
-  //   <View style={styles.mapWrap}>
-  //     <Pressable style={styles.closeBtn} onPress={()=>{setOpenMap(false)}}>
-  //       <Text style={styles.closeBtnText}>닫기</Text>
-  //     </Pressable>
-  //     <WebView
-  //       originWhitelist={['*']}
-  //       javaScriptEnabled={true}
-  //       domStorageEnabled={true}
-  //       source={{html:kakaoMap}}
-  //       style={{zIndex: 999, width:width, height:360, backgroundColor: '#E7E9ED'}}
-  //       onError={(syntheticEvent) => {
-  //         const { nativeEvent } = syntheticEvent;
-  //         console.warn('WebView error: ', nativeEvent);
-  //       }}
-  //     />
-  //   </View>
-  // );
-
+  if(!shelterInfo) return
 
   return (
     <View style={styles.container}>
@@ -141,22 +84,23 @@ const Map = () => {
       <View style={styles.selectWrap}>
         <Select placeholder='지역' items={location} setItems={setLocation} size={164} value={sidoCode} setValue={setSidoCode} />
         <Select placeholder='도시' items={city} setItems={setCity} size={163} value={sigunguCode} setValue={setSigunguCode} />
-        {/* <TextInput 
-          placeholder='인허가번호' 
-          style={styles.input} 
-          placeholderTextColor='#8D96A4' 
-          value={text} 
-          onChangeText={setText} 
-        /> */}
       </View>
       <FlatList
-        data={new Array(12).fill()}
-        // ListHeaderComponent={renderScrollableContent}
-        // ListHeaderComponentStyle={[
-        //   {zIndex:1, width:width, height:360, display: 'none'},
-        //   openMap && styles.openMap
-        // ]}
-        renderItem={renderItem}
+        data={shelterInfo}
+        renderItem={({ item }) => {
+          return (
+            <MapListItem 
+              title={item.name}
+              location={item.orgName} 
+              callNum={item.tel}
+              lat={item.lat}
+              lng={item.lng}
+              closeDay={item.closeDay}
+              startTime={item.startTime}
+              endTime={item.endTime}
+            />
+          );
+        }}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.scrollableContainer}
       />

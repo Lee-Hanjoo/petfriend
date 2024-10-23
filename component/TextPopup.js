@@ -25,7 +25,7 @@ const TextPopup = (props) => {
 
 const styles = StyleSheet.create({
   textPopup: {
-    width: 92,
+    width: 120,
     position: 'absolute',
     right: 44,
     top: 12,
