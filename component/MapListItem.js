@@ -12,6 +12,7 @@ const {width, height} = Dimensions.get('window')
 const MapListItem = (props) => {
   const [textPopup, setTextPopup] = useState(false)
   const {title, location, callNum, lat, lng, startTime, endTime } = props;
+  
   const [openMap, setOpenMap] = useState(false)
 
   const kakaoMap = `
@@ -30,7 +31,7 @@ const MapListItem = (props) => {
       document.addEventListener("DOMContentLoaded", function() {
         var mapContainer = document.getElementById('map'),
         mapOption = { 
-            center: new kakao.maps.LatLng(${lat}, ${lng}), // 서울 좌표
+            center: new kakao.maps.LatLng(${lat}, ${lng}),
             level: 3 // 확대 레벨
         };
 
