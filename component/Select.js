@@ -38,6 +38,9 @@ const Select = (props) => {
       ArrowUpIconComponent={()=>(
         <Image source={ImgPath.select_up} />
       )}
+      translation={{
+        NOTHING_TO_SHOW: '데이터가 없습니다.'
+      }}
     />
   );
 }

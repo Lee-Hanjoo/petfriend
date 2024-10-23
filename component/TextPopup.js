@@ -4,12 +4,17 @@ import { Pressable } from 'react-native'
 import { View } from 'react-native'
 
 const TextPopup = (props) => {
-  const {textPopup, item} = props;
+  const {textPopup, setTextPopup, item, openMap, setOpenMap} = props;
   return (
-    <View style={[styles.textPopup, textPopup && styles.textPopupActive]}>
+    <View style={[styles.textPopup, textPopup && styles.textPopupActive, openMap && {top: 252}]}>
       {
         item.map((item,i)=>(
-          <Pressable key={i} onPress={()=>{console.log(item);}}>
+          <Pressable key={i} 
+            onPress={()=>{
+              item === '지도보기' && setOpenMap(true),
+              setTextPopup(false)
+            }}
+          >
             <Text style={styles.item}>{item}</Text>
           </Pressable>
         ))

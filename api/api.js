@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL, REACT_APP_API_KEY } from '@env'
+import { BASE_URL, BASE_URL_SHELTER, REACT_APP_API_KEY } from '@env'
 
 export const api = {
 
@@ -8,23 +8,19 @@ export const api = {
     return res.data;
   },
 
-  sigungu:async (type, uprCd, orgCd, orgdownNm)=>{
-    const res = await instance.get(`/${type}`, {
-      params:{
-        upr_cd: uprCd,
-        orgCd: orgCd,
-        orgdownNm: orgdownNm
+  sigungu:async (uprCd)=>{
+    const res = await axios.get(`${BASE_URL}sigungu?serviceKey=${REACT_APP_API_KEY}&_type=json`, {
+      params: {
+        upr_cd: uprCd
       }
     });
     return res.data;
   },
-  shelter:async (type, uprCd, orgCd, careRegNo, careNm)=>{
-    const res = await instance.get(`/${type}`, {
-      params:{
+  shelter:async (uprCd, orgCd)=>{
+    const res = await axios.get(`${BASE_URL_SHELTER}shelterInfo?serviceKey=${REACT_APP_API_KEY}&_type=json`, {
+      params: {
         upr_cd: uprCd,
         org_cd: orgCd,
-        careRegNo: careRegNo,
-        careNm: careNm
       }
     });
     return res.data;
