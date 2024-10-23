@@ -105,6 +105,7 @@ const Home = () => {
                 let resultWeight = replaceWeight.replace(')', ''); 
                 return (
                   <AdoptPet 
+                    item={item}
                     key={item.desertionNo}
                     index={i}
                     name={item.kindCd} 
@@ -112,7 +113,6 @@ const Home = () => {
                     tagTitle={[`${item.processState}`, item.neuterYn === 'N' ? '중성화X' : item.neuterYn === 'Y' ? '중성화O' : item.neuterYn === 'U' && '중성화미상']} 
                     location={item.orgNm}
                     src={item.popfile} 
-                    item={item}
                   />
                 )
               }

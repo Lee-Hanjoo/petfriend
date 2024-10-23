@@ -24,10 +24,8 @@ const AdoptPet = (props) => {
         (!detail && index == 0) && {marginLeft: 20}
         ]}
       onPress={()=>{
-        // console.log('item', item);
-        
         setMenuActive('detail'); 
-        navigation.navigate('detail', item); 
+        navigation.navigate('detail', {item}); 
         setDetailActive('adopt')
       }}
       >

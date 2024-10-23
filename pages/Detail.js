@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Dimensions, Image, Linking, Pressable, StyleSheet, Text, TextInput, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useMenu } from '../MenuProvider';
 import { ScrollView } from 'react-native';
@@ -11,33 +11,31 @@ import CommentItem from '../component/CommentItem';
 const {width, height} = Dimensions.get('window')
 
 const Detail = (props) => {
-
-  const navigation = useNavigation();
-  const { detailActive } = useMenu(); 
-  const [data, setData] = useState(undefined)
-
-
-  useEffect(()=>{
-    setData(props.route.params)
-    console.log(props);
-    
-  },[props])
-
-  // let age = data.age;
-  // let replaceAge = age.replace('(', ''); 
-  // let resultAge = replaceAge.replace(')', ''); 
   
-  // let weight = data.weight;
-  // let replaceWeight = weight.replace('(', ''); 
-  // let resultWeight = replaceWeight.replace(')', ''); 
+  const navigation = useNavigation();
+  const { detailActive } = useMenu();
+  const [data, setData] = useState(undefined);
+  
+  useEffect(() => {
+    if (props.route && props.route.params && props.route.params.item) {
+      setData(props.route.params.item);
+    }
+  }, [props.route.params]);
 
-  if(!data) return;
+  if (!data) return;
+
+  // 나이, 무게에 () 괄호 삭제
+  let age = data.age ? data.age.replace('(', '').replace(')', '') : '';
+  let weight = data.weight ? data.weight.replace('(', '').replace(')', '') : '';
+
+  // 날짜에 YYYY. MM. DD 포맷 추가
+  let happenDate = data.happenDt.replace(/(\d{4})(\d{2})(\d{2})/, '$1. $2. $3')
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.imgWrap}>
-        <Image source={{uri: data.popfile}} />
-      </View>
+      <ScrollView horizontal pagingEnabled style={styles.imgWrap}>
+        <Image source={{uri: data.popfile}} style={{width: width, height: 300, objectFit: 'cover'}} />
+      </ScrollView>
       <View style={styles.nameWrap}>
         <View style={[styles.rowWrap, {gap: 8}]}>
           <Tag title={data.processState} />
@@ -52,11 +50,11 @@ const Detail = (props) => {
         </View>
         <View style={styles.rowWrap}>
           <Text style={styles.label}>나이</Text>
-          <Text style={styles.info}>{data.age}</Text>
+          <Text style={styles.info}>{age}</Text>
         </View>
         <View style={styles.rowWrap}>
           <Text style={styles.label}>몸무게</Text>
-          <Text style={styles.info}>{data.weight}</Text>
+          <Text style={styles.info}>{weight}</Text>
         </View>
         <View style={styles.rowWrap}>
           <Text style={styles.label}>털 색상</Text>
@@ -70,15 +68,19 @@ const Detail = (props) => {
       <View style={styles.boxWrap}>
         <View style={styles.rowWrap}>
           <Text style={styles.label}>실종일</Text>
-          <Text style={styles.info}>2024. 10. 07</Text>
+          <Text style={styles.info}>{happenDate}</Text>
         </View>
         <View style={styles.rowWrap}>
-          <Text style={styles.label}>실종장소</Text>
-          <Text style={styles.info}>충청남도 공주시</Text>
+          <Text style={styles.label}>장소</Text>
+          <Text style={styles.info}>{data.careNm}</Text>
         </View>
         <View style={styles.rowWrap}>
           <Text style={styles.label}>연락처</Text>
-          <Text style={[styles.info, {color: '#00A8FF',textDecorationLine: 'underline'}]}>010-1234-1234</Text>
+          <Pressable 
+            onPress={()=>Linking.openURL(`tel:${data.careTel}`)}
+          >
+            <Text style={[styles.info, {color: '#00A8FF',textDecorationLine: 'underline'}]}>{data.careTel}</Text>
+          </Pressable>
         </View>
       </View>
       <View style={styles.commentWrap}>
@@ -101,9 +103,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   imgWrap: {
-    width: width,
+    width: 'fit-content',
     height: 300,
-    backgroundColor: '#E7E9ED'
+    backgroundColor: '#E7E9ED',
+    flexDirection: 'row',
   },
   nameWrap: {
     paddingVertical: 16,
