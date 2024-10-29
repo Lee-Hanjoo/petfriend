@@ -40,14 +40,16 @@ const CustomTabBar = ({menuItems}) => {
           <Image source={ImgPath.menu} />
         </Pressable>
       </View>
-      <Pressable style={styles.writeBtn} 
-        onPress={()=>{
-          setMenuActive('write');
-          navigation.navigate('write')
-        }}
-      >
-        <Image source={ImgPath.write} />
-      </Pressable>
+      { (menuActive === 'story' || menuActive === 'missing') &&
+        <Pressable style={styles.writeBtn} 
+          onPress={()=>{
+            setMenuActive('write');
+            navigation.navigate('write')
+          }}
+        >
+          <Image source={ImgPath.write} />
+        </Pressable>
+      }
     </View>
   )
 }

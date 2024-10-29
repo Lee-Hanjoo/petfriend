@@ -57,6 +57,7 @@ const MapListItem = (props) => {
           <Pressable style={styles.closeBtn} onPress={()=>{setOpenMap(false)}}>
             <Text style={styles.closeBtnText}>닫기</Text>
           </Pressable>
+          <View style={styles.mapArrow}></View>
           <WebView
             originWhitelist={['*']}
             javaScriptEnabled={true}
@@ -134,8 +135,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 240,
     flex: 1,
+    borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: '#8D96A4',
+    borderColor: '#1F2329',
     display: 'none'
   },
   openMap: {
@@ -154,6 +156,22 @@ const styles = StyleSheet.create({
   closeBtnText: {
     color: '#fff'
   },
+  mapArrow: {
+    width: 0,
+    height: 0,
+    borderBottomWidth: 8,
+    borderBottomColor: 'transparent',
+    borderTopWidth: 8,
+    borderTopColor: '#1F2329',
+    borderLeftWidth: 6,
+    borderLeftColor: 'transparent',
+    borderRightWidth: 6,
+    borderRightColor: 'transparent',
+    position: 'absolute',
+    left: '50%',
+    bottom: -16,
+    zIndex: 2
+  }
 })
 
 export default MapListItem

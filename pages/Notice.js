@@ -6,8 +6,7 @@ import { ScrollView } from 'react-native'
 const Notice = () => {
   return (
     <ScrollView style={styles.container}>
-      <NoticeItem badge title='동물보호관리시스템 오류 동물보호관리시스템 오류 동물보호관리시스템 오류 동물보호관리시스템 오류' date='2024. 06. 17' />
-      <NoticeItem title='동물보호관리시스템 오류' date='2024. 06. 17' />
+      <NoticeItem badge title='공지사항' date='2024. 06. 17' />
       {
         new Array(6).fill().map((item, i, filteredItems)=> {
           const isLastItem = i === filteredItems.length - 1;
