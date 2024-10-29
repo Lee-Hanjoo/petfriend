@@ -1,24 +1,53 @@
 import React from 'react'
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import NumBox from './NumBox';
 import { useNavigation } from '@react-navigation/native'
 import { useMenu } from '../MenuProvider';
+import * as Linking from 'expo-linking';
+import { Alert } from 'react-native';
+
+const {width, height} = Dimensions.get('window')
 
 const CommunityCard = (props) => {
 
-  const { src, title, desc, location, date, detail } = props;
+  const { src, title, desc, location, date, detail,link } = props;
 
   const navigation = useNavigation();
   const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
+  const linking = () => {
+    Linking.openURL(`${link}`)
+  }
   
+const showConfirm = () => {
+  Alert.alert(
+    "새로운 페이지 이동",
+    "이 작업을 진행하시겠습니까?",
+    [
+      {
+        text: "취소",
+        // onPress: () => console.log("취소"),
+        style: "cancel"
+      },
+      { 
+        text: "확인", 
+        onPress: () => linking()
+      }
+    ],
+    { cancelable: false }
+  );
+};
   return (
     <Pressable 
       style={styles.communityCardWrap}
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('community')
+        if(link) {
+          showConfirm()
+        } else {
+          setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('community')
+        }
       }}
     >
-      <Image source={src} />
+      <Image source={{uri: src}} style={{width: width, height: 200, objectFit: 'cover'}} />
       <View style={styles.top}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.desc} numberOfLines={2} ellipsizeMode="tail">{desc}</Text>
@@ -33,7 +62,7 @@ const CommunityCard = (props) => {
 
 const styles = StyleSheet.create({
   communityCardWrap: {
-    width: 336,
+    width: width - 40,
     marginLeft: 20,
     borderWidth: 1,
     borderColor: '#E7E9ED',
@@ -59,6 +88,7 @@ const styles = StyleSheet.create({
     color: '#8D96A4'
   },
   bottom: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -67,15 +97,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(231, 233, 237, 0.4)'
   },
   location: {
-    width: 136,
-    paddingLeft: 12,
     fontSize: 12,
     color: '#1F2329',
-    // fontFamily: 'Wanted Sans',
-    marginRight: 10
   },
   date: {
-    paddingRight: 12,
     fontSize: 12,
     color: '#1F2329',
     // fontFamily: 'Wanted Sans',
