@@ -50,6 +50,8 @@ export const ImgPath = {
     filter: require('./assets/images/icon/icon_filter.png'),
     write: require('./assets/images/icon/icon_write.png'),
     upload_img: require('./assets/images/icon/icon_upload_img.png'),
+    pin: require('./assets/images/icon/icon_pin.png'),
+    pin_on: require('./assets/images/icon/icon_pin_on.png'),
     /* sample */
     animal_01: require('./assets/images/img_visual_animal_01.png'),
     animal_02: require('./assets/images/img_visual_animal_02.png'),

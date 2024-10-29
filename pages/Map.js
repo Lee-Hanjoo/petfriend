@@ -14,7 +14,8 @@ const {width, height} = Dimensions.get('window')
 const Map = () => {
 
   const [text, setText] = useState('');
-
+  const [openMapIndex, setOpenMapIndex] = useState(null);
+  const [activePopupIndex, setActivePopupIndex] = useState(null);
   const [tabIndex, setTabIndex] = useState(0)
 
   // 이 페이지를 진입했을 때.
@@ -62,7 +63,7 @@ const Map = () => {
         lng: v.lng,
         closeDay: v.closeDay,
         startTime: v.weekOprStime,
-        endTime: v.weekOprEtime
+        endTime: v.weekOprEtime,
       }
     }))
   }
@@ -87,7 +88,7 @@ const Map = () => {
       </View>
       <FlatList
         data={shelterInfo}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
             <MapListItem 
               title={item.name}
@@ -98,6 +99,11 @@ const Map = () => {
               closeDay={item.closeDay}
               startTime={item.startTime}
               endTime={item.endTime}
+              openMapIndex={openMapIndex}
+              setOpenMapIndex={setOpenMapIndex}
+              activePopupIndex={activePopupIndex}
+              setActivePopupIndex={setActivePopupIndex}
+              index={index}
             />
           );
         }}

@@ -11,7 +11,7 @@ const {width, height} = Dimensions.get('window')
 
 const MapListItem = (props) => {
   const [textPopup, setTextPopup] = useState(false)
-  const {title, location, callNum, lat, lng, startTime, endTime } = props;
+  const {title, location, callNum, lat, lng, startTime, endTime, openMapIndex, setOpenMapIndex, index, activePopupIndex, setActivePopupIndex } = props;
   
   const [openMap, setOpenMap] = useState(false)
 
@@ -49,37 +49,45 @@ const MapListItem = (props) => {
   </html>
 `;
 
+const isOpen = openMapIndex === index;
+const isPopupOpen = activePopupIndex === index;
+
   return (
     <View>
-      <TextPopup textPopup={textPopup} setTextPopup={setTextPopup} item={[`${startTime}~${endTime}`, '지도보기']} openMap={openMap} setOpenMap={setOpenMap} />
+      <TextPopup 
+        textPopup={isPopupOpen} 
+        setTextPopup={() => setActivePopupIndex(isPopupOpen ? null : index)} 
+        item={[`${startTime}~${endTime}`, '지도보기']} 
+        openMap={isOpen} 
+        setOpenMap={() => setOpenMapIndex(isOpen ? null : index)} 
+      />
       <View style={styles.container}>
-        <View style={[styles.mapWrap, openMap && styles.openMap]}>
-          <Pressable style={styles.closeBtn} onPress={()=>{setOpenMap(false)}}>
-            <Text style={styles.closeBtnText}>닫기</Text>
-          </Pressable>
+        <View style={[styles.mapWrap, isOpen && styles.openMap]}>
           <View style={styles.mapArrow}></View>
-          <WebView
-            originWhitelist={['*']}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            source={{html:kakaoMap}}
-            style={{zIndex: 999, width:width, height:360, backgroundColor: '#E7E9ED'}}
-            onError={(syntheticEvent) => {
-              const { nativeEvent } = syntheticEvent;
-              console.warn('WebView error: ', nativeEvent);
-            }}
-          />
+          {isOpen && (
+            <WebView
+              originWhitelist={['*']}
+              javaScriptEnabled={true}
+              domStorageEnabled={true}
+              source={{ html: kakaoMap }}
+              style={{ zIndex: 999, width: width, height: 360, backgroundColor: '#E7E9ED' }}
+              onError={(syntheticEvent) => {
+                const { nativeEvent } = syntheticEvent;
+                console.warn('WebView error: ', nativeEvent);
+              }}
+            />
+          )}
         </View>
         <View style={styles.top}>
           <Text style={styles.title}>{title}</Text>
-          <Pressable style={styles.moreBtn} onPress={()=>{setTextPopup(!textPopup)}}>
+          <Pressable style={styles.moreBtn} onPress={() => setActivePopupIndex(isPopupOpen ? null : index)}>
             <Image source={ImgPath.more_btn} />
           </Pressable>
         </View>
         <View style={styles.bottom}>
           <Text style={styles.location}>{location}</Text>
           <Pressable>
-            <Text style={[styles.callNum, callNum === '' && styles.nonCallNum ]}>{callNum === '' ? '전화번호 미등록' : callNum}</Text>
+            <Text style={[styles.callNum, callNum === '' && styles.nonCallNum]}>{callNum === '' ? '전화번호 미등록' : callNum}</Text>
           </Pressable>
         </View>
       </View>
