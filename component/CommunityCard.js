@@ -5,19 +5,20 @@ import { useNavigation } from '@react-navigation/native'
 import { useMenu } from '../MenuProvider';
 import * as Linking from 'expo-linking';
 import { Alert } from 'react-native';
+import { ImgPath } from '../ImgPath';
 
 const {width, height} = Dimensions.get('window')
 
 const CommunityCard = (props) => {
 
-  const { src, title, desc, location, date, detail,link } = props;
+  const { src, title, desc, location, date, detail, link, event } = props;
 
   const navigation = useNavigation();
   const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
   const linking = () => {
     Linking.openURL(`${link}`)
   }
-  
+
 const showConfirm = () => {
   Alert.alert(
     "새로운 페이지 이동",
@@ -43,16 +44,22 @@ const showConfirm = () => {
         if(link) {
           showConfirm()
         } else {
-          setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('community')
+          setMenuActive('detail'); 
+          navigation.navigate('detail'); 
+          setDetailActive('community')
         }
       }}
     >
-      <Image source={{uri: src}} style={{width: width, height: 200, objectFit: 'cover'}} />
+      {link ? 
+        <Image source={{uri: src}} style={{width: width, height: 200, objectFit: 'cover'}} />
+        :
+        <Image source={src} style={{width: width, height: 200, objectFit: 'cover'}} />
+      }
       <View style={styles.top}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.desc} numberOfLines={2} ellipsizeMode="tail">{desc}</Text>
+        <Text style={styles.desc} numberOfLines={event ? 5 : 2} ellipsizeMode="tail">{desc}</Text>
       </View>
-      <View style={styles.bottom}>
+      <View style={[styles.bottom, event && styles.bottomEvent]}>
         <Text style={styles.location}>{location}</Text>
         <Text style={styles.date}>{date}</Text>
       </View>
@@ -95,6 +102,11 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 20,
     backgroundColor: 'rgba(231, 233, 237, 0.4)'
+  },
+  bottomEvent: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: 8
   },
   location: {
     fontSize: 12,

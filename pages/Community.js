@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, View } from 'react-native'
+import { Dimensions, Image, View } from 'react-native'
 import { StyleSheet, Text, ScrollView } from 'react-native'
 import Tab from '../component/Tab'
 import { ImgPath } from '../ImgPath'
@@ -8,6 +8,7 @@ import FilterPopup from '../component/FilterPopup'
 import Notice from '../pages/Notice'
 import FAQ from '../pages/FAQ'
 import { api } from '../api/api';
+import dataBase from '../dataBase/data.json'
 
 const {width, height} = Dimensions.get('window')
 
@@ -16,6 +17,31 @@ const Community = () => {
   const [filterPopup, setFilterPopup] = useState(false)
 
   const [tabIndex, setTabIndex] = useState(0)
+
+  // 캠페인&이벤트
+  const [eventData, setEventData] = useState(dataBase)
+  const getImage = (imageId) => {
+    switch (imageId) {
+      case 0:
+        return require('../assets/images/event/event_00.png');
+      case 1:
+        return require('../assets/images/event/event_01.jpg');
+      case 2:
+        return require('../assets/images/event/event_02.jpg');
+      case 3:
+        return require('../assets/images/event/event_03.jpeg');
+      case 4:
+        return require('../assets/images/event/event_04.jpg');
+      case 5:
+        return require('../assets/images/event/event_05.jpg');
+      case 6:
+        return require('../assets/images/event/event_06.png');
+      case 7:
+        return require('../assets/images/event/event_07.jpg');
+      default:
+        return require('../assets/images/event/event_default.jpg'); // 기본 이미지 설정
+    }
+  };
 
   // 뉴스
   const [newsData, setNewsData] = useState([])
@@ -48,17 +74,20 @@ const Community = () => {
         <View style={styles.contents}>
         {/* 캠페인&이벤트 */}
         {tabIndex === 0 &&
-          new Array(6).fill().map((item, i)=> 
-            <CommunityCard
-              detail
-              key={i}
-              src={ImgPath.animal_community}
-              title={`${i}튼튼 펫 페스타`}
-              desc='튼튼 펫 페스타는 반려인과 반려동물이 함께 넓은 야외 행사장에서 신나게 뛰어놀고 다양한 체험도 할 수 있는 행사이다. 짱좋은 행사이다 짱짱짱짱'
-              location='경기도 화성시'
-              date='2024. 10. 05 ~ 2024. 10. 06'
-            />
-        )}
+          eventData.items.map((item, i)=> {
+            return (
+              <CommunityCard
+                event
+                detail
+                key={item.id}
+                src={getImage(item.id)}
+                title={item.title}
+                desc={item.desc}
+                location={item.location}
+                date={`${item.startDate} ~ ${item.endDate}`}
+              />
+            )
+        })}
         {/* 2.뉴스 */}
         {tabIndex === 1 &&
           newsData.map((item, i)=> 
