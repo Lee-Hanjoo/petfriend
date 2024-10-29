@@ -20,10 +20,10 @@ const Adopt = () => {
   const [abandonmentPublicData, setAbandonmentPublicData] = useState([]);
 
   useEffect(()=>{
-    roadApi()
+    animalApi()
   },[])
 
-  const roadApi = () => {
+  const animalApi = () => {
 
     axios.get(`${BASE_URL}abandonmentPublic?serviceKey=${REACT_APP_API_KEY}&_type=json`)
 

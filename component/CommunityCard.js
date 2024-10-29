@@ -11,7 +11,7 @@ const {width, height} = Dimensions.get('window')
 
 const CommunityCard = (props) => {
 
-  const { src, title, desc, location, date, detail, link, event } = props;
+  const { src, title, desc, location, date, detail, link, event, home } = props;
 
   const navigation = useNavigation();
   const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
@@ -56,7 +56,7 @@ const showConfirm = () => {
         <Image source={src} style={{width: width, height: 200, objectFit: 'cover'}} />
       }
       <View style={styles.top}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title} numberOfLines={home ? 1 : 2}>{title}</Text>
         <Text style={styles.desc} numberOfLines={event ? 5 : 2} ellipsizeMode="tail">{desc}</Text>
       </View>
       <View style={[styles.bottom, event && styles.bottomEvent]}>

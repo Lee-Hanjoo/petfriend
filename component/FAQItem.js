@@ -9,6 +9,8 @@ const FAQItem = (props) => {
   const {question, index, last, answer} = props;
   const [isOpen, setIsOpen] = useState(null)
 
+  const formattedText = answer.replace(/\\n/g, '\n');
+
   return (
     <>
       <Pressable 
@@ -43,7 +45,7 @@ const FAQItem = (props) => {
       </Pressable>
       <View style={[styles.answerWrap, isOpen === index ? {maxHeight: 9999} : {maxHeight: 0}]}>
         <ScrollView style={styles.answerBox}>
-          <Text style={styles.answerText}>{answer}</Text>
+          <Text style={styles.answerText}>{formattedText}</Text>
         </ScrollView>
       </View>
     </>

@@ -12,6 +12,9 @@ import Carousel from 'react-native-reanimated-carousel'
 import { useNavigation } from '@react-navigation/native';
 import { useMenu } from '../MenuProvider';
 import axios from 'axios'
+import eventDataBase from '../dataBase/eventData.json'
+import { api } from '../api/api'
+import {BASE_URL,REACT_APP_API_KEY} from '@env'
 
 const {width, height} = Dimensions.get('window');
 
@@ -39,15 +42,66 @@ const Home = () => {
 
   const [abandonmentPublicData, setAbandonmentPublicData] = useState([]);
 
-  useEffect(()=>{
-    const url = 'http://apis.data.go.kr/1543061/abandonmentPublicSrvc/'
-    const key = `PNTnhM9wrxsZHo8d6ib69yUDWPKWGaTFlsey6wJEWn%2BNRugZHuKG3TliH4YsI2yhJGl0A4QUtryHa6WyDFWDzw%3D%3D&_type=json&numOfRows=10`
 
-    axios.get(`${url}${apiType}?serviceKey=${key}`)
+  // 커뮤니티 - 캠페인&이벤트
+  const [eventData, setEventData] = useState(eventDataBase)
+  const getImage = (imageId) => {
+    switch (imageId) {
+      case 0:
+        return require('../assets/images/event/event_00.png');
+      case 1:
+        return require('../assets/images/event/event_01.jpg');
+      case 2:
+        return require('../assets/images/event/event_02.jpg');
+      case 3:
+        return require('../assets/images/event/event_03.jpeg');
+      case 4:
+        return require('../assets/images/event/event_04.jpg');
+      case 5:
+        return require('../assets/images/event/event_05.jpg');
+      case 6:
+        return require('../assets/images/event/event_06.png');
+      case 7:
+        return require('../assets/images/event/event_07.jpg');
+      default:
+        return require('../assets/images/event/event_default.jpg');
+    }
+  };
+
+  // 커뮤니티 - 뉴스
+  const [newsData, setNewsData] = useState([])
+  const newsApi = async () => {
+    const news = await api.news()
+    setNewsData(news.data.map((v) => {
+      return {
+        id: v.id,
+        title: v.title,
+        publisher: v.publisher,
+        date: v.published_at,
+        summary: v.summary,
+        img: v.image_url,
+        link: v.content_url,
+        author: v.author
+      }
+    }))
+  }
+  
+  useEffect(()=>{
+    newsApi()
+    animalApi()
+  },[])
+
+  const animalApi = () => {
+
+    axios.get(`${BASE_URL}abandonmentPublic?serviceKey=${REACT_APP_API_KEY}&_type=json`)
 
     .then(function (res) {
-      setAbandonmentPublicData(res.data.response.body.items.item);
-      
+      if(abandonmentPublicData.length) {
+        setAbandonmentPublicData([...abandonmentPublicData, ...res.data.response.body.items.item]);
+      } else {
+        setAbandonmentPublicData(res.data.response.body.items.item);
+      }
+
     })
     .catch(function (error) {
       alert('데이터를 불러오는데 실패했습니다.')
@@ -55,7 +109,9 @@ const Home = () => {
     .finally(function () {
       // always executed
     });
-  },[])
+  }
+
+  if(!abandonmentPublicData) return;
 
   return (
     <ScrollView style={styles.container}>
@@ -155,31 +211,63 @@ const Home = () => {
         <View style={[styles.section, {marginBottom: 0}]}>
           <MainTitle titleEng={menuItems[5].title} title={menuItems[5].krTitle} />
           <View>
-            <Tab second title={['캠페인&이벤트','자원봉사','뉴스']} tabSecIndex={tabSecIndex} setTabSecIndex={setTabSecIndex} />
+            <Tab second title={['뉴스','캠페인&이벤트']} tabSecIndex={tabSecIndex} setTabSecIndex={setTabSecIndex} />
             <View style={styles.community}>
-              <Carousel
-                loop={true}
-                snapEnabled={true}
-                width={width}
-                height={362}
-                autoPlay={true}
-                data={[...new Array(3).keys()]}
-                scrollAnimationDuration={2000}
-                mode="parallax"
-                modeConfig={{
-                  parallaxScrollingScale: 1,
-                  parallaxScrollingOffset: 28,
-                }}
-                renderItem={({ index }) => (
-                  <CommunityCard 
-                    src={ImgPath.animal_community}
-                    title={`${index}튼튼 펫 페스타`}
-                    desc='튼튼 펫 페스타는 반려인과 반려동물이 함께 넓은 야외 행사장에서 신나게 뛰어놀고 다양한 체험도 할 수 있는 행사이다. 짱좋은 행사이다 짱짱짱짱'
-                    location='경기도 화성시'
-                    date='2024. 10. 05 ~ 2024. 10. 06'
-                  />
-                )}
-              />
+              {tabSecIndex === 0 &&
+                <Carousel
+                  loop={true}
+                  snapEnabled={true}
+                  width={width}
+                  height={362}
+                  autoPlay={true}
+                  data={newsData}
+                  scrollAnimationDuration={3000}
+                  mode="parallax"
+                  modeConfig={{
+                    parallaxScrollingScale: 1,
+                    parallaxScrollingOffset: 28,
+                  }}
+                  renderItem={({ item, index }) => (
+                    <CommunityCard
+                      home
+                      key={item.id}
+                      src={item.img}
+                      title={item.title}
+                      desc={item.summary}
+                      location={`${item.publisher} ${item.author && '('+item.author+')'}`}
+                      date={item.date}
+                      link={item.link}
+                    />
+                  )}
+                />
+              }
+              {tabSecIndex === 1 &&
+                <Carousel
+                  loop={true}
+                  snapEnabled={true}
+                  width={width}
+                  height={362}
+                  autoPlay={true}
+                  data={eventData.items}
+                  scrollAnimationDuration={3000}
+                  mode="parallax"
+                  modeConfig={{
+                    parallaxScrollingScale: 1,
+                    parallaxScrollingOffset: 28,
+                  }}
+                  renderItem={({ item, index }) => (
+                    <CommunityCard
+                      event
+                      key={item.id}
+                      src={getImage(item.id)}
+                      title={item.title}
+                      desc={item.desc}
+                      location={item.location}
+                      date={`${item.startDate} ~ ${item.endDate}`}
+                    />
+                  )}
+                />
+              }
             </View>
           </View>
         </View>

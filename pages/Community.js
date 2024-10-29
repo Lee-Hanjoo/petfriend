@@ -8,7 +8,7 @@ import FilterPopup from '../component/FilterPopup'
 import Notice from '../pages/Notice'
 import FAQ from '../pages/FAQ'
 import { api } from '../api/api';
-import dataBase from '../dataBase/data.json'
+import eventDataBase from '../dataBase/eventData.json'
 
 const {width, height} = Dimensions.get('window')
 
@@ -19,7 +19,7 @@ const Community = () => {
   const [tabIndex, setTabIndex] = useState(0)
 
   // 캠페인&이벤트
-  const [eventData, setEventData] = useState(dataBase)
+  const [eventData, setEventData] = useState(eventDataBase)
   const getImage = (imageId) => {
     switch (imageId) {
       case 0:
@@ -68,13 +68,27 @@ const Community = () => {
 
   return (
     <View>
-      <Tab faq top filter title={['캠페인&이벤트', '뉴스', '공지사항', 'FAQ']} filterPopup={filterPopup} setFilterPopup={setFilterPopup} tabIndex={tabIndex} setTabIndex={setTabIndex} />
+      <Tab faq top filter title={['뉴스', '캠페인&이벤트', '공지사항', 'FAQ']} filterPopup={filterPopup} setFilterPopup={setFilterPopup} tabIndex={tabIndex} setTabIndex={setTabIndex} />
       <FilterPopup filterPopup={filterPopup} setFilterPopup={setFilterPopup} tabIndex={tabIndex} />
       <ScrollView style={styles.container}>
         <View style={styles.contents}>
-        {/* 캠페인&이벤트 */}
+        {/* 1.뉴스 */}
         {tabIndex === 0 &&
-          eventData.items.map((item, i)=> {
+          newsData.map((item, index)=> 
+            <CommunityCard
+              detail
+              key={item.id}
+              src={item.img}
+              title={item.title}
+              desc={item.summary}
+              location={`${item.publisher} ${item.author && '('+item.author+')'}`}
+              date={item.date}
+              link={item.link}
+            />
+        )}
+        {/* 2. 캠페인&이벤트 */}
+        {tabIndex === 1 &&
+          eventData.items.map((item, index)=> {
             return (
               <CommunityCard
                 event
@@ -88,20 +102,6 @@ const Community = () => {
               />
             )
         })}
-        {/* 2.뉴스 */}
-        {tabIndex === 1 &&
-          newsData.map((item, i)=> 
-            <CommunityCard
-              detail
-              key={item.id}
-              src={item.img}
-              title={item.title}
-              desc={item.summary}
-              location={`${item.publisher} ${item.author && '('+item.author+')'}`}
-              date={item.date}
-              link={item.link}
-            />
-        )}
         {/* 3.공지사항 */}
         {tabIndex === 2 && <Notice />}
         {/* 4.FAQ */}
