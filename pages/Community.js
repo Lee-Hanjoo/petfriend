@@ -99,6 +99,7 @@ const Community = () => {
                 desc={item.desc}
                 location={item.location}
                 date={`${item.startDate} ~ ${item.endDate}`}
+                itemEvent={item}
               />
             )
         })}

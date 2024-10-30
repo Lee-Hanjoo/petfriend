@@ -11,7 +11,7 @@ const {width, height} = Dimensions.get('window')
 
 const CommunityCard = (props) => {
 
-  const { src, title, desc, location, date, detail, link, event, home } = props;
+  const { src, title, desc, location, date, detail, link, event, home, itemEvent } = props;
 
   const navigation = useNavigation();
   const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
@@ -45,15 +45,15 @@ const showConfirm = () => {
           showConfirm()
         } else {
           setMenuActive('detail'); 
-          navigation.navigate('detail'); 
-          setDetailActive('community')
+          navigation.navigate('detail', {itemEvent}); 
+          setDetailActive('event')
         }
       }}
     >
       {link ? 
-        <Image source={{uri: src}} style={{width: width, height: 200, objectFit: 'cover'}} />
+        <Image source={{uri: src}} style={{width: width, height: 200, resizeMode: 'cover'}} />
         :
-        <Image source={src} style={{width: width, height: 200, objectFit: 'cover'}} />
+        <Image source={src} style={{width: width, height: 200, resizeMode: 'cover'}} />
       }
       <View style={styles.top}>
         <Text style={styles.title} numberOfLines={home ? 1 : 2}>{title}</Text>

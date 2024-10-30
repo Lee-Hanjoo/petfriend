@@ -18,6 +18,31 @@ const Detail = (props) => {
   const [animalData, setAnimalData] = useState(undefined);
   // 공지사항
   const [noticeData, setNoticeData] = useState(undefined);
+  // 캠페인&이벤트
+  const [eventData, setEventData] = useState(undefined);
+
+  const getImage = (imageId) => {
+    switch (imageId) {
+      case 0:
+        return require('../assets/images/event/event_00.png');
+      case 1:
+        return require('../assets/images/event/event_01.jpg');
+      case 2:
+        return require('../assets/images/event/event_02.jpg');
+      case 3:
+        return require('../assets/images/event/event_03.jpeg');
+      case 4:
+        return require('../assets/images/event/event_04.jpg');
+      case 5:
+        return require('../assets/images/event/event_05.jpg');
+      case 6:
+        return require('../assets/images/event/event_06.png');
+      case 7:
+        return require('../assets/images/event/event_07.jpg');
+      default:
+        return require('../assets/images/event/event_default.jpg'); // 기본 이미지 설정
+    }
+  };
   
   useEffect(() => {
     if (props.route && props.route.params) {
@@ -25,29 +50,35 @@ const Detail = (props) => {
         setAnimalData(props.route.params.itemAnimal);
       } else if (props.route.params.itemNotice) {
         setNoticeData(props.route.params.itemNotice)
+      } else if (props.route.params.itemEvent) {
+        setEventData(props.route.params.itemEvent)
       }
     }
-  }, [props.route.params, previousMenuActive, animalData, noticeData]);
+    
+  }, [props.route.params, previousMenuActive, animalData, noticeData, eventData]);
   
+  let age='', weight='', happenDate='';
   if(animalData) {
     // 나이, 무게에 () 괄호 삭제
-    let age = animalData.age ? animalData.age.replace('(', '').replace(')', '') : '';
-    let weight = animalData.weight ? animalData.weight.replace('(', '').replace(')', '') : '';
-    
+    age = animalData.age ? animalData.age.replace('(', '').replace(')', '') : '';
+    weight = animalData.weight ? animalData.weight.replace('(', '').replace(')', '') : '';
     // 날짜에 YYYY. MM. DD 포맷 추가
-    let happenDate = animalData.happenDt.replace(/(\d{4})(\d{2})(\d{2})/, '$1. $2. $3')
+    happenDate = animalData.happenDt.replace(/(\d{4})(\d{2})(\d{2})/, '$1. $2. $3')
   }
 
-  if (!animalData && previousMenuActive === 'adopt') return null;
-  if (!noticeData && previousMenuActive === 'community') return null;
+  // 입양 대기 동물
+  if (previousMenuActive === 'adopt' && !animalData) return null;
+  // 커뮤니티: 공지사항 또는 이벤트
+  if (previousMenuActive === 'community' && !noticeData && !eventData) return null;
+
 
   return (
     <ScrollView style={styles.container}>
-      {
+      {/* 입양 대기 동물 */}{
         (previousMenuActive === 'home' || previousMenuActive === 'adopt') && animalData &&
         <>
           <ScrollView horizontal pagingEnabled style={styles.imgWrap}>
-            <Image source={{uri: animalData.popfile}} style={{width: width, height: 300, objectFit: 'cover'}} />
+            <Image source={{uri: animalData.popfile}} style={{width: width, height: 300, resizeMode: 'cover'}} />
           </ScrollView>
           <View style={styles.nameWrap}>
             <View style={[styles.rowWrap, {gap: 8}]}>
@@ -108,8 +139,7 @@ const Detail = (props) => {
           </View>
         </>
       }
-      {/* {"badge": true, "date": "2024. 06. 17", "desc": "내용", "id": 0, "title": "공지사항입니다"} */}
-      {
+      {/* 공지사항 */}{
         (previousMenuActive === 'home' || previousMenuActive === 'community') && noticeData &&
         <>
         <View style={styles.nameWrap}>
@@ -118,7 +148,7 @@ const Detail = (props) => {
             <Text style={[styles.name, {width: width - 85}]}>{noticeData.title}</Text>
           </View>
         </View>
-        <View style={[styles.boxWrap, {backgroundColor: 'rgba(231, 233, 237, 0.4)'}]}>
+        <View style={[styles.boxWrap, {paddingBottom: 64, backgroundColor: 'rgba(231, 233, 237, 0.4)'}]}>
           <Text style={styles.date}>
             {noticeData.date}
           </Text>
@@ -126,6 +156,63 @@ const Detail = (props) => {
             {noticeData.desc}
           </Text>
         </View>
+        </>
+      }
+      {/* 캠페인&이벤트 */}{
+        (previousMenuActive === 'home' || previousMenuActive === 'community') && eventData &&
+        <>
+          <ScrollView horizontal pagingEnabled style={[styles.imgWrap, {height: 400}]}>
+            <Image source={getImage(eventData.id)} style={{width: width, height: '100%', resizeMode: 'cover'}} />
+            {
+              eventData.imgs &&
+              eventData.imgs.map((item, i)=>
+                item ? (
+                  <Image key={i} source={{uri: eventData.imgs[i]}} style={{width: width, height: '100%', resizeMode: 'cover'}} />
+                )
+                :
+                null
+              )
+            }
+          </ScrollView>
+          <View style={styles.nameWrap}>
+            <Text style={styles.name}>{eventData.title}</Text>
+          </View>
+          <View style={styles.boxWrap}>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>소개</Text>
+              <Text style={styles.info}>{eventData.desc}</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>내용</Text>
+              <Text style={styles.info}>{eventData.summary}</Text>
+            </View>
+          </View>
+          <View style={[styles.boxWrap, {paddingBottom: 64}]}>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>장소</Text>
+              <Text style={styles.info}>{eventData.location}</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>일정</Text>
+              <Text style={styles.info}>{eventData.startDate} ~ {eventData.endDate}</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>시간</Text>
+              <Text style={styles.info}>{eventData.time}</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>참가비용</Text>
+              <Text style={styles.info}>{eventData.price}</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>연락처</Text>
+              <Pressable 
+                onPress={()=>Linking.openURL(`tel:${eventData.tel}`)}
+              >
+                <Text style={[styles.info, {color: '#00A8FF',textDecorationLine: 'underline'}]}>{eventData.tel}</Text>
+              </Pressable>
+            </View>
+          </View>
         </>
       }
     </ScrollView>

@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   sizeL: {
     width: 200,
     height: 160,
-    objectFit: 'cover',
+    resizeMode: 'cover',
   },
   sizeM: {
     width: width / 2 - 25,
