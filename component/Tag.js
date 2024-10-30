@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8, 
     borderRadius: 999,
     backgroundColor: gray,
+    marginBottom: 'auto'
   },
   tagText : {
     fontSize: 12,

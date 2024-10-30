@@ -30,15 +30,21 @@ const NoticeItem = (props) => {
         <Text 
           style={[
             styles.title, 
-            badge ? {width: width - 81} : {width: width - 44},
+            badge ? {width: width - 85} : {width: width - 40},
           ]}
-          numberOfLines={1}
-          ellipsizeMode="tail" 
+          // numberOfLines={2}
+          // ellipsizeMode="tail" 
         >
           {title}
         </Text>
       </View>
-      <Text style={styles.date}>{date}</Text>
+      <Text style={[
+        styles.date,
+        // badge ? {marginLeft: 45} : {marginLeft: 0}
+        ]}
+      >
+        {date}
+      </Text>
     </Pressable>
   )
 }
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
   titleWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: 8,
   },
   title: {
     fontSize: 16,

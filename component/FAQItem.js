@@ -83,7 +83,8 @@ const styles = StyleSheet.create({
     padding: 20
   },
   answerText: {
-    color: 'rgba(31, 35, 41, 0.8)'
+    color: 'rgba(31, 35, 41, 0.8)',
+    lineHeight: 18
   }
 })
 

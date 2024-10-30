@@ -26,21 +26,20 @@ const Detail = (props) => {
       } else if (props.route.params.itemNotice) {
         setNoticeData(props.route.params.itemNotice)
       }
-      console.log(noticeData);
     }
-
-    console.log(previousMenuActive);
+  }, [props.route.params, previousMenuActive, animalData, noticeData]);
+  
+  if(animalData) {
+    // 나이, 무게에 () 괄호 삭제
+    let age = animalData.age ? animalData.age.replace('(', '').replace(')', '') : '';
+    let weight = animalData.weight ? animalData.weight.replace('(', '').replace(')', '') : '';
     
-  }, [props.route.params]);
+    // 날짜에 YYYY. MM. DD 포맷 추가
+    let happenDate = animalData.happenDt.replace(/(\d{4})(\d{2})(\d{2})/, '$1. $2. $3')
+  }
 
-  if (!animalData) return;
-
-  // 나이, 무게에 () 괄호 삭제
-  let age = animalData.age ? animalData.age.replace('(', '').replace(')', '') : '';
-  let weight = animalData.weight ? animalData.weight.replace('(', '').replace(')', '') : '';
-
-  // 날짜에 YYYY. MM. DD 포맷 추가
-  let happenDate = animalData.happenDt.replace(/(\d{4})(\d{2})(\d{2})/, '$1. $2. $3')
+  if (!animalData && previousMenuActive === 'adopt') return null;
+  if (!noticeData && previousMenuActive === 'community') return null;
 
   return (
     <ScrollView style={styles.container}>
@@ -113,11 +112,20 @@ const Detail = (props) => {
       {
         (previousMenuActive === 'home' || previousMenuActive === 'community') && noticeData &&
         <>
-          <View style={styles.nameWrap}>
-            <View style={[styles.rowWrap, {gap: 8}]}>
-              <Text style={styles.name}>hddpreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivei</Text>
-            </View>
+        <View style={styles.nameWrap}>
+          <View style={[styles.rowWrap, {gap: 8}]}>
+            {noticeData.badge && <Tag bold title={'필독'} />}
+            <Text style={[styles.name, {width: width - 85}]}>{noticeData.title}</Text>
           </View>
+        </View>
+        <View style={[styles.boxWrap, {backgroundColor: 'rgba(231, 233, 237, 0.4)'}]}>
+          <Text style={styles.date}>
+            {noticeData.date}
+          </Text>
+          <Text style={{lineHeight: 18}}>
+            {noticeData.desc}
+          </Text>
+        </View>
         </>
       }
     </ScrollView>
@@ -193,7 +201,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '700',
     lineHeight: 18
-  }
+  },
+  date: {
+    color: '#8D96A4',
+    textAlign: 'right'
+  },
 })
 
 export default Detail
