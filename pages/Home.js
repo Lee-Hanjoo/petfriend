@@ -40,7 +40,7 @@ const Home = () => {
   const [popfile, setPopfile] = useState('kind_cd=000054')
 
 
-  const [abandonmentPublicData, setAbandonmentPublicData] = useState([]);
+  const [animalData, setAnimalData] = useState([]);
 
 
   // 커뮤니티 - 캠페인&이벤트
@@ -96,10 +96,10 @@ const Home = () => {
     axios.get(`${BASE_URL}abandonmentPublic?serviceKey=${REACT_APP_API_KEY}&_type=json`)
 
     .then(function (res) {
-      if(abandonmentPublicData.length) {
-        setAbandonmentPublicData([...abandonmentPublicData, ...res.data.response.body.items.item]);
+      if(animalData.length) {
+        setAnimalData([...animalData, ...res.data.response.body.items.item]);
       } else {
-        setAbandonmentPublicData(res.data.response.body.items.item);
+        setAnimalData(res.data.response.body.items.item);
       }
 
     })
@@ -111,7 +111,7 @@ const Home = () => {
     });
   }
 
-  if(!abandonmentPublicData) return;
+  if(!animalData) return;
 
   return (
     <ScrollView style={styles.container}>
@@ -153,13 +153,12 @@ const Home = () => {
           <View>
             <Tab title={['강아지','고양이','기타']} tabIndex={tabIndex} setTabIndex={setTabIndex} />
             <ScrollView horizontal style={styles.list}>
-              {abandonmentPublicData.map((item, i)=> {
+              {animalData.map((item, i)=> {
                 let weight = item.weight;
                 let replaceWeight = weight.replace('(', ''); 
                 let resultWeight = replaceWeight.replace(')', ''); 
                 return (
                   <AdoptPet 
-                    item={item}
                     key={item.desertionNo}
                     index={i}
                     name={item.kindCd} 
@@ -167,6 +166,7 @@ const Home = () => {
                     tagTitle={[`${item.processState}`, item.neuterYn === 'N' ? '중성화X' : item.neuterYn === 'Y' ? '중성화O' : item.neuterYn === 'U' && '중성화미상']} 
                     location={item.orgNm}
                     src={item.popfile} 
+                    itemAnimal={item}
                   />
                 )
               }

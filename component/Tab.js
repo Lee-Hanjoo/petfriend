@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   filterWrap: {
     paddingRight: 20,
-    width: 85,
+    width: 72,
     alignItems: 'flex-end',
     justifyContent: 'center'
   },

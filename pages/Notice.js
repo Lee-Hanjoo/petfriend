@@ -19,7 +19,7 @@ const Notice = () => {
               badge={item.badge}
               title={item.title} 
               date={item.date} 
-              item={item}
+              itemNotice={item}
             /> 
           )
       })

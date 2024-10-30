@@ -17,7 +17,7 @@ const Adopt = () => {
     breed, setBreed,
   } = useMenu();
 
-  const [abandonmentPublicData, setAbandonmentPublicData] = useState([]);
+  const [animalData, setAnimalData] = useState([]);
 
   useEffect(()=>{
     animalApi()
@@ -28,12 +28,11 @@ const Adopt = () => {
     axios.get(`${BASE_URL}abandonmentPublic?serviceKey=${REACT_APP_API_KEY}&_type=json`)
 
     .then(function (res) {
-      if(abandonmentPublicData.length) {
-        setAbandonmentPublicData([...abandonmentPublicData, ...res.data.response.body.items.item]);
+      if(animalData.length) {
+        setAnimalData([...animalData, ...res.data.response.body.items.item]);
       } else {
-        setAbandonmentPublicData(res.data.response.body.items.item);
+        setAnimalData(res.data.response.body.items.item);
       }
-
     })
     .catch(function (error) {
       alert('데이터를 불러오는데 실패했습니다.')
@@ -43,7 +42,7 @@ const Adopt = () => {
     });
   }
 
-  if(!abandonmentPublicData) return
+  if(!animalData) return
 
   return (
     <View>
@@ -55,7 +54,7 @@ const Adopt = () => {
       </View>
       <ScrollView style={styles.container}>
         <View style={styles.contents}>
-          {abandonmentPublicData.map((item, i)=> {
+          {animalData.map((item, i)=> {
             let weight = item.weight;
             let replaceWeight = weight.replace('(', ''); 
             let resultWeight = replaceWeight.replace(')', ''); 
@@ -69,7 +68,7 @@ const Adopt = () => {
                 tagTitle={[`${item.processState}`, item.neuterYn === 'N' ? '중성화X' : item.neuterYn === 'Y' ? '중성화O' : item.neuterYn === 'U' && '중성화미상']} 
                 location={item.orgNm}
                 src={item.popfile} 
-                item={item}
+                itemAnimal={item}
               />
             )
           }

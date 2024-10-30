@@ -13,86 +13,111 @@ const {width, height} = Dimensions.get('window')
 const Detail = (props) => {
   
   const navigation = useNavigation();
-  const { detailActive } = useMenu();
-  const [data, setData] = useState(undefined);
+  const { previousMenuActive } = useMenu();
+  // 입양 대기 동물
+  const [animalData, setAnimalData] = useState(undefined);
+  // 공지사항
+  const [noticeData, setNoticeData] = useState(undefined);
   
   useEffect(() => {
-    if (props.route && props.route.params && props.route.params.item) {
-      setData(props.route.params.item);
+    if (props.route && props.route.params) {
+      if(props.route.params.itemAnimal){
+        setAnimalData(props.route.params.itemAnimal);
+      } else if (props.route.params.itemNotice) {
+        setNoticeData(props.route.params.itemNotice)
+      }
+      console.log(noticeData);
+      
     }
+
+    console.log(previousMenuActive);
+    
   }, [props.route.params]);
 
-  if (!data) return;
+  if (!animalData) return;
 
   // 나이, 무게에 () 괄호 삭제
-  let age = data.age ? data.age.replace('(', '').replace(')', '') : '';
-  let weight = data.weight ? data.weight.replace('(', '').replace(')', '') : '';
+  let age = animalData.age ? animalData.age.replace('(', '').replace(')', '') : '';
+  let weight = animalData.weight ? animalData.weight.replace('(', '').replace(')', '') : '';
 
   // 날짜에 YYYY. MM. DD 포맷 추가
-  let happenDate = data.happenDt.replace(/(\d{4})(\d{2})(\d{2})/, '$1. $2. $3')
+  let happenDate = animalData.happenDt.replace(/(\d{4})(\d{2})(\d{2})/, '$1. $2. $3')
 
   return (
     <ScrollView style={styles.container}>
-      <ScrollView horizontal pagingEnabled style={styles.imgWrap}>
-        <Image source={{uri: data.popfile}} style={{width: width, height: 300, objectFit: 'cover'}} />
-      </ScrollView>
-      <View style={styles.nameWrap}>
-        <View style={[styles.rowWrap, {gap: 8}]}>
-          <Tag title={data.processState} />
-          <Text style={styles.name}>{data.kindCd}</Text>
-        </View>
-        <Heart border />
-      </View>
-      <View style={styles.boxWrap}>
-        <View style={styles.rowWrap}>
-          <Text style={styles.label}>성별</Text>
-          <Text style={styles.info}>{data.sexCd === 'M' ? '수컷' : data.sexCd === 'F' ? '암컷' : data.sexCd === 'Q' && '성별 미상'} ({data.neuterYn === 'N' ? '중성화X' : data.neuterYn === 'Y' ? '중성화O' : data.neuterYn === 'U' && '중성화미상'})</Text>
-        </View>
-        <View style={styles.rowWrap}>
-          <Text style={styles.label}>나이</Text>
-          <Text style={styles.info}>{age}</Text>
-        </View>
-        <View style={styles.rowWrap}>
-          <Text style={styles.label}>몸무게</Text>
-          <Text style={styles.info}>{weight}</Text>
-        </View>
-        <View style={styles.rowWrap}>
-          <Text style={styles.label}>털 색상</Text>
-          <Text style={styles.info}>{data.colorCd}</Text>
-        </View>
-        <View style={styles.rowWrap}>
-          <Text style={styles.label}>특이사항</Text>
-          <Text style={styles.info}>{data.specialMark}</Text>
-        </View>
-      </View>
-      <View style={styles.boxWrap}>
-        <View style={styles.rowWrap}>
-          <Text style={styles.label}>실종일</Text>
-          <Text style={styles.info}>{happenDate}</Text>
-        </View>
-        <View style={styles.rowWrap}>
-          <Text style={styles.label}>장소</Text>
-          <Text style={styles.info}>{data.careNm}</Text>
-        </View>
-        <View style={styles.rowWrap}>
-          <Text style={styles.label}>연락처</Text>
-          <Pressable 
-            onPress={()=>Linking.openURL(`tel:${data.careTel}`)}
-          >
-            <Text style={[styles.info, {color: '#00A8FF',textDecorationLine: 'underline'}]}>{data.careTel}</Text>
-          </Pressable>
-        </View>
-      </View>
-      <View style={styles.commentWrap}>
-        <View style={[styles.rowWrap, {gap: 8}]}>
-          <TextInput style={styles.input} placeholder='댓글을 등록해주세요.'/>
-          <Pressable style={styles.commentBtn}><Text style={styles.commentBtnText}>등록</Text></Pressable>
-        </View>
-        <View>
-          <CommentItem />
-          <CommentItem />
-        </View>
-      </View>
+      {
+        previousMenuActive === ('home' || 'adopt') && animalData &&
+        <>
+          <ScrollView horizontal pagingEnabled style={styles.imgWrap}>
+            <Image source={{uri: animalData.popfile}} style={{width: width, height: 300, objectFit: 'cover'}} />
+          </ScrollView>
+          <View style={styles.nameWrap}>
+            <View style={[styles.rowWrap, {gap: 8}]}>
+              <Tag title={animalData.processState} />
+              <Text style={styles.name}>{animalData.kindCd}</Text>
+            </View>
+            <Heart border />
+          </View>
+          <View style={styles.boxWrap}>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>성별</Text>
+              <Text style={styles.info}>{animalData.sexCd === 'M' ? '수컷' : animalData.sexCd === 'F' ? '암컷' : animalData.sexCd === 'Q' && '성별 미상'} ({animalData.neuterYn === 'N' ? '중성화X' : animalData.neuterYn === 'Y' ? '중성화O' : animalData.neuterYn === 'U' && '중성화미상'})</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>나이</Text>
+              <Text style={styles.info}>{age}</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>몸무게</Text>
+              <Text style={styles.info}>{weight}</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>털 색상</Text>
+              <Text style={styles.info}>{animalData.colorCd}</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>특이사항</Text>
+              <Text style={styles.info}>{animalData.specialMark}</Text>
+            </View>
+          </View>
+          <View style={styles.boxWrap}>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>실종일</Text>
+              <Text style={styles.info}>{happenDate}</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>장소</Text>
+              <Text style={styles.info}>{animalData.careNm}</Text>
+            </View>
+            <View style={styles.rowWrap}>
+              <Text style={styles.label}>연락처</Text>
+              <Pressable 
+                onPress={()=>Linking.openURL(`tel:${animalData.careTel}`)}
+              >
+                <Text style={[styles.info, {color: '#00A8FF',textDecorationLine: 'underline'}]}>{animalData.careTel}</Text>
+              </Pressable>
+            </View>
+          </View>
+          <View style={styles.commentWrap}>
+            <View style={[styles.rowWrap, {gap: 8}]}>
+              <TextInput style={styles.input} placeholder='댓글을 등록해주세요.'/>
+              <Pressable style={styles.commentBtn}><Text style={styles.commentBtnText}>등록</Text></Pressable>
+            </View>
+            <View>
+              <CommentItem />
+              <CommentItem />
+            </View>
+          </View>
+        </>
+      }
+      {
+        previousMenuActive === 'community' && noticeData &&
+        <>
+        {/* {"badge": true, "date": "2024. 06. 17", "desc": "내용", "id": 0, "title": "공지사항입니다"} */}
+          <Text style={{padding:200, backgroundColor: 'red'}}>dfdsds</Text>
+          <Text style={{padding:200, backgroundColor: 'red'}}>dfdsds</Text>
+        </>
+      }
     </ScrollView>
   )
 }

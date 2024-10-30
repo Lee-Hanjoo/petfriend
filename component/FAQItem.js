@@ -6,7 +6,7 @@ const {width, height} = Dimensions.get('window')
 
 const FAQItem = (props) => {
 
-  const {question, index, last, answer} = props;
+  const {question, index, answer} = props;
   const [isOpen, setIsOpen] = useState(null)
 
   const formattedText = answer.replace(/\\n/g, '\n');

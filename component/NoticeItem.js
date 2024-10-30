@@ -8,7 +8,7 @@ const {width, height} = Dimensions.get('window')
 
 const NoticeItem = (props) => {
 
-  const {badge, title, date, index, last} = props;
+  const {badge, title, date, index, last, itemNotice} = props;
 
   const navigation = useNavigation();
   const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
@@ -21,7 +21,7 @@ const NoticeItem = (props) => {
       ]}
       onPress={()=>{
         setMenuActive('detail'); 
-        navigation.navigate('detail'); 
+        navigation.navigate('detail', {itemNotice}); 
         setDetailActive('notice')
       }}
       >

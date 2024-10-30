@@ -18,7 +18,6 @@ const FAQ = () => {
               index={item.id}
               question={item.question} 
               answer={item.answer}
-              item={item}
             /> 
           )
         })
