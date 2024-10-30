@@ -31,8 +31,8 @@ const FAQItem = (props) => {
             style={[
               styles.title,
             ]}
-            numberOfLines={1}
-            ellipsizeMode="tail" 
+            // numberOfLines={1}
+            // ellipsizeMode="tail" 
           >
             {question}
           </Text>

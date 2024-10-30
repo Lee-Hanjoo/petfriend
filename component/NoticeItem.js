@@ -51,10 +51,11 @@ const NoticeItem = (props) => {
 
 const styles = StyleSheet.create({
   noticeItemWrap: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
     borderBottomWidth: 1,
     borderColor: '#E7E9ED',
-    gap: 8
+    gap: 6
   },
   titleWrap: {
     flexDirection: 'row',
