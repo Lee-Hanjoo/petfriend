@@ -17,10 +17,12 @@ const NoticeItem = (props) => {
     <Pressable 
       style={[
         styles.noticeItemWrap, 
-        last && {borderBottomWidth: 1}
+        index === 0 && {borderTopWidth: 1}
       ]}
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('notice')
+        setMenuActive('detail'); 
+        navigation.navigate('detail'); 
+        setDetailActive('notice')
       }}
       >
       <View style={styles.titleWrap}>
@@ -44,7 +46,7 @@ const NoticeItem = (props) => {
 const styles = StyleSheet.create({
   noticeItemWrap: {
     padding: 20,
-    borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#E7E9ED',
     gap: 8
   },

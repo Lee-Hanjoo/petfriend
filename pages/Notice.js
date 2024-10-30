@@ -1,17 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text } from 'react-native'
 import NoticeItem from '../component/NoticeItem'
 import { ScrollView } from 'react-native'
+import noticeDataBase from '../dataBase/noticeData.json'
 
 const Notice = () => {
+
+  const [noticeData, setNoticeData] = useState(noticeDataBase)
+
   return (
     <ScrollView style={styles.container}>
-      <NoticeItem badge title='공지사항' date='2024. 06. 17' />
       {
-        new Array(6).fill().map((item, i, filteredItems)=> {
-          const isLastItem = i === filteredItems.length - 1;
+        noticeData.items.map((item)=> {
           return (
-            <NoticeItem key={i} index={i} title='동물보호관리시스템 오류 동물보호관리시스템 오류 동물보호관리시스템 오류 동물보호관리시스템 오류' date='2024. 06. 17' last={isLastItem}/> 
+            <NoticeItem 
+              key={item.id} 
+              index={item.id}
+              badge={item.badge}
+              title={item.title} 
+              date={item.date} 
+              item={item}
+            /> 
           )
       })
     }

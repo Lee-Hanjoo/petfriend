@@ -11,11 +11,14 @@ const FAQ = () => {
   return (
     <ScrollView style={styles.container}>
       {
-        faqData.items.map((item, index)=> {
+        faqData.items.map((item)=> {
           return(
-            <FAQItem key={index} index={index} 
+            <FAQItem 
+              key={item.id} 
+              index={item.id}
               question={item.question} 
               answer={item.answer}
+              item={item}
             /> 
           )
         })

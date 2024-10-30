@@ -14,8 +14,9 @@ const FAQItem = (props) => {
   return (
     <>
       <Pressable 
-        style={[styles.FAQItemWrap, 
-        last && {borderBottomWidth: 1}
+        style={[
+          styles.FAQItemWrap,
+          index === 0 && {borderTopWidth: 1}
         ]}
         onPress={()=>{
           if (isOpen === index) {
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   FAQItemWrap: {
     flexDirection: 'row',
     padding: 20,
-    borderTopWidth: 1,
+    borderBottomWidth: 1,
     borderColor: '#E7E9ED',
     gap: 8
   },
