@@ -27,7 +27,6 @@ const Detail = (props) => {
         setNoticeData(props.route.params.itemNotice)
       }
       console.log(noticeData);
-      
     }
 
     console.log(previousMenuActive);
@@ -46,7 +45,7 @@ const Detail = (props) => {
   return (
     <ScrollView style={styles.container}>
       {
-        previousMenuActive === ('home' || 'adopt') && animalData &&
+        (previousMenuActive === 'home' || previousMenuActive === 'adopt') && animalData &&
         <>
           <ScrollView horizontal pagingEnabled style={styles.imgWrap}>
             <Image source={{uri: animalData.popfile}} style={{width: width, height: 300, objectFit: 'cover'}} />
@@ -110,12 +109,15 @@ const Detail = (props) => {
           </View>
         </>
       }
+      {/* {"badge": true, "date": "2024. 06. 17", "desc": "내용", "id": 0, "title": "공지사항입니다"} */}
       {
-        previousMenuActive === 'community' && noticeData &&
+        (previousMenuActive === 'home' || previousMenuActive === 'community') && noticeData &&
         <>
-        {/* {"badge": true, "date": "2024. 06. 17", "desc": "내용", "id": 0, "title": "공지사항입니다"} */}
-          <Text style={{padding:200, backgroundColor: 'red'}}>dfdsds</Text>
-          <Text style={{padding:200, backgroundColor: 'red'}}>dfdsds</Text>
+          <View style={styles.nameWrap}>
+            <View style={[styles.rowWrap, {gap: 8}]}>
+              <Text style={styles.name}>hddpreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivepreviousMenuActivei</Text>
+            </View>
+          </View>
         </>
       }
     </ScrollView>
