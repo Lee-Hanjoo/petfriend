@@ -1,17 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text } from 'react-native'
 import NoticeItem from '../component/NoticeItem'
 import { ScrollView } from 'react-native'
-import noticeDataBase from '../dataBase/noticeData.json'
+import { collection, doc, setDoc, getDocs, getDoc, addDoc, deleteDoc } from "firebase/firestore"
+import { db, storage } from '../lib/firebase';
 
 const Notice = () => {
 
-  const [noticeData, setNoticeData] = useState(noticeDataBase)
+  const [noticeData, setNoticeData] = useState([]);
+
+  const crud = {
+    get: async ()=>{
+      const querySnapshot = await getDocs(collection(db,'notice'));
+      let dataArr = [];
+      querySnapshot.forEach((doc) => {
+        dataArr.push( {id:doc.id, ...doc.data()} );
+      });
+      setNoticeData(dataArr);
+    },
+  }
+
+  useEffect(()=>{
+    crud.get();
+  },[])
 
   return (
     <ScrollView style={styles.container}>
       {
-        noticeData.items.map((item)=> {
+        noticeData.map((item)=> {
           return (
             <NoticeItem 
               key={item.id} 
