@@ -8,7 +8,8 @@ import FilterPopup from '../component/FilterPopup'
 import Notice from '../pages/Notice'
 import FAQ from '../pages/FAQ'
 import { api } from '../api/api';
-import eventDataBase from '../dataBase/eventData.json'
+import { collection, doc, setDoc, getDocs, getDoc, addDoc, deleteDoc } from "firebase/firestore"
+import { db, storage } from '../lib/firebase';
 
 const {width, height} = Dimensions.get('window')
 
@@ -19,7 +20,6 @@ const Community = () => {
   const [tabIndex, setTabIndex] = useState(0)
 
   // 캠페인&이벤트
-  const [eventData, setEventData] = useState(eventDataBase)
   const getImage = (imageId) => {
     switch (imageId) {
       case 0:
@@ -42,6 +42,18 @@ const Community = () => {
         return require('../assets/images/event/event_default.jpg'); // 기본 이미지 설정
     }
   };
+  const [eventData, setEventData] = useState([]);
+
+  const crud = {
+    get: async ()=>{
+      const querySnapshot = await getDocs(collection(db,'event'));
+      let dataArr = [];
+      querySnapshot.forEach((doc) => {
+        dataArr.push( {id:doc.id, ...doc.data()} );
+      });
+      setEventData(dataArr);
+    },
+  }
 
   // 뉴스
   const [newsData, setNewsData] = useState([])
@@ -62,7 +74,8 @@ const Community = () => {
   }
   
   useEffect(()=>{
-    newsApi()
+    newsApi();
+    crud.get();
   },[])
   
 
@@ -88,7 +101,7 @@ const Community = () => {
         )}
         {/* 2. 캠페인&이벤트 */}
         {tabIndex === 1 &&
-          eventData.items.map((item, index)=> {
+          eventData.map((item, index)=> {
             return (
               <CommunityCard
                 event

@@ -8,7 +8,7 @@ import { db, storage } from '../lib/firebase';
 
 const FAQ = () => {
 
-  const [faqData, setfaqData] = useState([]);
+  const [faqData, setFaqData] = useState([]);
 
   const crud = {
     get: async ()=>{
@@ -17,7 +17,7 @@ const FAQ = () => {
       querySnapshot.forEach((doc) => {
         dataArr.push( {id:doc.id, ...doc.data()} );
       });
-      setfaqData(dataArr);
+      setFaqData(dataArr);
     },
   }
 

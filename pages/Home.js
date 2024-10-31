@@ -112,23 +112,11 @@ const Home = () => {
       // always executed
     });
   }
-
-  // express server
-  // useEffect(() => {
-  //   axios.get('http://192.168.94.228:3000')
-  //     .then(response => {
-  //       setMessage(response.data.message);
-  //     })
-  //     .catch(error => {
-  //       console.error("Error connecting to server:", error);
-  //     });
-  // }, []);
   
   if(!animalData) return;
   
   return (
     <ScrollView style={styles.container}>
-      <Text>{message}</Text>
       <LinearGradient
       colors={['#64C7FA', '#34B0EA', '#34B0EA', '#fff']} 
       style={styles.background}
