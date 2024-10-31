@@ -53,7 +53,7 @@ const showConfirm = () => {
       {link ? 
         <Image source={{uri: src}} style={{width: width, height: 200, resizeMode: 'cover'}} />
         :
-        <Image source={src} style={{width: width, height: 200, resizeMode: 'cover'}} />
+        <Image source={{uri: src}} style={{width: width, height: 200, resizeMode: 'cover'}} />
       }
       <View style={styles.top}>
         <Text style={styles.title} numberOfLines={home ? 1 : 2}>{title}</Text>

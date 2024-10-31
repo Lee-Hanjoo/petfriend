@@ -19,17 +19,17 @@ const Detail = (props) => {
   // 공지사항
   const [noticeData, setNoticeData] = useState(undefined);
   // 캠페인&이벤트
-  const [eventData, setEventData] = useState(undefined);
+  const [eventData, setEventData] = useState([]);
 
   const getImage = (imageId) => {
     switch (imageId) {
-      case 0:
+      case 'nyCKuEVnKApJn9ST3zsL':
         return require('../assets/images/event/event_00.png');
-      case 1:
+      case '6WrrJDKi4DQ5KP9oqGMB':
         return require('../assets/images/event/event_01.jpg');
-      case 2:
+      case 'Oo6ICTaQqz8DhKOWfNim':
         return require('../assets/images/event/event_02.jpg');
-      case 3:
+      case 'PxZwgmYzghuu9NnlxIMV':
         return require('../assets/images/event/event_03.jpeg');
       case 4:
         return require('../assets/images/event/event_04.jpg');
@@ -43,6 +43,17 @@ const Detail = (props) => {
         return require('../assets/images/event/event_default.jpg'); // 기본 이미지 설정
     }
   };
+
+  const crud = {
+    get: async ()=>{
+      const querySnapshot = await getDocs(collection(db,'event'));
+      let dataArr = [];
+      querySnapshot.forEach((doc) => {
+        dataArr.push( {id:doc.id, ...doc.data()} );
+      });
+      setEventData(dataArr);
+    },
+  }
   
   useEffect(() => {
     if (props.route && props.route.params) {

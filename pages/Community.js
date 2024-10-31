@@ -20,28 +20,6 @@ const Community = () => {
   const [tabIndex, setTabIndex] = useState(0)
 
   // 캠페인&이벤트
-  const getImage = (imageId) => {
-    switch (imageId) {
-      case 0:
-        return require('../assets/images/event/event_00.png');
-      case 1:
-        return require('../assets/images/event/event_01.jpg');
-      case 2:
-        return require('../assets/images/event/event_02.jpg');
-      case 3:
-        return require('../assets/images/event/event_03.jpeg');
-      case 4:
-        return require('../assets/images/event/event_04.jpg');
-      case 5:
-        return require('../assets/images/event/event_05.jpg');
-      case 6:
-        return require('../assets/images/event/event_06.png');
-      case 7:
-        return require('../assets/images/event/event_07.jpg');
-      default:
-        return require('../assets/images/event/event_default.jpg'); // 기본 이미지 설정
-    }
-  };
   const [eventData, setEventData] = useState([]);
 
   const crud = {
@@ -106,12 +84,15 @@ const Community = () => {
         {/* 2. 캠페인&이벤트 */}
         {tabIndex === 1 &&
           eventData.map((item, index)=> {
+            const id = item.id
+            const firebaseEvnetImgUrl = `https://firebasestorage.googleapis.com/v0/b/petfriend-77a67.appspot.com/o/event%2F${id}.jpg?alt=media&token=ef1c83ee-6428-44d8-96c5-e5cf9c4556f3`
+            
             return (
               <CommunityCard
                 event
                 detail
                 key={item.id}
-                src={getImage(item.id)}
+                src={firebaseEvnetImgUrl}
                 title={item.title}
                 desc={item.desc}
                 location={item.location}
