@@ -12,9 +12,10 @@ import Carousel from 'react-native-reanimated-carousel'
 import { useNavigation } from '@react-navigation/native';
 import { useMenu } from '../MenuProvider';
 import axios from 'axios'
-import eventDataBase from '../dataBase/eventData.json'
 import { api } from '../api/api'
 import {BASE_URL,REACT_APP_API_KEY} from '@env'
+import { collection, doc, setDoc, getDocs, getDoc, addDoc, deleteDoc } from "firebase/firestore"
+import { db, storage } from '../lib/firebase';
 
 const {width, height} = Dimensions.get('window');
 
@@ -45,8 +46,7 @@ const Home = () => {
   const [animalData, setAnimalData] = useState([]);
 
 
-  // 커뮤니티 - 캠페인&이벤트
-  const [eventData, setEventData] = useState(eventDataBase)
+  // 커뮤니티 - 캠페인&이벤트)
   const getImage = (imageId) => {
     switch (imageId) {
       case 0:
@@ -69,6 +69,18 @@ const Home = () => {
         return require('../assets/images/event/event_default.jpg');
     }
   };
+  const [eventData, setEventData] = useState([]);
+
+  const crud = {
+    get: async ()=>{
+      const querySnapshot = await getDocs(collection(db,'event'));
+      let dataArr = [];
+      querySnapshot.forEach((doc) => {
+        dataArr.push( {id:doc.id, ...doc.data()} );
+      });
+      setEventData(dataArr);
+    },
+  }
 
   // 커뮤니티 - 뉴스
   const [newsData, setNewsData] = useState([])
@@ -89,8 +101,9 @@ const Home = () => {
   }
   
   useEffect(()=>{
-    newsApi()
-    animalApi()
+    newsApi();
+    animalApi();
+    crud.get();
   },[])
 
   const animalApi = () => {
@@ -252,7 +265,7 @@ const Home = () => {
                   width={width}
                   height={362}
                   autoPlay={true}
-                  data={eventData.items}
+                  data={eventData}
                   scrollAnimationDuration={3000}
                   mode="parallax"
                   modeConfig={{
@@ -268,6 +281,7 @@ const Home = () => {
                       desc={item.desc}
                       location={item.location}
                       date={`${item.startDate} ~ ${item.endDate}`}
+                      itemEvent={item}
                     />
                   )}
                 />

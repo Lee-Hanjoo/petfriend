@@ -27,11 +27,11 @@ const Notice = () => {
   return (
     <ScrollView style={styles.container}>
       {
-        noticeData.map((item)=> {
+        noticeData.map((item,i)=> {
           return (
             <NoticeItem 
               key={item.id} 
-              index={item.id}
+              index={i}
               badge={item.badge}
               title={item.title} 
               date={item.date} 

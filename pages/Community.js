@@ -87,17 +87,21 @@ const Community = () => {
         <View style={styles.contents}>
         {/* 1.뉴스 */}
         {tabIndex === 0 &&
-          newsData.map((item, index)=> 
-            <CommunityCard
-              detail
-              key={item.id}
-              src={item.img}
-              title={item.title}
-              desc={item.summary}
-              location={`${item.publisher} ${item.author && '('+item.author+')'}`}
-              date={item.date}
-              link={item.link}
-            />
+          newsData.map((item, index)=> {
+            let date = item.date
+            let formmatDate = date.slice(0, 10)
+            return(
+              <CommunityCard
+                detail
+                key={item.id}
+                src={item.img}
+                title={item.title}
+                desc={item.summary}
+                location={`${item.publisher} ${item.author && '('+item.author+')'}`}
+                date={formmatDate}
+                link={item.link}
+              />
+            )}
         )}
         {/* 2. 캠페인&이벤트 */}
         {tabIndex === 1 &&
