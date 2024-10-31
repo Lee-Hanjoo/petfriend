@@ -21,6 +21,7 @@ const Story = () => {
             src={ImgPath.animal_story}
             title={`${i}콩고물 묻은 아기 강아지 우우우우 너무귀여워`}
             name='포크엄마ddddddddddddddddddddd'
+            desc='짱귀엽죠!'
             profileSrc={ImgPath.profile_sample}
             view='1212'
             date='2024. 10. 10'

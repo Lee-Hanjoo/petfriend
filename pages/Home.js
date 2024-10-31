@@ -19,6 +19,8 @@ import {BASE_URL,REACT_APP_API_KEY} from '@env'
 const {width, height} = Dimensions.get('window');
 
 const Home = () => {
+  const [message, setMessage] = useState('');
+ 
 
   const navigation = useNavigation();
   const { menuActive, setMenuActive, previousMenuActive, menuItems } = useMenu();     
@@ -111,10 +113,22 @@ const Home = () => {
     });
   }
 
+  // express server
+  // useEffect(() => {
+  //   axios.get('http://192.168.94.228:3000')
+  //     .then(response => {
+  //       setMessage(response.data.message);
+  //     })
+  //     .catch(error => {
+  //       console.error("Error connecting to server:", error);
+  //     });
+  // }, []);
+  
   if(!animalData) return;
-
+  
   return (
     <ScrollView style={styles.container}>
+      <Text>{message}</Text>
       <LinearGradient
       colors={['#64C7FA', '#34B0EA', '#34B0EA', '#fff']} 
       style={styles.background}
@@ -159,7 +173,7 @@ const Home = () => {
                 let resultWeight = replaceWeight.replace(')', ''); 
                 return (
                   <AdoptPet 
-                    key={item.desertionNo}
+                    key={i}
                     index={i}
                     name={item.kindCd} 
                     info={`${item.sexCd === 'M' ? '수컷' : item.sexCd === 'F' ? '암컷' : item.sexCd === 'Q' && '성별 미상'}, ${resultWeight}`} 
@@ -185,6 +199,8 @@ const Home = () => {
               title={`${i} 우리 땅콩이 귀엽지 않나용?`} 
               desc='진짜 짱 귀여운거 같아요. 그래서 자랑하려고 게시글 올립니다...' 
               src={ImgPath.animal_story} 
+              heartNum={1}
+              commentNum={2}
             />
           )}
           </ScrollView>

@@ -8,7 +8,7 @@ const {width, height} = Dimensions.get("window");
 
 const StoryItem = (props) => {
 
-  const {src, title, name, profileSrc, view, date, heartNum, commentNum, index} = props;
+  const {src, title, name, profileSrc, view, date, heartNum, commentNum, index, desc} = props;
 
   const navigation = useNavigation();
   const { menuActive, setMenuActive, setDetailActive } = useMenu(); 
@@ -30,9 +30,10 @@ const StoryItem = (props) => {
           <Image source={src} style={{width:width / 2 - 25, height:width / 2 - 25}}/>
         </View>
         <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">{title}</Text>
+        <Text style={styles.desc} numberOfLines={2} ellipsizeMode="tail">{desc}</Text>
         <View style={styles.profileBox}>
           <Image source={profileSrc} style={styles.profileImg} />
-          <Text style={styles.name} numberOfLines={1} ellipsizeMode="clip">{name}</Text>
+          <Text style={styles.name} numberOfLines={1} ellipsizeMode="tail">{name}</Text>
         </View>
         <View style={styles.infoBox}>
           <Text style={styles.view}>조회수 {view}</Text>
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '700',
     color: '#1F2329',
+    marginBottom: 8
     // fontFamily: 'Wanted Sans'
   },
   imgBox: {
@@ -83,6 +85,11 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     color: '#8D96A4',
     fontSize: 12,
+  },
+  desc: {
+    fontSize: 12,
+    // fontFamily: 'Wanted Sans',
+    color: '#8D96A4'
   },
   view: {
     textAlign: 'right',

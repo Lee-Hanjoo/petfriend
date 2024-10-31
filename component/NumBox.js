@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     position: 'absolute',
-    left: 12,
+    right: 12,
     bottom: 12,
     zIndex: 2,
     gap: 4,
