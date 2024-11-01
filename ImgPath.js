@@ -52,6 +52,9 @@ export const ImgPath = {
     upload_img: require('./assets/images/icon/icon_upload_img.png'),
     pin: require('./assets/images/icon/icon_pin.png'),
     pin_on: require('./assets/images/icon/icon_pin_on.png'),
+    kakao: require('./assets/images/icon/icon_kakao.png'),
+    google: require('./assets/images/icon/icon_google.png'),
+    naver: require('./assets/images/icon/icon_naver.png'),
     /* sample */
     animal_01: require('./assets/images/img_visual_animal_01.png'),
     animal_02: require('./assets/images/img_visual_animal_02.png'),

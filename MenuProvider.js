@@ -11,6 +11,8 @@ export function MenuProvider({ children }) {
 
   const [menuActive, setMenuActive] = useState('home');
   const [detailActive, setDetailActive] = useState('home')
+  const [findActive, setFindActive] = useState('id')
+  const [completeActive, setCompleteActive] = useState('id')
 
   // 이전페이지 저장
   const [previousMenuActive, setPreviousMenuActive] = useState(null);
@@ -101,9 +103,11 @@ export function MenuProvider({ children }) {
   return (
     <MenuContext.Provider 
     value={{ 
+        // menu
         menuActive, setMenuActive,
         detailActive, setDetailActive,
         previousMenuActive, setPreviousMenuActive,
+        findActive, setFindActive,
         // select
         menuItems,
         location, setLocation,

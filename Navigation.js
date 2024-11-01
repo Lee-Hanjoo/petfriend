@@ -11,6 +11,10 @@ import Write from "./pages/Write";
 import Detail from "./pages/Detail";
 import DetailHeader from "./component/DetailHeader";
 import { MenuProvider } from './MenuProvider';
+import Login from "./pages/Login";
+import Find from "./pages/Find";
+import Join from "./pages/Join";
+import Complete from "./pages/Complete";
 
 
 const Stack = createNativeStackNavigator();
@@ -119,6 +123,78 @@ export default function Navigation() {
             unmountOnBlur: true,
             header: ({props}) => (
               <DetailHeader {...props} 
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                menuItems={menuItems}
+              />
+            ),
+          }}
+          initialParams={{ 
+            menuItems 
+          }}
+        />
+        <Stack.Screen
+          name="login"
+          component={Login}
+          options={{
+            headerShown: true,
+            unmountOnBlur: true,
+            header: ({props}) => (
+              <DetailHeader {...props}  
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                menuItems={menuItems}
+              />
+            ),
+          }}
+          initialParams={{ 
+            menuItems 
+          }}
+        />
+        <Stack.Screen
+          name="find"
+          component={Find}
+          options={{
+            headerShown: true,
+            unmountOnBlur: true,
+            header: ({props}) => (
+              <DetailHeader {...props}  
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                menuItems={menuItems}
+              />
+            ),
+          }}
+          initialParams={{ 
+            menuItems 
+          }}
+        />
+        <Stack.Screen
+          name="join"
+          component={Join}
+          options={{
+            headerShown: true,
+            unmountOnBlur: true,
+            header: ({props}) => (
+              <DetailHeader {...props}  
+                menuActive={menuActive}
+                setMenuActive={setMenuActive}
+                menuItems={menuItems}
+              />
+            ),
+          }}
+          initialParams={{ 
+            menuItems 
+          }}
+        />
+        <Stack.Screen
+          name="complete"
+          component={Complete}
+          options={{
+            headerShown: true,
+            unmountOnBlur: true,
+            header: ({props}) => (
+              <DetailHeader {...props}  
                 menuActive={menuActive}
                 setMenuActive={setMenuActive}
                 menuItems={menuItems}

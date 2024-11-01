@@ -9,7 +9,7 @@ import { useMenu } from '../MenuProvider';
 const DetailHeader = ({ menuItems }) => {
   
     const navigation = useNavigation();
-    const { menuActive, setMenuActive, previousMenuActive, detailActive, setDetailActive } = useMenu();     
+    const { menuActive, setMenuActive, previousMenuActive, detailActive, setDetailActive, findActive, setFindActive } = useMenu();     
 
     const getTitle = () => {
       if (menuActive === 'mypet') return '설정';
@@ -21,15 +21,29 @@ const DetailHeader = ({ menuItems }) => {
         if (detailActive === 'event') return '캠페인&이벤트';
         if (detailActive === 'notice') return '공지사항';
       }
+      if (menuActive === 'find') {
+        if (findActive === 'id') return '아이디 찾기';
+        if (findActive === 'pw') return '비밀번호 찾기';
+      }
+      
       return ''; // 아무 조건도 해당하지 않으면 빈 문자열
     };
+    useEffect(()=>{
+      console.log(previousMenuActive);
+    },[])
 
   return (
     <View style={[styles.DetailHeaderWrap]}>
       <View style={[styles.titleWrap, menuActive === 'menu' && {justifyContent: 'space-between'}]}>
         {
           menuActive === 'menu' ?
-          <Pressable style={{flexDirection: 'row', alignItems: 'center', gap: 8}}>
+          <Pressable 
+            style={{flexDirection: 'row', alignItems: 'center', gap: 8}}
+            onPress={()=>{
+              setMenuActive('login'); 
+              navigation.navigate('login'); 
+            }}
+          >
             <Text style={styles.menuText}>로그인</Text>
             <Image source={ImgPath.login}/>
           </Pressable>
@@ -63,7 +77,8 @@ const DetailHeader = ({ menuItems }) => {
           <Text style={styles.title}>
             {menuActive === 'mypet' && '설정'}
             {menuActive === 'write' && '글쓰기'}
-            {menuActive === 'detail' && getTitle()}
+            {(menuActive === 'detail' || menuActive === 'find') && getTitle()}
+            {menuActive === 'join' && '회원가입'}
           </Text>
         }
       </View>

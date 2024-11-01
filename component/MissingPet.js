@@ -19,7 +19,9 @@ const MissingPet = (props) => {
     <Pressable 
       style={[styles.MissingPetWrap, index > 1 && {marginTop: 14}]}
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('missing')
+        setMenuActive('detail'); 
+        navigation.navigate('detail'); 
+        setDetailActive('missing');
       }}
     >
       <View style={styles.imgWrap}>
