@@ -232,6 +232,7 @@ const Home = () => {
                       location={`${item.publisher} ${item.author && '('+item.author+')'}`}
                       date={item.date}
                       link={item.link}
+                      itemEvent={item}
                     />
                   )}
                 />

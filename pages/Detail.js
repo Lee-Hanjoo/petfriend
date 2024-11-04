@@ -13,7 +13,7 @@ const {width, height} = Dimensions.get('window')
 const Detail = (props) => {
   
   const navigation = useNavigation();
-  const { previousMenuActive } = useMenu();
+  const { previousMenuActive, detailActive, setDetailActive } = useMenu();
   // 입양 대기 동물
   const [animalData, setAnimalData] = useState(undefined);
   // 공지사항
@@ -86,7 +86,7 @@ const Detail = (props) => {
   return (
     <ScrollView style={styles.container}>
       {/* 입양 대기 동물 */}{
-        (previousMenuActive === 'home' || previousMenuActive === 'adopt') && animalData &&
+        (detailActive === 'adopt') && animalData &&
         <>
           <ScrollView horizontal pagingEnabled style={styles.imgWrap}>
             <Image source={{uri: animalData.popfile}} style={{width: width, height: 300, resizeMode: 'cover'}} />
@@ -151,7 +151,7 @@ const Detail = (props) => {
         </>
       }
       {/* 공지사항 */}{
-        (previousMenuActive === 'home' || previousMenuActive === 'community') && noticeData &&
+        (detailActive === 'notice') && noticeData &&
         <>
         <View style={styles.nameWrap}>
           <View style={[styles.rowWrap, {gap: 8}]}>
@@ -170,7 +170,7 @@ const Detail = (props) => {
         </>
       }
       {/* 캠페인&이벤트 */}{
-        (previousMenuActive === 'home' || previousMenuActive === 'community') && eventData &&
+        (detailActive === 'event') && eventData &&
         <>
           <ScrollView horizontal pagingEnabled style={[styles.imgWrap, {height: 400}]}>
             <Image source={getImage(eventData.id)} style={{width: width, height: '100%', resizeMode: 'cover'}} />

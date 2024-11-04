@@ -57,7 +57,7 @@ const isPopupOpen = activePopupIndex === index;
       <TextPopup 
         textPopup={isPopupOpen} 
         setTextPopup={() => setActivePopupIndex(isPopupOpen ? null : index)} 
-        item={[`${startTime}~${endTime}`, '지도보기']} 
+        item={[`${startTime}~${endTime}`, `지도${isOpen ? ' 접기' : ' 펼치기'}`]} 
         openMap={isOpen} 
         setOpenMap={() => setOpenMapIndex(isOpen ? null : index)} 
       />

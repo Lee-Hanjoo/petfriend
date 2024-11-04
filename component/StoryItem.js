@@ -16,7 +16,9 @@ const StoryItem = (props) => {
   return (
     <Pressable
       onPress={()=>{
-        setMenuActive('detail'); navigation.navigate('detail'); setDetailActive('story')
+        setMenuActive('detail'); 
+        navigation.navigate('detail'); 
+        setDetailActive('story')
       }}
     >
       <View 

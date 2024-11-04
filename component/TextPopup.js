@@ -11,7 +11,8 @@ const TextPopup = (props) => {
         item.map((item,i)=>(
           <Pressable key={i} 
             onPress={()=>{
-              item === '지도보기' && setOpenMap(true),
+              item === '지도 펼치기' && setOpenMap(true),
+              item === '지도 접기' && setOpenMap(false),
               setTextPopup(false)
             }}
           >

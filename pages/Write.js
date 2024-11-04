@@ -62,7 +62,9 @@ const pickImage = async () => {
 
   return (
     <FlatList
-      data={[{ key: 'content' }]} // 리스트 데이터를 단일 객체로 설정
+      keyExtractor={(item) => item.key}
+      contentContainerStyle={styles.container}
+      data={[{ key: 'content' }]}
       renderItem={() => (
         <View style={styles.contents}>
           {/* 게시판 카테고리 설정 */}
@@ -81,7 +83,7 @@ const pickImage = async () => {
           <View style={[styles.boxGap, {zIndex:1}]}>
             <View style={styles.labelWrap}>
               <Text style={styles.label}>날짜<Text style={styles.essential}>*</Text></Text>
-              <TextInput style={styles.input} placeholder='0000. 00. 00' placeholderTextColor='#8D96A4' />
+              <TextInput style={styles.input} placeholder='0000. 00. 00' />
             </View>
             <View style={[styles.labelWrap, {zIndex: 2}]}>
               <Text style={styles.label}>지역<Text style={styles.essential}>*</Text></Text>
@@ -92,11 +94,11 @@ const pickImage = async () => {
             </View>
             <View style={[styles.labelWrap, {zIndex: 1}]}>
               <Text style={styles.label}>장소</Text>
-              <TextInput style={styles.input} placeholder='구체적인 장소' placeholderTextColor='#8D96A4' />
+              <TextInput style={styles.input} placeholder='구체적인 장소' />
             </View>
             <View style={[styles.labelWrap, {zIndex: 1}]}>
               <Text style={styles.label}>연락처</Text>
-              <TextInput style={styles.input} placeholder='010-0000-0000' placeholderTextColor='#8D96A4' />
+              <TextInput style={styles.input} placeholder='010-0000-0000' />
             </View>
           </View>
           <View style={styles.borderLine}></View>
@@ -124,7 +126,7 @@ const pickImage = async () => {
               <View style={[styles.labelWrap, {zIndex: 1}]}>
                 <Text style={[styles.label, {marginTop:1}]}>털 색상</Text>
                 <View style={styles.submitWrap}>
-                  <TextInput style={[styles.input, {width: 113}]} placeholder='색상' placeholderTextColor='#8D96A4' />
+                  <TextInput style={[styles.input, {width: 113}]} placeholder='색상'/>
                 </View>
               </View>
             </View>
@@ -153,7 +155,7 @@ const pickImage = async () => {
             <View style={styles.labelWrap}>
               <Text style={styles.label}>특이사항</Text>
               <View style={styles.submitWrap}>
-                <TextInput style={[styles.input, {width: width - 40}]} placeholder='특이사항을 입력해주세요.' placeholderTextColor='#8D96A4' />
+                <TextInput style={[styles.input, {width: width - 40}]} placeholder='특이사항을 입력해주세요.' />
               </View>
             </View>
             <View style={styles.labelWrap}>
@@ -177,8 +179,6 @@ const pickImage = async () => {
           </Pressable>
         </View>
       )}
-      keyExtractor={(item) => item.key}
-      contentContainerStyle={styles.container}
     />
   )
 }

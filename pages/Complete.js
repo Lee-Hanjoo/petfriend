@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { ImgPath } from '../ImgPath'
 import { useNavigation } from '@react-navigation/native'
@@ -9,24 +9,49 @@ const {width, height} = Dimensions.get('window')
 const Complete = () => {
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive, findActive, setFindActive } = useMenu(); 
+  const { menuActive, setMenuActive, findActive, setFindActive, completeActive, setCompleteActive } = useMenu(); 
 
   const [btnActive, setBtnActive] = useState(false) 
 
   return (
     <View style={styles.container}>
       <View style={styles.contents}>
-        <Text style={styles.title}>{findActive === 'id' ? '아이디 찾기 완료' : '비밀번호 재설정'}</Text>
+        <Text style={styles.title}>
+          { completeActive === 'join' && '회원가입 완료' }
+          { completeActive === 'id' && '아이디 찾기 완료' }
+          { completeActive === 'pw' && '비밀번호 재설정' }
+        </Text>
         <Text style={styles.desc}>
-          {
-            findActive === 'id' ? 
-            '고객님의 정보와 일치하는 아이디 입니다.'
-            :
-            '재설정할 새 비밀번호를 입력해주세요.'
-          }
+          { completeActive === 'join' && '펫프렌드의 회원이 되신걸 축하드립니다!' }
+          { completeActive === 'id' && '고객님의 정보와 일치하는 아이디 입니다.' }
+          { completeActive === 'pw' && '재설정할 새 비밀번호를 입력해주세요.' }
         </Text>
         <View>
-          {findActive === 'id' ?
+          { completeActive === 'join' &&
+            <View style={styles.rowWrap}>
+              <Pressable style={[styles.bottomBtn, {backgroundColor: '#64C7FA'}]}
+                onPress={()=>{
+                  setMenuActive('login'); 
+                  navigation.navigate('login'); 
+                }}
+              >
+                <Text style={[styles.bottomBtnText, {fontWeight: '700'}]}>
+                  로그인
+                </Text>
+              </Pressable>
+              <Pressable style={styles.bottomBtn}
+                onPress={()=>{
+                  setMenuActive('home'); 
+                  navigation.navigate('home'); 
+                }}
+              >
+                <Text style={styles.bottomBtnText}>
+                  홈으로 돌아가기
+                </Text>
+              </Pressable>
+            </View>
+          }{
+          completeActive === 'id' &&
             <>
               <View style={{marginBottom: 24}}>
                 <Text style={{fontSize: 16}}>gkswnehcl@gmail.com</Text>
@@ -55,11 +80,12 @@ const Complete = () => {
                 </Pressable>
               </View>
             </>
-            :
+            }
+            { completeActive === 'pw' &&
             <>
               <View style={{gap:8}}>
-                <TextInput style={styles.input} placeholder='새 비밀번호' placeholderTextColor='#8D96A4' secureTextEntry />
-                <TextInput style={styles.input} placeholder='새 비밀번호 확인' placeholderTextColor='#8D96A4' secureTextEntry />
+                <TextInput style={styles.input} placeholder='새 비밀번호' secureTextEntry />
+                <TextInput style={styles.input} placeholder='새 비밀번호 확인' secureTextEntry />
               </View>
               <View style={styles.rowWrap}>
                 <Pressable style={[styles.bottomBtn, {width: width - 40}]}

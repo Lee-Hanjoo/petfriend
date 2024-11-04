@@ -24,12 +24,6 @@ export function MenuProvider({ children }) {
     }
   }, [menuActive]);
 
-  // const handleGoBack = () => {
-  //   if (menuActive === 'write' || menuActive === 'detail') {
-  //     setMenuActive(previousMenuActive); // 이전 메뉴로 돌아가기
-  //   }
-  // };
-
   const menuItems = [
     { title: 'home', krTitle:'홈', icon: ImgPath.home, activeIcon: ImgPath.home_white, menuIcon: ImgPath.home_black },
     { title: 'adopt', krTitle:'입양 대기 동물', icon: ImgPath.adopt, activeIcon: ImgPath.adopt_white, menuIcon: ImgPath.adopt_black },
@@ -81,23 +75,30 @@ export function MenuProvider({ children }) {
   ]);
 
   // radio  
+  // 동물성별
   const gender = useMemo(() => ([
     { id: 'gender_default', label: '수컷', value: 'male', selected: true },
     { id: 'gender_0', label: '암컷', value: 'female', selected: false },
     { id: 'gender_1', label: '모름', value: 'undefined', selected: false },
-]), []);
+  ]), []);
+
+  // 사람성별
+  const sex = useMemo(() => ([
+    { id: 'sex_default', label: '남성', value: 'male', selected: true },
+    { id: 'sex_0', label: '여성', value: 'female', selected: false },
+  ]), []);
 
   const age = useMemo(() => ([
     { id: 'age_default', label: '1년 이상', value: 'year1', selected: true },
     { id: 'age_1', label: '모름', value: 'undefined', selected: false },
     { id: 'age_2', label: '기타', value: 'else', selected: false },
-]), []);
+  ]), []);
 
   const neutering = useMemo(() => ([
     { id: 'neutering_default', label: '완료', value: 'neutering_yes', selected: true },
     { id: 'neutering_1', label: '미완료', value: 'neutering_no', selected: false },
     { id: 'neutering_2', label: '모름', value: 'undefined', selected: false },
-]), []);
+  ]), []);
   
   return (
     <MenuContext.Provider 
@@ -107,6 +108,7 @@ export function MenuProvider({ children }) {
         detailActive, setDetailActive,
         previousMenuActive, setPreviousMenuActive,
         findActive, setFindActive,
+        completeActive, setCompleteActive,
         // select
         menuItems,
         location, setLocation,
@@ -117,7 +119,7 @@ export function MenuProvider({ children }) {
         storyCategory, setStoryCategory,
         missingCategory, setMissingCategory,
         // radio
-        gender, age, neutering
+        gender, age, neutering, sex
       }}
     >
       {children}

@@ -1,88 +1,124 @@
 import React, { useState } from 'react'
-import { Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Dimensions, FlatList, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { ImgPath } from '../ImgPath'
 import { useNavigation } from '@react-navigation/native'
 import { useMenu } from '../MenuProvider';
+import Select from '../component/Select';
+import { RadioGroup } from 'react-native-radio-buttons-group';
 
 const {width, height} = Dimensions.get('window')
 
 const Join = () => {
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive, findActive, setFindActive } = useMenu(); 
+  const { setMenuActive, sex, completeActive, setCompleteActive } = useMenu(); 
 
-  const [btnActive, setBtnActive] = useState(false)
+  const [btnActive, setBtnActive] = useState(true)
+  const [sexId, setSexId] = useState('sex_default');
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>로그인</Text>
-      <View style={styles.contents}>
-        <View>
-          <View style={styles.inputWrap}>
-            <TextInput style={styles.input} placeholder='아이디 입력' placeholderTextColor='#8D96A4' />
-            <TextInput style={styles.input} placeholder='비밀번호 입력' placeholderTextColor='#8D96A4' secureTextEntry />
+    <FlatList 
+      keyExtractor={(item) => item.key}
+      contentContainerStyle={styles.container}
+      data={[{ key: 'content' }]}
+      renderItem={() => (
+        <View style={styles.contents}>
+          <View style={{gap:24}}>
+            <View style={styles.labelWrap}>
+              <Text style={styles.label}>아이디<Text style={styles.essential}>*</Text></Text>
+              <View style={styles.submitWrap}>
+                <TextInput style={styles.input} placeholder='아이디' />
+              </View>
+            </View>
+            <View style={styles.labelWrap}>
+              <Text style={styles.label}>비밀번호<Text style={styles.essential}>*</Text></Text>
+              <View style={styles.submitWrap}>
+                <TextInput style={styles.input} placeholder='비밀번호 입력' secureTextEntry/>
+                <TextInput style={styles.input} placeholder='비밀번호 재입력' secureTextEntry/>
+              </View>
+            </View>
+            <View style={styles.labelWrap}>
+              <Text style={styles.label}>이메일주소</Text>
+              <View style={styles.submitWrap}>
+                <TextInput style={styles.input} placeholder='이메일' />
+              </View>
+            </View>
+            <View style={styles.labelWrap}>
+              <Text style={styles.label}>닉네임<Text style={styles.essential}>*</Text></Text>
+              <View style={styles.submitWrap}>
+                <TextInput style={styles.input} placeholder='닉네임' />
+              </View>
+            </View>
+            <View style={styles.labelWrap}>
+              <Text style={styles.label}>생년월일</Text>
+              <View style={styles.submitWrap}>
+                <TextInput style={styles.input} placeholder='생년월일 8자리 (YYYYMMDD)' />
+              </View>
+            </View>
+            <View style={styles.labelWrap}>
+              <Text style={styles.label}>성별<Text style={styles.essential}>*</Text></Text>
+              <View style={styles.submitWrap}>
+                <RadioGroup
+                  radioButtons={sex} 
+                  onPress={setSexId}
+                  selectedId={sexId}
+                  layout='row'
+                />
+              </View>
+            </View>
+            <View style={[styles.labelWrap, {gap: 8}]}>
+              <Text style={styles.label}>휴대폰번호</Text>
+              <View style={[styles.submitWrap, styles.rowWrap, {marginTop: 4}]}>
+                <TextInput style={[styles.input, {width: 220}]} placeholder="휴대폰번호 입력 ('-'제외)" />
+                <Pressable style={styles.numChkBtn}
+                  onPress={()=>{
+                    alert('123456')
+                  }}
+                >
+                  <Text style={[styles.numChkBtnText, {fontWeight: '700'}]}>
+                    인증번호 전송
+                  </Text>
+                </Pressable>
+              </View>
+              <View style={[styles.submitWrap, styles.rowWrap]}>
+                <TextInput style={[styles.input, {width: 220}]} placeholder="인증번호 입력" />
+                <Pressable style={[styles.numChkBtn, {borderColor: '#E7E9ED'}]}>
+                  <Text style={[styles.numChkBtnText, {color: '#8D96A4'}]}>
+                    확인
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+            <Pressable 
+              style={[
+                styles.joinBtn, 
+                btnActive && {backgroundColor: '#1F2329'}
+              ]}
+              onPress={()=>{
+                setMenuActive('complete'); 
+                navigation.navigate('complete'); 
+                setCompleteActive('join')
+              }}
+            >
+              <Text style={[styles.joinBtnText, btnActive && {color: '#fff'}]}>가입하기</Text>
+            </Pressable>
           </View>
-          <Pressable style={[styles.loginBtn, btnActive && {backgroundColor: '#1F2329'}]}>
-            <Text style={[styles.loginBtnText, btnActive && {color: '#fff'}]}>로그인</Text>
-          </Pressable>
         </View>
-        <View style={[styles.menuWrap]}>
-          <Pressable 
-            onPress={()=>{
-              setMenuActive('find'); 
-              navigation.navigate('find'); 
-              setFindActive('id');
-            }}
-          >
-            <Text style={styles.menuBtnText}>아이디 찾기</Text>
-          </Pressable>
-          <View style={styles.line}></View>
-          <Pressable 
-            onPress={()=>{
-              setMenuActive('find'); 
-              navigation.navigate('find'); 
-              setFindActive('pw');
-            }}
-          >
-            <Text style={styles.menuBtnText}>비밀번호 찾기</Text>
-          </Pressable>
-          <View style={styles.line}></View>
-          <Pressable 
-            onPress={()=>{
-              setMenuActive('join'); 
-              navigation.navigate('join'); 
-            }}
-          >
-            <Text style={styles.menuBtnText}>회원가입</Text>
-          </Pressable>
-        </View>
-        <View style={styles.snsWrap}>
-          <Pressable style={[styles.snsBtn, {backgroundColor: '#F7E04B'}]}>
-            <Image source={ImgPath.kakao} style={[styles.snsBtnImg, {width: 24, height: 23, top: 13}]}/>
-            <Text style={[styles.snsBtnText]}>카카오로 계속하기</Text>
-          </Pressable>
-          <Pressable style={[styles.snsBtn, {borderWidth: 1, borderColor: '#8D96A4'}]}>
-            <Image source={ImgPath.google} style={[styles.snsBtnImg, {width: 24, height: 24}]}/>
-            <Text style={[styles.snsBtnText]}>구글로 계속하기</Text>
-          </Pressable>
-          <Pressable style={[styles.snsBtn, {backgroundColor: '#03C75A'}]}>
-            <Image source={ImgPath.naver} style={[styles.snsBtnImg, {width: 21, height: 20, left: 24, top: 15}]}/>
-            <Text style={[styles.snsBtnText, {color: '#fff'}]}>네이버로 계속하기</Text>
-          </Pressable>
-        </View>
-      </View>
-    </View>
+      )}
+    >
+    </FlatList>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 40,
+    paddingTop: 40,
+    paddingBottom: 60,
     paddingHorizontal: 20,
     backgroundColor: '#fff',
-    height: height
   },
-  contents: {},
+  contents: {
+  },
   title: {
     fontSize: 32,
     fontWeight: '700',
@@ -94,60 +130,56 @@ const styles = StyleSheet.create({
   },
   input: {
     width: width - 40,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     borderWidth: 1,
     borderColor: '#E7E9ED',
     borderRadius: 6,
-    fontSize: 16,
     color: '#1F2329',
+    fontSize: 14,
+    // fontFamily: 'Wanted Sans',
     placeholderColor: '#8D96A4'
   },
-  loginBtn: {
+  joinBtn: {
     width: width - 40,
     paddingVertical: 16,
     backgroundColor: '#E7E9ED',
     borderRadius: 6,
   },
-  loginBtnText: {
+  joinBtnText: {
     fontSize: 16,
     color: '#8D96A4',
     textAlign: 'center',
     fontWeight: '500',
   },
-  menuWrap: {
-    marginVertical: 20,
+  labelWrap: {
+    gap: 12,
+  },
+  label: {
+    fontSize: 12,
+    color: '#8D96A4',
+  },
+  submitWrap: {
+    gap: 8
+  },
+  rowWrap: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 16
+    alignItems: 'center'
   },
-  menuBtnText: {
-    color: '#8D96A4'
+  numChkBtn: {
+    width: width - 268,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: '#64C7FA',
+    borderRadius: 6
   },
-  line: {
-    width: 1,
-    height: 12,
-    backgroundColor: '#E7E9ED',
-  },
-  snsWrap: {
-    gap: 8,
-    marginTop: 24
-  },
-  snsBtn: {
-    width: width - 40,
-    paddingVertical: 16,
-    borderRadius: 6,
-  },
-  snsBtnText: {
-    fontWeight: '500',
-    color: '#1F2329',
+  numChkBtnText: {
+    color: '#64C7FA',
     textAlign: 'center',
   },
-  snsBtnImg: {
-    position: 'absolute',
-    left: 20,
-    top: 12
+  essential: {
+    fontSize: 14,
+    color: '#EE815E',
   },
 })
 

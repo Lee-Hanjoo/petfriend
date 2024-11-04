@@ -15,9 +15,9 @@ const FilterPopup = (props) => {
   return (
     <View style={[styles.filterPopup, filterPopup && styles.filterPopupActive]}>
       <View style={styles.datepickerWrap}>
-        <TextInput style={styles.input} placeholder='날짜' placeholderTextColor='#8D96A4' />
+        <TextInput style={styles.input} placeholder='날짜' />
         <Text style={styles.line}>~</Text>
-        <TextInput style={styles.input} placeholder='날짜' placeholderTextColor='#8D96A4' />
+        <TextInput style={styles.input} placeholder='날짜' />
       </View>
       <View style={styles.inputWrap}>
         {

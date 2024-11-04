@@ -9,7 +9,7 @@ const {width, height} = Dimensions.get('window')
 const Find = () => {
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive, findActive, setFindActive } = useMenu(); 
+  const { menuActive, setMenuActive, findActive, setFindActive, setCompleteActive } = useMenu(); 
 
   const [btnActive, setBtnActive] = useState(true) 
 
@@ -47,7 +47,7 @@ const Find = () => {
           <View>
             <View style={styles.inputWrap}>
               <View style={styles.rowWrap}>
-                <TextInput style={styles.input} placeholder="휴대폰번호 입력 ('-'제외)" placeholderTextColor='#8D96A4' />
+                <TextInput style={styles.input} placeholder="휴대폰번호 입력 ('-'제외)" />
                 <Pressable style={styles.numChkBtn}
                   onPress={()=>{
                     alert('123456')
@@ -59,7 +59,7 @@ const Find = () => {
                 </Pressable>
               </View>
               <View style={styles.rowWrap}>
-                <TextInput style={styles.input} placeholder='인증번호 입력' placeholderTextColor='#8D96A4' />
+                <TextInput style={styles.input} placeholder='인증번호 입력' />
                 <Pressable style={[styles.numChkBtn, {borderColor: '#E7E9ED'}]}>
                   <Text style={[styles.numChkBtnText, {color: '#8D96A4'}]}>
                     확인
@@ -71,9 +71,9 @@ const Find = () => {
           :
           <View>
             <View style={styles.inputWrap}>
-              <TextInput style={[styles.input, {width: width - 40}]} placeholder="아이디 입력" placeholderTextColor='#8D96A4' />
+              <TextInput style={[styles.input, {width: width - 40}]} placeholder="아이디 입력" />
               <View style={styles.rowWrap}>
-                <TextInput style={styles.input} placeholder="휴대폰번호 입력 ('-'제외)" placeholderTextColor='#8D96A4' />
+                <TextInput style={styles.input} placeholder="휴대폰번호 입력 ('-'제외)" />
                 <Pressable style={styles.numChkBtn}
                   onPress={()=>{
                     alert('123456')
@@ -85,7 +85,7 @@ const Find = () => {
                 </Pressable>
               </View>
               <View style={styles.rowWrap}>
-                <TextInput style={styles.input} placeholder='인증번호 입력' placeholderTextColor='#8D96A4' />
+                <TextInput style={styles.input} placeholder='인증번호 입력' />
                 <Pressable style={[styles.numChkBtn, {borderColor: '#E7E9ED'}]}>
                   <Text style={[styles.numChkBtnText, {color: '#8D96A4'}]}>
                     확인
@@ -99,6 +99,7 @@ const Find = () => {
           onPress={()=>{
             setMenuActive('complete'); 
             navigation.navigate('complete'); 
+            setCompleteActive(findActive)
           }}
         >
           <Text style={[styles.loginBtnText, btnActive && {color: '#fff'}]}>

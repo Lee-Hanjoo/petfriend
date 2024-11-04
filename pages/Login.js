@@ -19,8 +19,8 @@ const Login = () => {
       <View style={styles.contents}>
         <View>
           <View style={styles.inputWrap}>
-            <TextInput style={styles.input} placeholder='아이디 입력' placeholderTextColor='#8D96A4' />
-            <TextInput style={styles.input} placeholder='비밀번호 입력' placeholderTextColor='#8D96A4' secureTextEntry />
+            <TextInput style={styles.input} placeholder='아이디 입력' />
+            <TextInput style={styles.input} placeholder='비밀번호 입력' secureTextEntry />
           </View>
           <Pressable style={[styles.loginBtn, btnActive && {backgroundColor: '#1F2329'}]}>
             <Text style={[styles.loginBtnText, btnActive && {color: '#fff'}]}>로그인</Text>

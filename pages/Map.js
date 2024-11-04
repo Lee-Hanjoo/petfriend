@@ -87,6 +87,8 @@ const Map = () => {
         <Select placeholder='도시' items={city} setItems={setCity} size={163} value={sigunguCode} setValue={setSigunguCode} />
       </View>
       <FlatList
+        keyExtractor={(item, index) => index.toString()}
+        contentContainerStyle={styles.scrollableContainer}
         data={shelterInfo}
         renderItem={({ item, index }) => {
           return (
@@ -107,8 +109,6 @@ const Map = () => {
             />
           );
         }}
-        keyExtractor={(item, index) => index.toString()}
-        contentContainerStyle={styles.scrollableContainer}
       />
     </View>
   );
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 16,
     borderBottomWidth: 1,
-    borderColor: '#8D96A4',
+    borderColor: '#E7E9ED',
   },
   line: {
     width: 1,
