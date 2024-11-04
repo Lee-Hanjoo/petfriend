@@ -25,12 +25,10 @@ const DetailHeader = ({ menuItems }) => {
         if (findActive === 'id') return '아이디 찾기';
         if (findActive === 'pw') return '비밀번호 찾기';
       }
+      if (menuActive === 'join') return '회원가입'
       
       return ''; // 아무 조건도 해당하지 않으면 빈 문자열
     };
-    useEffect(()=>{
-      console.log(previousMenuActive);
-    },[])
 
   return (
     <View style={[styles.DetailHeaderWrap]}>
@@ -48,19 +46,23 @@ const DetailHeader = ({ menuItems }) => {
             <Image source={ImgPath.login}/>
           </Pressable>
           :
-          <Pressable style={styles.backBtn} 
-            onPress={() =>{ 
-              if(menuActive === 'mypet') {
-                navigation.navigate('menu')
-                setMenuActive('menu'); 
-              } else {
-                navigation.goBack()
-                setMenuActive(previousMenuActive)
-              }
-            }}
-          >
-            <Image source={ImgPath.back_arrow}/>
-          </Pressable>
+            menuActive !== 'complete' &&
+            <Pressable style={styles.backBtn} 
+              onPress={() =>{ 
+                if((menuActive === 'mypet' || menuActive === 'login')) {
+                  navigation.navigate('menu')
+                  setMenuActive('menu')
+                } else if ((menuActive === 'find' || menuActive === 'join')){
+                  setMenuActive('login')
+                  navigation.navigate('login')
+                } else {
+                  setMenuActive(previousMenuActive)
+                  navigation.goBack()
+                }
+              }}
+            >
+              <Image source={ImgPath.back_arrow}/>
+            </Pressable>
         }
         {
           menuActive === 'menu' ?
@@ -75,10 +77,7 @@ const DetailHeader = ({ menuItems }) => {
           </View>
           :
           <Text style={styles.title}>
-            {menuActive === 'mypet' && '설정'}
-            {menuActive === 'write' && '글쓰기'}
-            {(menuActive === 'detail' || menuActive === 'find') && getTitle()}
-            {menuActive === 'join' && '회원가입'}
+            {getTitle()}
           </Text>
         }
       </View>

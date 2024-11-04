@@ -191,18 +191,8 @@ export default function Navigation() {
           name="complete"
           component={Complete}
           options={{
-            headerShown: true,
+            headerShown: false,
             unmountOnBlur: true,
-            header: ({props}) => (
-              <DetailHeader {...props}  
-                menuActive={menuActive}
-                setMenuActive={setMenuActive}
-                menuItems={menuItems}
-              />
-            ),
-          }}
-          initialParams={{ 
-            menuItems 
           }}
         />
       </Stack.Navigator>

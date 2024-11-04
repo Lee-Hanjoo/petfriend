@@ -19,11 +19,10 @@ export function MenuProvider({ children }) {
 
 
   useEffect(() => {
-    // menuActive가 'write' 또는 'detail'로 변경되기 전에 현재 상태를 저장
     if (menuActive !== 'write' && menuActive !== 'detail') {
-      setPreviousMenuActive(menuActive); // 'write'나 'detail'이 아닌 경우 이전 메뉴 저장
+      setPreviousMenuActive(menuActive);
     }
-  }, [menuActive, previousMenuActive]);
+  }, [menuActive]);
 
   // const handleGoBack = () => {
   //   if (menuActive === 'write' || menuActive === 'detail') {
