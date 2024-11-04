@@ -40,7 +40,7 @@ const CustomTabBar = ({menuItems}) => {
           <Image source={ImgPath.menu} />
         </Pressable>
       </View>
-      { (menuActive === 'story' || menuActive === 'missing') &&
+      { (menuActive === 'home' || menuActive === 'story' || menuActive === 'missing') &&
         <Pressable style={styles.writeBtn} 
           onPress={()=>{
             setMenuActive('write');

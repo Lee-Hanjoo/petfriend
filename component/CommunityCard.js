@@ -57,7 +57,7 @@ const showConfirm = () => {
       }
       <View style={styles.top}>
         <Text style={styles.title} numberOfLines={home ? 1 : 2}>{title}</Text>
-        <Text style={styles.desc} numberOfLines={event ? 5 : 2} ellipsizeMode="tail">{desc}</Text>
+        <Text style={styles.desc} numberOfLines={home ? 2 : 5} ellipsizeMode="tail">{desc}</Text>
       </View>
       <View style={[styles.bottom, event && styles.bottomEvent]}>
         <Text style={styles.location}>{location}</Text>

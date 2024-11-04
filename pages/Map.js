@@ -75,6 +75,8 @@ const Map = () => {
     sidoApi()
     sigunguApi()
     shelterApi()
+    console.log('sidoCode',sidoCode, location);
+    console.log('sigunguCode',sigunguCode, city);
   }, [isFocused, sidoCode, sigunguCode]) 
 
   if(!shelterInfo) return

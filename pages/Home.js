@@ -256,7 +256,7 @@ const Home = () => {
                     const firebaseEvnetImgUrl = `https://firebasestorage.googleapis.com/v0/b/petfriend-77a67.appspot.com/o/event%2F${id}.jpg?alt=media&token=ef1c83ee-6428-44d8-96c5-e5cf9c4556f3`
                     return(
                       <CommunityCard
-                        event
+                        home
                         key={item.id}
                         src={firebaseEvnetImgUrl}
                         title={item.title}
