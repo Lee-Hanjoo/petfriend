@@ -75,8 +75,6 @@ const Map = () => {
     sidoApi()
     sigunguApi()
     shelterApi()
-    console.log('sidoCode',sidoCode, location);
-    console.log('sigunguCode',sigunguCode, city);
   }, [isFocused, sidoCode, sigunguCode]) 
 
   if(!shelterInfo) return
@@ -89,7 +87,7 @@ const Map = () => {
         <Select placeholder='도시' items={city} setItems={setCity} size={163} value={sigunguCode} setValue={setSigunguCode} />
       </View>
       <FlatList
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item) => item.key}
         contentContainerStyle={styles.scrollableContainer}
         data={shelterInfo}
         renderItem={({ item, index }) => {

@@ -14,9 +14,6 @@ const {width, height} = Dimensions.get('window')
 const Write = () => {
 
   const { 
-    // select
-    animal, setAnimal,
-    breed, setBreed,
     // radio
     gender, age, neutering
   } = useMenu();
@@ -83,6 +80,14 @@ const Write = () => {
   ]);
   const [missingCode, setMissingCode] = useState('default')
 
+  // 품종 분류
+  const [animal, setAnimal] = useState([
+    { label: '강아지', value: '417000' },
+    { label: '고양이', value: '422400' },
+    { label: '기타', value: '429900' },
+  ]);
+  const [animalCode, setAnimalCode] = useState('default')
+
   //시도
   const [sidoCode, setSidoCode] = useState(6110000)
   const [location, setLocation] = useState([])
@@ -110,13 +115,28 @@ const Write = () => {
       }
     }))
   }
+  
+  //품종  
+  const [upKindCode, setUpKindCode] = useState(417000)
+  const [upKind, setUpKind] = useState([])
+  
+  const upKindApi = async () => {
+    const upKind = await api.upKind(animalCode)
+    setUpKind(upKind.response.body.items.item.map((v) => {
+      return {
+        label: v.knm,
+        value: v.kindCd
+      }
+    }))
+  }
 
   useEffect(() => {
     // 포커스가 false일때 (페이지를 벗어났을 때) 스크롤탑 0
     if(!isFocused) return 
     sidoApi();
     sigunguApi();
-  }, [isFocused, sidoCode, sigunguCode]) 
+    upKindApi();
+  }, [isFocused, sidoCode, sigunguCode, upKindCode]) 
 
   return (
     <FlatList
@@ -173,8 +193,8 @@ const Write = () => {
                 <View style={[styles.labelWrap, {zIndex: 2}]}>
                   <Text style={styles.label}>품종<Text style={styles.essential}>*</Text></Text>
                   <View style={styles.submitWrap}>
-                    <Select placeholder='품종' items={animal} setItems={setAnimal} size={100} />
-                    <Select placeholder='세부 종' items={breed} setItems={setBreed} size={140} />
+                    <Select placeholder='품종' items={animal} setItems={setAnimal} size={164} value={animalCode} setValue={setAnimalCode} />
+                    <Select placeholder='세부 종' items={upKind} setItems={setUpKind} size={163} value={upKindCode} setValue={setUpKindCode} />
                   </View> 
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
