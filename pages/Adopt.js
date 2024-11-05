@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import Select from '../component/Select'
 import AdoptPet from '../component/AdoptPet';
 import { ImgPath } from '../ImgPath';
@@ -9,48 +9,91 @@ import { api } from '../api/api'
 import store from '../state/store'
 import {BASE_URL,REACT_APP_API_KEY} from '@env'
 
-const Adopt = () => {
+const {width, height} = Dimensions.get('window')
 
-  const { 
-    location, setLocation,
-    animal, setAnimal,
-    breed, setBreed,
-  } = useMenu();
+// 로딩 activity indicator
+
+const Adopt = () => {
 
   const [animalData, setAnimalData] = useState([]);
 
-  useEffect(()=>{
-    animalApi()
-  },[])
+  const animalApi = (_animalCode) => {
 
-  const animalApi = () => {
-
-    axios.get(`${BASE_URL}abandonmentPublic?serviceKey=${REACT_APP_API_KEY}&_type=json`)
-
-    .then(function (res) {
+    axios.get(`${BASE_URL}abandonmentPublic?serviceKey=${REACT_APP_API_KEY}&_type=json${_animalCode ? '&up_kind_cd='+_animalCode : ''}`)
+    .then((res) => {
       if(animalData.length) {
         setAnimalData([...animalData, ...res.data.response.body.items.item]);
       } else {
         setAnimalData(res.data.response.body.items.item);
       }
     })
-    .catch(function (error) {
+    .catch((error) => {
       alert('데이터를 불러오는데 실패했습니다.')
     })
-    .finally(function () {
+    .finally(() => {
       // always executed
     });
   }
+
+  //시도
+  const [sidoCode, setSidoCode] = useState(6110000)
+  const [location, setLocation] = useState([])
+  
+  const sidoApi = async () => {
+    const sido = await api.sido()
+    setLocation(sido.response.body.items.item.map((v) => {
+      return {
+        label: v.orgdownNm,
+        value: v.orgCd
+      }
+    }))
+  }
+
+  //품종  
+  const [upKindCode, setUpKindCode] = useState(417000)
+  const [upKind, setUpKind] = useState([])
+  
+  const upKindApi = async (_animalCode) => {
+    const upKind = await api.upKind(_animalCode)
+    setUpKind(upKind.response?.body?.items.item.map((v) => {
+      return {
+        label: v.knm,
+        value: v.kindCd
+      }
+    }))
+  }
+  
+
+  // 품종 분류
+  const [animal, setAnimal] = useState([
+    { label: '강아지', value: '417000' },
+    { label: '고양이', value: '422400' },
+    { label: '기타', value: '429900' },
+  ]);
+  const [animalCode, setAnimalCode] = useState(417000)
+
+  // 하나씩 나눠주기.
+  useEffect(()=>{
+    sidoApi()
+  },[sidoCode])
+
+  useEffect(()=>{
+    if(!animalCode) return
+    animalApi(animalCode)
+    upKindApi(animalCode);
+  },[animalCode])
 
   if(!animalData) return
 
   return (
     <View>
       <View style={styles.selectWrap}>
-        <Select placeholder='지역' items={location} setItems={setLocation} size={104} />
-        <View style={styles.line}></View>
-        <Select placeholder='동물' items={animal} setItems={setAnimal} size={84} marginRight={8}/>
-        <Select placeholder='품종' items={breed} setItems={setBreed} size={124} />
+        <Select placeholder='지역' items={location} setItems={setLocation} size={200} value={sidoCode} setValue={setSidoCode} />
+        {/* <View style={styles.line}></View> */}
+        <View >
+          <Select placeholder='품종' items={animal} setItems={setAnimal} size={84} value={animalCode} setValue={setAnimalCode} />
+          <Select placeholder='세부 종' items={upKind} setItems={setUpKind} size={80} value={upKindCode} setValue={setUpKindCode} />
+        </View>
       </View>
       <ScrollView style={styles.container}>
         <View style={styles.contents}>

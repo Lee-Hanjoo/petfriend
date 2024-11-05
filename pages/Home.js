@@ -29,20 +29,6 @@ const Home = () => {
   const [tabIndex, setTabIndex] = useState(0)
   const [tabSecIndex, setTabSecIndex] = useState(0)
 
-
-  const [apiType, setApiType] = useState('abandonmentPublic')
-  // 시도코드
-  const [uprCd, setUprCd] = useState('upr_cd=6110000')
-  // 시군구코드
-  const [orgCd, setOrgCd] = useState('org_cd=3220000')
-  // 축종코드 (개 : 417000, 고양이 : 422400, 기타 : 429900))
-  const [upKindCd, setUpKindCd] = useState('up_kind_cd=417000')
-  // 품종코드 
-  const [kindCd, setKindCd] = useState('kind_cd=000054')
-  // 이미지
-  const [popfile, setPopfile] = useState('kind_cd=000054')
-
-
   const [animalData, setAnimalData] = useState([]);
 
 

@@ -54,8 +54,9 @@ const Map = () => {
 
   const shelterApi = async () => {
     const shelter = await api.shelter(sidoCode, sigunguCode)
-    setShelterInfo(shelter.response.body.items.item.map((v) => {
+    setShelterInfo(shelter.response.body.items.item.map((v,i) => {
       return {
+        key: i,
         name: v.careNm,
         tel: v.careTel,
         orgName: v.orgNm,
