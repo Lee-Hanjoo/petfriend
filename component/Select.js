@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
     color: '#1F2329',
   },
   containerStyle: {
-    width: 'fit-content'
+    width: 'fit-content',
+    maxHeight: 33
   },
   textStyle: {
     color: '#8D96A4',

@@ -13,11 +13,11 @@ const store = create((set) => ({
     let res;
     switch(action.type){
       // case 'search':  break;
-      case 'list' : res = await api.list(); set({list:res});
-      break;
+      // case 'list' : res = await api.list(); set({list:res});
+      // break;
 
       //                   api통신 후 main에 그 통신한 res를 넣어준거임
-      default : res = await api.all(); set({main:res});
+      // default : res = await api.all(); set({main:res});
     }
     
   },

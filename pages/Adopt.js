@@ -88,11 +88,11 @@ const Adopt = () => {
   return (
     <View>
       <View style={styles.selectWrap}>
-        <Select placeholder='지역' items={location} setItems={setLocation} size={200} value={sidoCode} setValue={setSidoCode} />
+        <Select placeholder='지역' items={location} setItems={setLocation} size={136} value={sidoCode} setValue={setSidoCode} />
         {/* <View style={styles.line}></View> */}
-        <View >
-          <Select placeholder='품종' items={animal} setItems={setAnimal} size={84} value={animalCode} setValue={setAnimalCode} />
-          <Select placeholder='세부 종' items={upKind} setItems={setUpKind} size={80} value={upKindCode} setValue={setUpKindCode} />
+        <View style={{flexDirection: 'row', gap: 8, marginLeft: 8}}>
+          <Select placeholder='품종' items={animal} setItems={setAnimal} size={88} value={animalCode} setValue={setAnimalCode} />
+          <Select placeholder='세부 종' items={upKind} setItems={setUpKind} size={92} value={upKindCode} setValue={setUpKindCode} />
         </View>
       </View>
       <ScrollView style={styles.container}>
