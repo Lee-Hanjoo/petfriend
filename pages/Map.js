@@ -38,7 +38,7 @@ const Map = () => {
   const [sigunguCode, setSigunguCode] = useState(3220000)
   const [city, setCity] = useState([])
 
-  const sigunguApi = async () => {
+  const sigunguApi = async (sidoCode) => {
     const sigungu = await api.sigungu(sidoCode)
     setCity(sigungu.response.body.items.item.map((v) => {
       return {
@@ -53,29 +53,54 @@ const Map = () => {
 
   const shelterApi = async () => {
     const shelter = await api.shelter(sidoCode, sigunguCode)
-    setShelterInfo(shelter.response.body.items.item.map((v,i) => {
-      return {
+    const filteredShelters = shelter.response.body.items.item
+      .map((v, i) => ({
         key: i,
         name: v.careNm,
-        tel: v.careTel,
         orgName: v.orgNm,
+        tel: v.careTel,
         lat: v.lat,
         lng: v.lng,
         closeDay: v.closeDay,
         startTime: v.weekOprStime,
         endTime: v.weekOprEtime,
-      }
-    }))
+      }))
+      .filter((v) => {
+        // 시도 코드에 맞는 지역 필터링 (예: 서울특별시)
+        const selectedRegion = location.find((loc) => loc.value === sidoCode);
+        const selectedCity = city.find((ct) => ct.value === sigunguCode);
+
+        if (selectedRegion && selectedCity) {
+          // 서울특별시와 강남구가 모두 포함된 보호소만 반환
+          return (
+            v.orgName.includes(selectedRegion.label) &&
+            v.orgName.includes(selectedCity.label)
+          );
+        } else if (selectedRegion) {
+          // 시도만 선택한 경우, 시도의 지역명이 포함된 보호소만 반환
+          return v.orgName.includes(selectedRegion.label);
+        } else if (selectedCity) {
+          // 시군구만 선택한 경우, 시군구명이 포함된 보호소만 반환
+          return v.orgName.includes(selectedCity.label);
+        }
+        return true; // 시도와 시군구 모두 선택되지 않은 경우
+      });
+    setShelterInfo(filteredShelters);
   }
-  
   
   useEffect(() => {
     // 포커스가 false일때 (페이지를 벗어났을 때) 스크롤탑 0
     if(!isFocused) return 
     sidoApi()
-    sigunguApi()
+    sigunguApi(sidoCode)
     shelterApi()
   }, [isFocused, sidoCode, sigunguCode]) 
+
+  useEffect(() => {
+    if (sigunguCode) {
+      setSigunguCode(null); // sidoCode가 변경될 때 sigunguCode 초기화
+    }
+  }, [sidoCode]);
 
   if(!shelterInfo) return
 

@@ -18,7 +18,7 @@ export const api = {
   },
 
   shelter:async (uprCd, orgCd)=>{
-    const res = await axios.get(`${BASE_URL_SHELTER}shelterInfo?serviceKey=${REACT_APP_API_KEY}&_type=json&numOfRows=30`, {
+    const res = await axios.get(`${BASE_URL_SHELTER}shelterInfo?serviceKey=${REACT_APP_API_KEY}&_type=json&numOfRows=999`, {
       params: {
         upr_cd: uprCd,
         org_cd: orgCd,

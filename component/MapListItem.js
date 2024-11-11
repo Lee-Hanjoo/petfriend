@@ -10,10 +10,7 @@ import {REACT_APP_KAKAO_KEY} from '@env';
 const {width, height} = Dimensions.get('window')
 
 const MapListItem = (props) => {
-  const [textPopup, setTextPopup] = useState(false)
   const {title, location, callNum, lat, lng, startTime, endTime, openMapIndex, setOpenMapIndex, index, activePopupIndex, setActivePopupIndex } = props;
-  
-  const [openMap, setOpenMap] = useState(false)
 
   const kakaoMap = `
   <!DOCTYPE html>
