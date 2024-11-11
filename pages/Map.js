@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, TextInput, FlatList, View, Text, Dimensions, Pressable, Image } from 'react-native';
+import { StyleSheet, FlatList, View } from 'react-native';
 import Tab from '../component/Tab';
 import Select from '../component/Select';
 import MapListItem from '../component/MapListItem';
-import { useMenu } from '../MenuProvider'
 import { api } from '../api/api';
 import { useIsFocused } from '@react-navigation/native';
-import {WebView} from 'react-native-webview';
-import {REACT_APP_KAKAO_KEY} from '@env';
-
-const {width, height} = Dimensions.get('window')
 
 const Map = () => {
 
@@ -66,24 +61,26 @@ const Map = () => {
         endTime: v.weekOprEtime,
       }))
       .filter((v) => {
-        // 시도 코드에 맞는 지역 필터링 (예: 서울특별시)
-        const selectedRegion = location.find((loc) => loc.value === sidoCode);
-        const selectedCity = city.find((ct) => ct.value === sigunguCode);
+        // 시도 코드 필터링
+        const selectedLocation = location.find((locationItem) => locationItem.value === sidoCode);
+        // 시군구 코드 필터링
+        const selectedCity = city.find((cityItem) => cityItem.value === sigunguCode);
 
-        if (selectedRegion && selectedCity) {
-          // 서울특별시와 강남구가 모두 포함된 보호소만 반환
+        // 둘 다 선택했을경우.
+        if (selectedLocation && selectedCity) {
           return (
-            v.orgName.includes(selectedRegion.label) &&
+            v.orgName.includes(selectedLocation.label) &&
             v.orgName.includes(selectedCity.label)
           );
-        } else if (selectedRegion) {
-          // 시도만 선택한 경우, 시도의 지역명이 포함된 보호소만 반환
-          return v.orgName.includes(selectedRegion.label);
+        // 시도만 선택했을 경우
+        } else if (selectedLocation) {
+          return v.orgName.includes(selectedLocation.label);
+        // 시군구만 선택했을 경우
         } else if (selectedCity) {
-          // 시군구만 선택한 경우, 시군구명이 포함된 보호소만 반환
           return v.orgName.includes(selectedCity.label);
         }
-        return true; // 시도와 시군구 모두 선택되지 않은 경우
+        // 선택되지 않은 경우
+        return true;
       });
     setShelterInfo(filteredShelters);
   }
@@ -96,9 +93,10 @@ const Map = () => {
     shelterApi()
   }, [isFocused, sidoCode, sigunguCode]) 
 
+  // 시도가 변경될 때 시군구가 선택되어있으면 초기화
   useEffect(() => {
     if (sigunguCode) {
-      setSigunguCode(null); // sidoCode가 변경될 때 sigunguCode 초기화
+      setSigunguCode(null)
     }
   }, [sidoCode]);
 
