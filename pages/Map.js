@@ -13,7 +13,6 @@ const {width, height} = Dimensions.get('window')
 
 const Map = () => {
 
-  const [text, setText] = useState('');
   const [openMapIndex, setOpenMapIndex] = useState(null);
   const [activePopupIndex, setActivePopupIndex] = useState(null);
   const [tabIndex, setTabIndex] = useState(0)
@@ -69,7 +68,7 @@ const Map = () => {
     }))
   }
   
-
+  
   useEffect(() => {
     // 포커스가 false일때 (페이지를 벗어났을 때) 스크롤탑 0
     if(!isFocused) return 

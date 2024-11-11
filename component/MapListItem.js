@@ -26,7 +26,7 @@ const MapListItem = (props) => {
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=${REACT_APP_KAKAO_KEY}"></script>
   </head>
   <body>
-    <div id="map" style="width:calc(100% + 20px);height:360px;margin-left:-10px;margin-top:-10px;"></div>
+    <div id="map" style="width:calc(100% + 20px);height:270px;margin-left:-10px;margin-top:-10px;"></div>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         var mapContainer = document.getElementById('map'),
