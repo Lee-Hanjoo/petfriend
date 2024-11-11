@@ -1,16 +1,58 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Platform, StyleSheet, Text, TextInput } from 'react-native'
 import { Pressable } from 'react-native'
 import { View } from 'react-native'
 import Select from './Select';
 import { useMenu } from '../MenuProvider'
+import { useIsFocused } from '@react-navigation/native';
 
 
 const FilterPopup = (props) => {
 
   const {item, animal, filterPopup, setFilterPopup} = props;
 
-  const {location, setLocation} = useMenu();
+  const isFocused = useIsFocused()
+
+  //시도
+  const [sidoCode, setSidoCode] = useState(6110000)
+  const [location, setLocation] = useState([])
+  
+  const sidoApi = async () => {
+    const sido = await api.sido()
+    setLocation(sido.response.body.items.item.map((v) => {
+      return {
+        label: v.orgdownNm,
+        value: v.orgCd
+      }
+    }))
+  }
+  
+  //시군구
+  const [sigunguCode, setSigunguCode] = useState(3220000)
+  const [city, setCity] = useState([])
+
+  const sigunguApi = async (sidoCode) => {
+    const sigungu = await api.sigungu(sidoCode)
+    setCity(sigungu.response.body.items.item.map((v) => {
+      return {
+        label: v.orgdownNm,
+        value: v.orgCd
+      }
+    }))
+  }
+  useEffect(() => {
+    // 포커스가 false일때 (페이지를 벗어났을 때) 스크롤탑 0
+    if(!isFocused) return 
+    sidoApi()
+    sigunguApi(sidoCode)
+  }, [isFocused, sidoCode, sigunguCode]) 
+
+  // 시도가 변경될 때 시군구가 선택되어있으면 초기화
+  useEffect(() => {
+    if (sigunguCode) {
+      setSigunguCode(null)
+    }
+  }, [sidoCode]);
 
   return (
     <View style={[styles.filterPopup, filterPopup && styles.filterPopupActive]}>
@@ -23,14 +65,16 @@ const FilterPopup = (props) => {
         {
           animal &&
             <View style={[styles.SelectWrap, styles.animalWrap]}>
-              <Select placeholder='지역' items={location} setItems={setLocation} size={103} />
-              <Select placeholder='지역' items={location} setItems={setLocation} size={103} />
-              <Select placeholder='지역' items={location} setItems={setLocation} size={103} />
+              {/* 103,103, 103 */}
+              <Select placeholder='지역' items={location} setItems={setLocation} size={103} value={sidoCode} setValue={setSidoCode} />
+              <Select placeholder='지역' items={location} setItems={setLocation} size={103} value={sidoCode} setValue={setSidoCode} />
+              <Select placeholder='도시' items={city} setItems={setCity} size={103} value={sigunguCode} setValue={setSigunguCode} />
             </View>
         }
           <View style={styles.SelectWrap}>
-            <Select placeholder='지역' items={location} setItems={setLocation} size={178} />
-            <Select placeholder='지역' items={location} setItems={setLocation} size={140} />
+            {/* 178, 140 */}
+            <Select placeholder='지역' items={location} setItems={setLocation} size={178} value={sidoCode} setValue={setSidoCode} />
+            <Select placeholder='도시' items={city} setItems={setCity} size={140} value={sigunguCode} setValue={setSigunguCode} />
           </View>
       </View>
     </View>

@@ -1,13 +1,29 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { ImgPath } from './ImgPath';
 import { useMemo } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Context 생성
 const MenuContext = createContext();
+const SessionContext = createContext();
 
 export const useMenu = () => useContext(MenuContext); // 간편하게 사용하기 위한 훅
+export const useSession = () => useContext(SessionContext); // 간편하게 사용하기 위한 훅
 
 export function MenuProvider({ children }) {
+  const [session, setSession] = useState(null);
+
+   useEffect(() => {
+      const loadSession = async () => {
+       try {
+        const token = await AsyncStorage.getItem('@user');
+        setSession(token || null);
+       } catch (error) {
+        // console.error('Error loading session:', error);
+       }
+      };
+      loadSession();
+     }, []);
 
   const [menuActive, setMenuActive] = useState('home');
   const [detailActive, setDetailActive] = useState('home')
@@ -34,17 +50,6 @@ export function MenuProvider({ children }) {
   ];
 
   // select
-  const [location, setLocation] = useState([
-    { label: '서울특별시', value: 'seoul' },
-    { label: '부산', value: 'busan' },
-    { label: '바나나', value: 'banana' },
-    { label: '사과', value: 'apple' },
-  ]);
-
-  const [city, setCity] = useState([
-    { label: '중랑구', value: 'junglanggu' },
-  ]);
-
   const [board, setBoard] = useState([
     { label: '스토리', value: 'story' },
     { label: '실종 동물 찾기', value: 'missing' },
@@ -92,6 +97,7 @@ export function MenuProvider({ children }) {
   return (
     <MenuContext.Provider 
     value={{ 
+        session,setSession,
         // menu
         menuActive, setMenuActive,
         detailActive, setDetailActive,
@@ -100,8 +106,6 @@ export function MenuProvider({ children }) {
         completeActive, setCompleteActive,
         // select
         menuItems,
-        location, setLocation,
-        city, setCity,
         board, setBoard,
         storyCategory, setStoryCategory,
         missingCategory, setMissingCategory,

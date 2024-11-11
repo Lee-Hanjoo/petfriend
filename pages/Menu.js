@@ -8,7 +8,7 @@ const {width, height} = Dimensions.get('window');
 const Menu = () => {
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive, menuItems } = useMenu(); 
+  const { setMenuActive, menuItems } = useMenu(); 
   
   return (
     <View>
@@ -26,9 +26,6 @@ const Menu = () => {
             <Text style={styles.title}>{menuItems[i].krTitle}</Text>
           </Pressable>
         )}
-        <Pressable>
-          
-        </Pressable>
       </View>
     </View>
   )

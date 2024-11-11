@@ -62,7 +62,6 @@ const Adopt = () => {
       }
     }))
   }
-  
 
   // 품종 분류
   const [animal, setAnimal] = useState([
