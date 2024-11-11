@@ -14,7 +14,7 @@ export default function AuthGoogle() {
   expoClientId: "b84d268c-dd17-4b4d-a346-d93eefdc4f9f.apps.googleusercontent.com",
   androidClientId: "113082507641007466846.apps.googleusercontent.com",
   iosClientId: "838974498419-r6srtcuduo6l4sohf3rvf200jqb1kmr6.apps.googleusercontent.com",
-  redirectUri: "https://auth.expo.io/@gkswnehcl/petfriend",
+  redirectUri: "http://localhost:8081/api/auth/callback/google",
  });
 
  useEffect(() => {

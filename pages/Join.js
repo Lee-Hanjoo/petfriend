@@ -5,13 +5,18 @@ import { useNavigation } from '@react-navigation/native'
 import { useMenu } from '../MenuProvider';
 import Select from '../component/Select';
 import { RadioGroup } from 'react-native-radio-buttons-group';
+import { handleSignUp } from '../lib/member';
 
 const {width, height} = Dimensions.get('window')
 
 const Join = () => {
 
   const navigation = useNavigation();
-  const { setMenuActive, sex, completeActive, setCompleteActive } = useMenu(); 
+  const { setMenuActive, sex, completeActive, setCompleteActive, session, setSession } = useMenu(); 
+  const [username, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const [btnActive, setBtnActive] = useState(true)
   const [sexId, setSexId] = useState('sex_default');
@@ -27,24 +32,47 @@ const Join = () => {
             <View style={styles.labelWrap}>
               <Text style={styles.label}>아이디<Text style={styles.essential}>*</Text></Text>
               <View style={styles.submitWrap}>
-                <TextInput style={styles.input} placeholder='아이디' />
+                <TextInput 
+                  style={styles.input} 
+                  placeholder='아이디' 
+                  value={username}
+                  onChangeText={(text) => setName(text)}
+                />
               </View>
             </View>
             <View style={styles.labelWrap}>
               <Text style={styles.label}>비밀번호<Text style={styles.essential}>*</Text></Text>
               <View style={styles.submitWrap}>
-                <TextInput style={styles.input} placeholder='비밀번호 입력' secureTextEntry/>
-                <TextInput style={styles.input} placeholder='비밀번호 재입력' secureTextEntry/>
+                <TextInput 
+                  style={styles.input}
+                  placeholder='비밀번호 입력' 
+                  secureTextEntry
+                  value={password}
+                  onChangeText={(text) => setPassword(text)}
+                />
+                <TextInput 
+                  style={styles.input}
+                  placeholder='비밀번호 재입력'
+                  secureTextEntry
+                  value={confirmPassword}
+                  onChangeText={(text) => setConfirmPassword(text)}
+                />
               </View>
             </View>
             <View style={styles.labelWrap}>
-              <Text style={styles.label}>이메일주소</Text>
+              <Text style={styles.label}>이메일주소<Text style={styles.essential}>*</Text></Text>
               <View style={styles.submitWrap}>
-                <TextInput style={styles.input} placeholder='이메일' />
+                <TextInput 
+                  style={styles.input} 
+                  placeholder='이메일'
+                  value={email}
+                  onChangeText={(text) => setEmail(text)}
+                  keyboardType="email-address"
+                />
               </View>
             </View>
             <View style={styles.labelWrap}>
-              <Text style={styles.label}>닉네임<Text style={styles.essential}>*</Text></Text>
+              <Text style={styles.label}>닉네임</Text>
               <View style={styles.submitWrap}>
                 <TextInput style={styles.input} placeholder='닉네임' />
               </View>
@@ -56,7 +84,7 @@ const Join = () => {
               </View>
             </View>
             <View style={styles.labelWrap}>
-              <Text style={styles.label}>성별<Text style={styles.essential}>*</Text></Text>
+              <Text style={styles.label}>성별</Text>
               <View style={styles.submitWrap}>
                 <RadioGroup
                   radioButtons={sex} 
@@ -95,9 +123,13 @@ const Join = () => {
                 btnActive && {backgroundColor: '#1F2329'}
               ]}
               onPress={()=>{
-                setMenuActive('complete'); 
-                navigation.navigate('complete'); 
-                setCompleteActive('join')
+                if(username && email && password && confirmPassword) {
+                  setMenuActive('complete'); 
+                  navigation.navigate('complete'); 
+                  setCompleteActive('join')
+                } else {
+                  handleSignUp(navigation,{username,email,password,confirmPassword},setSession)
+                }
               }}
             >
               <Text style={[styles.joinBtnText, btnActive && {color: '#fff'}]}>가입하기</Text>

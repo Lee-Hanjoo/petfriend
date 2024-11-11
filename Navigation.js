@@ -11,9 +11,9 @@ import Write from "./pages/Write";
 import Detail from "./pages/Detail";
 import DetailHeader from "./component/DetailHeader";
 import { MenuProvider } from './MenuProvider';
-import Login from "./pages/Login_t";
+import Login from "./pages/Login";
 import Find from "./pages/Find";
-import Join from "./pages/MemberJoin_t";
+import Join from "./pages/Join";
 import Complete from "./pages/Complete";
 
 

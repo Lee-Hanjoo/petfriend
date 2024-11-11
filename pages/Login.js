@@ -1,76 +1,111 @@
 import React, { useState } from 'react'
-import { Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, Dimensions, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { ImgPath } from '../ImgPath'
 import { useNavigation } from '@react-navigation/native'
 import { useMenu } from '../MenuProvider';
+import { handleLogin, handleLogout } from '../lib/member';
+import AuthGoogle from '../component/AuthGoogle';
 
 const {width, height} = Dimensions.get('window')
 
 const Login = () => {
 
   const navigation = useNavigation();
-  const { menuActive, setMenuActive, findActive, setFindActive } = useMenu(); 
+  const { menuActive, setMenuActive, findActive, setFindActive, session, setSession } = useMenu(); 
 
   const [btnActive, setBtnActive] = useState(false)
 
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+ 
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>로그인</Text>
-      <View style={styles.contents}>
+      {session ? 
         <View>
-          <View style={styles.inputWrap}>
-            <TextInput style={styles.input} placeholder='아이디 입력' />
-            <TextInput style={styles.input} placeholder='비밀번호 입력' secureTextEntry />
+        <Button title="Logout" onPress={()=>{handleLogout(setSession)}} />
+        </View>
+      :
+        <>
+          <Text style={styles.title}>로그인</Text>
+          <View style={styles.contents}>
+            <View>
+              <View style={styles.inputWrap}>
+                <TextInput 
+                  style={styles.input} 
+                  placeholder='아이디 입력' 
+                  value={username} 
+                  onChangeText={(text) => setUsername(text)}
+                />
+                <TextInput 
+                  style={styles.input}
+                  placeholder='비밀번호 입력' 
+                  value={password}
+                  onChangeText={(text) => setPassword(text)}
+                  secureTextEntry 
+                />
+              </View>
+              <Pressable 
+                style={[
+                  styles.loginBtn, 
+                  btnActive && {backgroundColor: '#1F2329'}
+                ]}
+                onPress={()=>handleLogin(navigation,{username,password},setSession)}
+              >
+                <Text style={[styles.loginBtnText, btnActive && {color: '#fff'}]}>로그인</Text>
+              </Pressable>
+            </View>
+            <View style={[styles.menuWrap]}>
+              <Pressable 
+                onPress={()=>{
+                  setMenuActive('find'); 
+                  navigation.navigate('find'); 
+                  setFindActive('id');
+                }}
+              >
+                <Text style={styles.menuBtnText}>아이디 찾기</Text>
+              </Pressable>
+              <View style={styles.line}></View>
+              <Pressable 
+                onPress={()=>{
+                  setMenuActive('find'); 
+                  navigation.navigate('find'); 
+                  setFindActive('pw');
+                }}
+              >
+                <Text style={styles.menuBtnText}>비밀번호 찾기</Text>
+              </Pressable>
+              <View style={styles.line}></View>
+              <Pressable 
+                onPress={()=>{
+                  setMenuActive('join'); 
+                  navigation.navigate('join'); 
+                }}
+              >
+                <Text style={styles.menuBtnText}>회원가입</Text>
+              </Pressable>
+            </View>
+            <View style={styles.snsWrap}>
+              {/* 카카오 */}
+              <Pressable style={[styles.snsBtn, {backgroundColor: '#F7E04B'}]}>
+                <Image source={ImgPath.kakao} style={[styles.snsBtnImg, {width: 24, height: 23, top: 13}]}/>
+                <Text style={[styles.snsBtnText]}>카카오로 계속하기</Text>
+              </Pressable>
+              {/* 구글 */}
+              <AuthGoogle/>
+              {/* <Pressable style={[styles.snsBtn, {borderWidth: 1, borderColor: '#8D96A4'}]}>
+                <Image source={ImgPath.google} style={[styles.snsBtnImg, {width: 24, height: 24}]}/>
+                <Text style={[styles.snsBtnText]}>구글로 계속하기</Text>
+              </Pressable> */}
+              {/* 네이버 */}
+              <Pressable style={[styles.snsBtn, {backgroundColor: '#03C75A'}]}>
+                <Image source={ImgPath.naver} style={[styles.snsBtnImg, {width: 21, height: 20, left: 24, top: 15}]}/>
+                <Text style={[styles.snsBtnText, {color: '#fff'}]}>네이버로 계속하기</Text>
+              </Pressable>
+            </View>
           </View>
-          <Pressable style={[styles.loginBtn, btnActive && {backgroundColor: '#1F2329'}]}>
-            <Text style={[styles.loginBtnText, btnActive && {color: '#fff'}]}>로그인</Text>
-          </Pressable>
-        </View>
-        <View style={[styles.menuWrap]}>
-          <Pressable 
-            onPress={()=>{
-              setMenuActive('find'); 
-              navigation.navigate('find'); 
-              setFindActive('id');
-            }}
-          >
-            <Text style={styles.menuBtnText}>아이디 찾기</Text>
-          </Pressable>
-          <View style={styles.line}></View>
-          <Pressable 
-            onPress={()=>{
-              setMenuActive('find'); 
-              navigation.navigate('find'); 
-              setFindActive('pw');
-            }}
-          >
-            <Text style={styles.menuBtnText}>비밀번호 찾기</Text>
-          </Pressable>
-          <View style={styles.line}></View>
-          <Pressable 
-            onPress={()=>{
-              setMenuActive('join'); 
-              navigation.navigate('join'); 
-            }}
-          >
-            <Text style={styles.menuBtnText}>회원가입</Text>
-          </Pressable>
-        </View>
-        <View style={styles.snsWrap}>
-          <Pressable style={[styles.snsBtn, {backgroundColor: '#F7E04B'}]}>
-            <Image source={ImgPath.kakao} style={[styles.snsBtnImg, {width: 24, height: 23, top: 13}]}/>
-            <Text style={[styles.snsBtnText]}>카카오로 계속하기</Text>
-          </Pressable>
-          <Pressable style={[styles.snsBtn, {borderWidth: 1, borderColor: '#8D96A4'}]}>
-            <Image source={ImgPath.google} style={[styles.snsBtnImg, {width: 24, height: 24}]}/>
-            <Text style={[styles.snsBtnText]}>구글로 계속하기</Text>
-          </Pressable>
-          <Pressable style={[styles.snsBtn, {backgroundColor: '#03C75A'}]}>
-            <Image source={ImgPath.naver} style={[styles.snsBtnImg, {width: 21, height: 20, left: 24, top: 15}]}/>
-            <Text style={[styles.snsBtnText, {color: '#fff'}]}>네이버로 계속하기</Text>
-          </Pressable>
-        </View>
-      </View>
+        </>
+      }
     </View>
   )
 }
